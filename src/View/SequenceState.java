@@ -41,10 +41,15 @@ public class SequenceState implements ViewState {
 		this.graphics = graphics;
 		
 		drawSubWindow();
-		drawPartiesBox();
+//		drawPartiesBox();
 		
 		drawParties();
 		drawMessages();
+		
+//		TESTEN VOOR INPUT
+//		DialogBox db = new DialogBox();
+//		db.draw(DialogBox.SelectedElement.INVOCATION_MESSAGE, canvas, graphics);
+		
 	}
 	
 	/**
