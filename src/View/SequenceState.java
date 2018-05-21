@@ -41,7 +41,7 @@ public class SequenceState implements ViewState {
 		this.graphics = graphics;
 		
 		drawSubWindow();
-//		drawPartiesBox();
+		drawPartiesBox();
 		
 		drawParties();
 		drawMessages();
