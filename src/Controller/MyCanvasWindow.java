@@ -17,6 +17,7 @@ import View.SequenceState;
 import View.View;
 import View.ViewContext;
 import View.ViewState;
+// henk
 
 /**
  * A window for custom drawing.
