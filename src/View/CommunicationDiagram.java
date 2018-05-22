@@ -12,6 +12,7 @@ import Model.Canvas;
 import Model.InvocationMessage;
 import Model.Message;
 import Model.Party;
+import Model.Window;
 import Model.Canvas.*;
 
 /**
@@ -35,7 +36,7 @@ public class CommunicationDiagram extends View {
 	 *
 	 */
 	@Override
-	public void draw(Canvas c, Graphics g) {
+	public void draw(Window c, Graphics g) {
 		
 		/* Iteration 2 ------------------------------
 		
@@ -80,7 +81,7 @@ public class CommunicationDiagram extends View {
 		int[] messageNumber = new int[parties.size()];
 		Party[] parties = createPartyIndex();
 				
-		LinkedList<Message> sortedListOfMessage = Canvas.messageSort(new LinkedList<Message>(messages));
+		LinkedList<Message> sortedListOfMessage = Window.messageSort(new LinkedList<Message>(messages));
 		for( Message m : sortedListOfMessage) {
 			
 			if(m.getClass() == InvocationMessage.class){

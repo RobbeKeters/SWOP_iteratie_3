@@ -9,6 +9,7 @@ import Model.Party;
 import Model.PartyRole;
 import Model.ResultMessage;
 import Model.Window;
+import Model.ResizeWindow;
 import Model.titleBar;
 
 /**
@@ -43,31 +44,31 @@ public class SelectElementHandler extends Handler {
 	
 	/**
 	 * Handles an element being selected.
-	 * @param canvas		The canvas to edit.
+	 * @param window		The canvas to edit.
 	 * @param x				The x coordinate of the mouse event used to handle these events.
 	 * @param y				The y coordinate of the mouse event used to handle these events.
 	 * @param id			The kind of mouse event.
 	 */
-	public static void handle(Canvas canvas, int x, int y, Mouse id) {
+	public static void handle(Window window, int x, int y, Mouse id) {
 		
-		int oldXorigine = canvas.getOrigineX();
-		int oldYorigine = canvas.getOrigineY();
+		int oldXorigine = window.getOrigineX();
+		int oldYorigine = window.getOrigineY();
 		
 		
 		if(id==Mouse.SINGLECLICK) {
 			
 			// LET OP!
-			deselectAll(canvas);
+			deselectAll(window);
 			
-			Label l = getLabelAt(x, y, canvas);
-			Party p = getPartyAt(x, y, canvas);
+			Label l = getLabelAt(x, y, window);
+			Party p = getPartyAt(x, y, window);
 			
 			// Closing Canvas 
-			if (closeCanvas(canvas,x,y)) {
-				canvas.setMode(Mode.CLOSING);
+			if (closeCanvas(window,x,y)) {
+				window.setMode(Mode.CLOSING);
 			}
 			
-			if(p == null && l == null) {deselectAll(canvas);}
+			if(p == null && l == null) {deselectAll(window);}
 			
 			if(l!=null) {l.setSelected(true); return;}
 			if(p!=null) {p.setSelected(true);}
@@ -75,72 +76,72 @@ public class SelectElementHandler extends Handler {
 		
 		else if(id == Mouse.PRESSED) {
 			
-			if(existsSender(canvas)) {return;}
-			Party p = getPartyAt(x, y, canvas); if(p==null) {System.out.println("NUll_1");}
-			Party lifeLine = approxLifeLine(x, canvas); if(lifeLine==null) {System.out.println("NULL_2");}
+			if(existsSender(window)) {return;}
+			Party p = getPartyAt(x, y, window); if(p==null) {System.out.println("NUll_1");}
+			Party lifeLine = approxLifeLine(x, window); if(lifeLine==null) {System.out.println("NULL_2");}
 			
-			int newXorigine = (x-(canvas.getFramework().getBar().getWidth(canvas)/2));
-			int newYorigine = (y-(canvas.getFramework().getBar().getHeight()/2));
+			int newXorigine = (x-(window.getFramework().getBar().getWidth(window)/2));
+			int newYorigine = (y-(window.getFramework().getBar().getHeight()/2));
 			
 			
-			if (resizeLowerRightCornerCanvas(canvas, x, y)) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeLowerRightCorner);
+			if (resizeLowerRightCornerCanvas(window, x, y)) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeLowerRightCorner);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeLowerLeftCornerCanvas(canvas, x, y)) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeLowerLeftCorner);
+			else if (resizeLowerLeftCornerCanvas(window, x, y)) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeLowerLeftCorner);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeTopLeftCornerCanvas(canvas, x, y)) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeTopLeftCorner);
+			else if (resizeTopLeftCornerCanvas(window, x, y)) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeTopLeftCorner);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeTopRightCornerCanvas(canvas, x, y)) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeTopRightCorner);
+			else if (resizeTopRightCornerCanvas(window, x, y)) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeTopRightCorner);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeXRightCanvas(canvas, x, y)  ) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeXRight);
+			else if (resizeXRightCanvas(window, x, y)  ) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeXRight);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeXLeftCanvas(canvas, x, y)  ) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeXLeft);
+			else if (resizeXLeftCanvas(window, x, y)  ) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeXLeft);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeYTopCanvas(canvas, x, y)  ) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeYTop);
+			else if (resizeYTopCanvas(window, x, y)  ) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeYTop);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if (resizeYLowerCanvas(canvas, x, y)  ) {
-				ResizeWindowHandler.handle(canvas, x, y, Window.ResizeYLower);
+			else if (resizeYLowerCanvas(window, x, y)  ) {
+				ResizeWindowHandler.handle(window, x, y, ResizeWindow.ResizeYLower);
 				// Update Party and message Positions!!
-				MoveWindowHandler.updatePartyPositions(canvas ,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
-				MoveWindowHandler.updateMessagePositions(canvas,oldXorigine,oldYorigine, canvas.getOrigineX(),canvas.getOrigineY());
+				MoveWindowHandler.updatePartyPositions(window ,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
+				MoveWindowHandler.updateMessagePositions(window,oldXorigine,oldYorigine, window.getOrigineX(),window.getOrigineY());
 			}
-			else if( moveCanvas(canvas, x,y)) {
-				MoveWindowHandler.handle(canvas ,oldXorigine,oldYorigine, newXorigine,newYorigine);
+			else if( moveCanvas(window, x,y)) {
+				MoveWindowHandler.handle(window ,oldXorigine,oldYorigine, newXorigine,newYorigine);
 			}
 			else if(p  != null) {
-				canvas.setMovePartyMode();
+				window.setMovePartyMode();
 				p.setSelected(true);
 				System.out.println("MovePartyMode");
 				System.out.println("PARTY SELECTED: "+p.getSelected());}
 			else if(lifeLine != null){
-				canvas.setAddMessageMode();
+				window.setAddMessageMode();
 				lifeLine.setSelected(true);
 				lifeLine.makeSender();
 				lifeLine.setSelectedYPosition(y);
@@ -148,49 +149,49 @@ public class SelectElementHandler extends Handler {
 				System.out.println("LifeLine SELECTED: "+lifeLine.getSelected());}
 		}
 		
-		else if ( id == Mouse.RELEASED && canvas.getMode() == Mode.ADDMESSAGE){
-			resetRoles(canvas);
-			canvas.setDefaultMode();
+		else if ( id == Mouse.RELEASED && window.getMode() == Mode.ADDMESSAGE){
+			resetRoles(window);
+			window.setDefaultMode();
 			System.out.println("######## Releasing Button + Editing Label Message ########");
 		}
-		else if(id == Mouse.RELEASED && canvas.getMode()!=Mode.DEFAULT) {
-			deselectAll(canvas);
-			resetRoles(canvas);
-			canvas.setDefaultMode();
+		else if(id == Mouse.RELEASED && window.getMode()!=Mode.DEFAULT) {
+			deselectAll(window);
+			resetRoles(window);
+			window.setDefaultMode();
 			System.out.println("######## Releasing Button ########");
 		}
 	}
 
-	public static void deselectAll(Canvas canvas) {
-		deselectParties(canvas);
-		deselectMessages(canvas);
+	public static void deselectAll(Window window) {
+		deselectParties(window);
+		deselectMessages(window);
 	}
 	
-	private static void deselectParties(Canvas canvas) {
-		for(Party p : canvas.getParties()) {
+	private static void deselectParties(Window window) {
+		for(Party p : window.getParties()) {
 				p.setSelected(false);
 				p.getLabel().setSelected(false);
 		}
 	}
 
-	private static void deselectMessages(Canvas canvas) {
-		for(Message m : canvas.getMessages()) {
+	private static void deselectMessages(Window window) {
+		for(Message m : window.getMessages()) {
 			m.setSelected(false);
 			if(m.getClass()!=ResultMessage.class) {	m.getLabel().setSelected(false);}
 		}
 	}
 	
-	private static boolean existsSender(Canvas canvas) {
+	private static boolean existsSender(Window window) {
 		
-		for(Party p : canvas.getParties()) {
+		for(Party p : window.getParties()) {
 			if(p.getRole()==PartyRole.SENDER) {return true;}
 		}
 		
 		return false;
 	}
 	
-	private static boolean closeCanvas(Canvas canvas, int xMouse, int yMouse) {
-		Button button = canvas.getFramework().getBar().getButton();
+	private static boolean closeCanvas(Window window, int xMouse, int yMouse) {
+		Button button = window.getFramework().getBar().getButton();
 		int buttonOrigineX = button.getOrigineX();
 		int buttonOrigineY = button.getOrigineY();
 		int upperX = buttonOrigineX + button.getWidth();
@@ -201,17 +202,17 @@ public class SelectElementHandler extends Handler {
 		return false;
 	}
 	
-	private static boolean moveCanvas(Canvas canvas,int xMouse, int yMouse) {
+	private static boolean moveCanvas(Window window,int xMouse, int yMouse) {
 		// If cursor is in button Area => wait for id==Mouse.SINGLECLICK in handle Method
-		if(closeCanvas(canvas, xMouse,yMouse)) {
+		if(closeCanvas(window, xMouse,yMouse)) {
 			return false;
 		}
 		
-		titleBar bar = canvas.getFramework().getBar();
+		titleBar bar = window.getFramework().getBar();
 		int barOrigineX = bar.getOrigineX();
 		int barOrigineY = bar.getOrigineY();
-		int upperX = barOrigineX + canvas.getFramework().getBar().getWidth(canvas);
-		int upperY = barOrigineY + canvas.getFramework().getBar().getHeight();
+		int upperX = barOrigineX + window.getFramework().getBar().getWidth(window);
+		int upperY = barOrigineY + window.getFramework().getBar().getHeight();
 		if( xMouse >= barOrigineX && xMouse <= upperX && yMouse >= barOrigineY && yMouse <= upperY ) {
 			return true;
 		}

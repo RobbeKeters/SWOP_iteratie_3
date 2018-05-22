@@ -62,25 +62,25 @@ public class titleBar {
 	
 	/**
 	 * Draws a visual representation of this title bar belonging to the given canvas.
-	 * @param c		The given canvas.
+	 * @param w		The given canvas.
 	 * @param g		The graphics object used to draw.
 	 */
-	public void draw(Canvas c, Graphics g) {
+	public void draw(Window w, Graphics g) {
 
-		if (c.getView() == Canvas.View.SEQUENCE) {
+		if (w.getView() == Window.View.SEQUENCE) {
 			title = "Sequence Diagram";
 		} else  {
 			title = "Communication Diagram";
 		}
 		
-		this.OrigineX = c.getOrigineX();
-		this.OrigineY = c.getOrigineY();
+		this.OrigineX = w.getOrigineX();
+		this.OrigineY = w.getOrigineY();
 		
 		// Title Bar
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(OrigineX, OrigineY, c.getWidth(), height);
+		g.fillRect(OrigineX, OrigineY, w.getWidth(), height);
 		g.setColor(Color.BLACK);
-		g.drawRect(OrigineX, OrigineY, c.getWidth(), height);
+		g.drawRect(OrigineX, OrigineY, w.getWidth(), height);
 		g.drawString(title, OrigineX + 20 , OrigineY + 14);
 		
 		button.setOrigineX(OrigineX);

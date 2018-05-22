@@ -9,6 +9,7 @@ public class Label {
 	private String labelname;
 	private Point labelPositionSeq;
 	private Point labelPositionComm;
+	private Point dialogboxPos;
 	private boolean selected;
 	private int width = 50;
 	private int height = 20;
@@ -23,8 +24,16 @@ public class Label {
 		this.labelname = labelName;
 		this.labelPositionSeq = new Point(5,5);
 		this.labelPositionComm = new Point(5,5);
+		this.dialogboxPos = new Point(5,5);
 	}
 	
+	public Label(String labelName, int i, int j) {
+		this.labelname = labelName;
+		this.labelPositionSeq = new Point(i,j);
+		this.labelPositionComm = new Point(i,j);
+		this.dialogboxPos = new Point(i,j);
+	}
+
 	/**
 	 * 
 	 * Returns this label's name.

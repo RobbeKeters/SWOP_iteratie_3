@@ -5,6 +5,7 @@ import Model.Label;
 import Model.Message;
 import Model.Object;
 import Model.Party;
+import Model.Window;
 
 /**
  * A class that handles a sequence of actions that change the state of a canvas.
@@ -13,15 +14,15 @@ public abstract class Handler {
 	
 	/**
 	 * Perform a sequence of actions that change the state of a canvas.
-	 * @param canvas		The canvas to edit.
+	 * @param window		The canvas to edit.
 	 */
-	public static Party getPartyAt(int x, int y, Canvas canvas) {
-		if(canvas.getView() == Canvas.View.SEQUENCE) {return getPartySequenceDiagram(x,y,canvas);}
-	    else {return getPartyCommunicationDiagram(x,y,canvas);}
+	public static Party getPartyAt(int x, int y, Window window) {
+		if(window.getView() == Window.View.SEQUENCE) {return getPartySequenceDiagram(x,y,window);}
+	    else {return getPartyCommunicationDiagram(x,y,window);}
 	}
 
-	private static Party getPartySequenceDiagram(int x, int y, Canvas canvas) {
-		for(Party p : canvas.getParties()) {
+	private static Party getPartySequenceDiagram(int x, int y, Window window) {
+		for(Party p : window.getParties()) {
 			int xPos;
 			int yPos;
 			int width;
@@ -52,8 +53,8 @@ public abstract class Handler {
 		return null;
 	}
 
-	private static Party getPartyCommunicationDiagram(int x, int y, Canvas canvas) {
-		for(Party p : canvas.getParties()) {
+	private static Party getPartyCommunicationDiagram(int x, int y, Window window) {
+		for(Party p : window.getParties()) {
 			int height;
 			if(p.getClass() == Object.class) {
 				height = (p.getLabel().getHeight()+12);
@@ -104,22 +105,22 @@ public abstract class Handler {
 				(p.getPosSeq().xCoordinate+30)>x;
 	}
 	
-	protected static Party approxLifeLine(int x, Canvas canvas) {
-		for(Party p : canvas.getParties()) {
+	protected static Party approxLifeLine(int x, Window window) {
+		for(Party p : window.getParties()) {
 			if(approxLifeLine(p, x)) {return p;}
 		}
 		return null;
 	}
 
-	protected static Label getLabelAt(int x, int y, Canvas canvas) {
-		if(canvas.getView() == Canvas.View.SEQUENCE) {return getLabelSequenceDiagram(x,y,canvas);}
-		else{return getLabelCommunicationDiagram(x,y,canvas);}
+	protected static Label getLabelAt(int x, int y, Window window) {
+		if(window.getView() == Window.View.SEQUENCE) {return getLabelSequenceDiagram(x,y,window);}
+		else{return getLabelCommunicationDiagram(x,y,window);}
 		
 	}
 	
-	private static Label getLabelCommunicationDiagram(int x, int y, Canvas canvas) {
+	private static Label getLabelCommunicationDiagram(int x, int y, Window window) {
 		// Check party labels
-		for(Party p : canvas.getParties()) {
+		for(Party p : window.getParties()) {
 			if(
 					isInAreaCommunication(
 							x,
@@ -135,7 +136,7 @@ public abstract class Handler {
 		}
 		
 		// Check message labels
-		for(Message m : canvas.getMessages()) {
+		for(Message m : window.getMessages()) {
 			if(
 					isInAreaCommunication(
 							x,
@@ -154,9 +155,9 @@ public abstract class Handler {
 		return null;
 	}
 	
-	private static Label getLabelSequenceDiagram(int x, int y, Canvas canvas) {
+	private static Label getLabelSequenceDiagram(int x, int y, Window window) {
 		// Check party labels
-		for(Party p : canvas.getParties()) {
+		for(Party p : window.getParties()) {
 			if(
 					isInAreaSequence(
 							x,
@@ -172,7 +173,7 @@ public abstract class Handler {
 		}
 		
 		// Check message labels
-		for(Message m : canvas.getMessages()) {
+		for(Message m : window.getMessages()) {
 			if(
 					isInAreaSequence(
 							x,
@@ -192,8 +193,8 @@ public abstract class Handler {
 		
 	}
 	
-	protected static void resetRoles(Canvas canvas) {
-		for(Party p : canvas.getParties()) {
+	protected static void resetRoles(Window window) {
+		for(Party p : window.getParties()) {
 			p.makeNone();
 		}
 	}

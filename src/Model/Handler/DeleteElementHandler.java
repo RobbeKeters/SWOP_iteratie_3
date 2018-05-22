@@ -8,6 +8,7 @@ import Model.Canvas;
 import Model.InvocationMessage;
 import Model.Message;
 import Model.Party;
+import Model.Window;
 
 /**
  * A handler that handles the actions of an element being deleted.
@@ -16,20 +17,20 @@ public class DeleteElementHandler extends Handler{
 	
 	/**
 	 * Handles an element being deleted from the given canvas.
-	 * @param canvas		The canvas to edit.
+	 * @param window		The canvas to edit.
 	 */
-	public static void handle(Canvas canvas) {
+	public static void handle(Window window) {
 		LinkedList<Party> toDeleteParties = new LinkedList<Party>();
 		LinkedList<Message> toDeleteMessages = new LinkedList<Message>();
 		
 		// Find parties to delete  from canvas
-		for( Party partyElement : canvas.getParties()) {
+		for( Party partyElement : window.getParties()) {
 			if( partyElement.getSelected()) {
 				toDeleteParties.add(partyElement);
 			}
 		}
 		// Find messages to delete from canvas
-		for( Message messageElement : canvas.getMessages()) {
+		for( Message messageElement : window.getMessages()) {
 			if( messageElement.getLabel().getSelected()) {
 				toDeleteMessages.add(messageElement);
 				if(messageElement.getClass()==InvocationMessage.class && messageElement.getResult()!=null) {
@@ -47,7 +48,7 @@ public class DeleteElementHandler extends Handler{
 		}
 		//Delete Parties from canvas
 		for( Party partyToDelete : toDeleteParties ) {
-			canvas.getParties().remove(partyToDelete);
+			window.getParties().remove(partyToDelete);
 		}
 		
 		//Delete Message from canvas
@@ -57,24 +58,24 @@ public class DeleteElementHandler extends Handler{
 			if( messageToDelete.getClass() == InvocationMessage.class) {
 				int orderResultMessage = messageToDelete.getResult().getOrder();
 				ArrayList<Message> tempList = new ArrayList<Message>();
-				for(Message m :canvas.getMessages()) {
+				for(Message m :window.getMessages()) {
 			
 					if( m.getOrder() > messageToDelete.getOrder() && orderResultMessage >= m.getOrder()) {
 						tempList.add(m);
 					}
 				}
 				for(Message m:tempList) {
-					canvas.getMessages().remove(m);
+					window.getMessages().remove(m);
 				}
 			}
-			canvas.getMessages().remove(messageToDelete); //delete message itself
-			if(messageToDelete.getClass()==InvocationMessage.class){canvas.getResultQueue().remove(messageToDelete.getResult());}
-			canvas.updateLabels();
+			window.getMessages().remove(messageToDelete); //delete message itself
+			if(messageToDelete.getClass()==InvocationMessage.class){window.getResultQueue().remove(messageToDelete.getResult());}
+			window.updateLabels();
 		}
 		
-		canvas.updateLabels();
+		window.updateLabels();
 		
 		// Notify Interaction
-		canvas.getInteraction().adjusted(ADJUSTED_TYPE.DELETE_MESSAGE,canvas);
+		window.getInteraction().adjusted(ADJUSTED_TYPE.DELETE_MESSAGE,window);
 	}
 }

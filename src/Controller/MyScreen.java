@@ -7,6 +7,7 @@ import java.util.Stack;
 import Model.Canvas;
 import Model.Interaction;
 import Model.Screen;
+import Model.Window;
 import Model.Handler.AddInteractionHandler;
 import Model.Handler.AddWindowHandler;
 import Model.Handler.CloseWindowHandler;
@@ -49,7 +50,7 @@ public class MyScreen {
 		ctrlPressed = false;
 		
 		// First check if a party label is left in a valid state + check if there are any interactions
-		if (!screen.getInteractions().isEmpty() && !EditLabelHandler.editLabelModeParty(screen.getSubWindows().lastElement())) {
+		if (!screen.getInteractions().isEmpty() && !EditLabelHandler.editLabelModeParty((Window)screen.getSubWindows().lastElement())) {
 			// Determine Canvas 
 			Canvas canvas = null;
 			
@@ -71,7 +72,7 @@ public class MyScreen {
 			// Check if the selected canvas was on top of the stack(active canvas)
 			if( top == canvas) {
 				// Delegate to Interaction
-				MyInteraction.mouseClicked(id, x, y, canvas,canvas.getInteraction() );
+				MyInteraction.mouseClicked(id, x, y, (Window) canvas,((Window) canvas).getInteraction() );
 			}
 		}
 		
@@ -111,7 +112,7 @@ public class MyScreen {
 		if( id == KeyEvent.KEY_PRESSED && keyCode == 17) {
 			ctrlPressed = true;
 		} else if(!screen.getInteractions().isEmpty() && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)) {
-			MyInteraction.keyPressed(id, keyCode, keyChar, screen.getSubWindows().lastElement());
+			MyInteraction.keyPressed(id, keyCode, keyChar, (Window)screen.getSubWindows().lastElement());
 		}
 	}
 	

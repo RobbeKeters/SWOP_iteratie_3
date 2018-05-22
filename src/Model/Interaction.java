@@ -1,6 +1,5 @@
 package Model;
 import java.util.ArrayList;
-import java.util.Random;
 import Model.Handler.MoveWindowHandler;
 import Model.Handler.ResizeWindowHandler;
 
@@ -17,22 +16,22 @@ public class Interaction {
 	 * @param i		The x and y coordinate of origin of the first canvas of the new interation.
 	 */
 	public Interaction(int i) {
-		subWindows = new ArrayList<Canvas>();
+		subWindows = new ArrayList<Window>();
 		//int xOrigineRandom = randNumberPos.nextInt(250);
 		//int yOrigineRandom = randNumberPos.nextInt(250);
 		
-		Canvas c = new Canvas(300, 300, i, i,this );
-		subWindows.add(c);
+		Window w = new Window(300, 300, i, i,this );
+		subWindows.add(w);
 	}
 
-	private ArrayList<Canvas> subWindows = new ArrayList<Canvas>();
+	private ArrayList<Window> subWindows = new ArrayList<Window>();
 	//private Random randNumberPos = new Random();
 	
 	/**
 	 * Returns a collection of this interaction's subwindows (canvases).
 	 * @return	This interaction's subwindows.
 	 */
-	public ArrayList<Canvas> getSubWindows(){
+	public ArrayList<Window> getSubWindows(){
 		return subWindows;
 	}
 	
@@ -40,72 +39,72 @@ public class Interaction {
 	 * Deletes the given canvas from this interaction.
 	 * @param c		The canvas to delete.
 	 */
-	public void deleteCanvas(Canvas c) {
-		subWindows.remove(c);
+	public void deleteCanvas(Window w) {
+		subWindows.remove(w);
 	}
 	
 	/**
 	 * Adds the given canvas to this interaction.
 	 * @param c		The canvas to add.
 	 */
-	public void addCanvas(Canvas c) {
-		c.setInteractioin(this);
-		subWindows.add(c);
+	public void addWindow(Window w) {
+		w.setInteractioin(this);
+		subWindows.add(w);
 	}
 	
 	/**
-	 * Adjust a given canvas of this interaction based on the given kind of adjustment.
+	 * Adjust a given window of this interaction based on the given kind of adjustment.
 	 * @param type				The given kind of adjustment
 	 * @param updatedCanvas		The given canvas.
 	 */
-	public void adjusted(ADJUSTED_TYPE type, Canvas updatedCanvas) {
+	public void adjusted(ADJUSTED_TYPE type, Window updatedWindow) {
 		// dececide what is adjusted
 		switch(type) {
 		
 		case ADDED_PARTY: 
-			updateParties(updatedCanvas);
+			updateParties(updatedWindow);
 			break;
 		case PARTY_LABEL: 
-			updatePartyLabels(updatedCanvas);
+			updatePartyLabels(updatedWindow);
 			break;
 		case ADDED_MESSAGE: 
-			updateMessages(updatedCanvas);
+			updateMessages(updatedWindow);
 			break;
 		case MESSAGE_LABEL: 
-			updateMessageLabels(updatedCanvas);
+			updateMessageLabels(updatedWindow);
 			break;
 		case CHANGE_TYPE:
-			updatePartyTypes(updatedCanvas);
+			updatePartyTypes(updatedWindow);
 			break;
 		case DELETE_MESSAGE:
-			updateDeletePartyOrMessage(updatedCanvas);
+			updateDeletePartyOrMessage(updatedWindow);
 		}	
 	}
 	
-	private void updateParties(Canvas updatedCanvas) {
+	private void updateParties(Window updatedWindow) {
 		if( subWindows.size() > 1 ) {
-			Canvas usedForFindingPartyNumber=null;
-			for(Canvas c : subWindows) {
-				if( !c.equals(updatedCanvas)) {
-					usedForFindingPartyNumber = c;
+			Window usedForFindingPartyNumber=null;
+			for(Window w : subWindows) {
+				if( !w.equals(updatedWindow)) {
+					usedForFindingPartyNumber = w;
 				}
 			}
 			// this found partyNumber is the partyNumber of the latest added party in updatedCanvas
-			int partyNumber = Canvas.getAvailablePartyNumber(usedForFindingPartyNumber);
-			Party partyJustAdded= Canvas.findPartyByNumber(updatedCanvas, partyNumber);
+			int partyNumber = Window.getAvailablePartyNumber(usedForFindingPartyNumber);
+			Party partyJustAdded= Window.findPartyByNumber(updatedWindow, partyNumber);
 			// Add Party to every Canvas in the Interaction!
-			for(Canvas c : subWindows) {
+			for(Window w : subWindows) {
 				Party partyToAdd = (Party) partyJustAdded.clone();
-				if( !c.equals(updatedCanvas)) {
+				if( !w.equals(updatedWindow)) {
 					
-					c.addParty(partyToAdd);
+					w.addParty(partyToAdd);
 					
 					// See SelectElementHandler.updatePartyPositions (Same principle)
 					
-					int oldXorigine = updatedCanvas.getOrigineX();
-					int oldYorigine = updatedCanvas.getOrigineY();
-					int newXorigine = c.getOrigineX();
-					int newYorigine = c.getOrigineY();
+					int oldXorigine = updatedWindow.getOrigineX();
+					int oldYorigine = updatedWindow.getOrigineY();
+					int newXorigine = w.getOrigineX();
+					int newYorigine = w.getOrigineY();
 					
 					// Update Positions Sequence Diagram
 					int xSeq = partyToAdd.getPosSeq().getX();
@@ -116,7 +115,7 @@ public class Interaction {
 					
 					partyToAdd.setPosSeq((newXorigine+dx),(newYorigine + dy));
 					// Update Label Position for  Sequence Diagram
-					int yLabel = newYorigine + c.getHeight()/12 + +partyToAdd.getHeight() + 10; // Needs to be in sync with AddPartyHandler
+					int yLabel = newYorigine + w.getHeight()/12 + +partyToAdd.getHeight() + 10; // Needs to be in sync with AddPartyHandler
 					partyToAdd.getLabel().setLabelPositionSeq((newXorigine+dx), yLabel);
 					
 					// Update Positions Communication Diagram
@@ -135,11 +134,11 @@ public class Interaction {
 		}
 	}
 	
-	private void updatePartyLabels(Canvas updatedCanvas) {
-		for(Canvas c : subWindows) {
-			for( Party p : c.getParties()) {
+	private void updatePartyLabels(Window updatedWindow) {
+		for(Window w : subWindows) {
+			for( Party p : w.getParties()) {
 				// Get updated Label name from "updatedCanvas"
-				String newLabelName = Canvas.findPartyByNumber(updatedCanvas, p.getPartyNumber()).getLabel().getLabelname();
+				String newLabelName = Window.findPartyByNumber(updatedWindow, p.getPartyNumber()).getLabel().getLabelname();
 				p.getLabel().setLabelname(newLabelName);
 				p.getLabel().setLabelname(newLabelName);
 				String name = p.getLabel().getLabelname();
@@ -148,13 +147,13 @@ public class Interaction {
 		}
 	}
 	
-	private void updateMessages(Canvas updatedCanvas) {
+	private void updateMessages(Window updatedWindow) {
 		if( subWindows.size() > 1 ) {
 			
-			for( Canvas c : subWindows) {
-				if( !c.equals(updatedCanvas)) {
-					c.deleteAllMessages();
-					copyMessages(updatedCanvas, c);
+			for( Window w : subWindows) {
+				if( !w.equals(updatedWindow)) {
+					w.deleteAllMessages();
+					copyMessages(updatedWindow, w);
 				}
 			}
 			/**
@@ -203,11 +202,11 @@ public class Interaction {
 		}
 	}
 	
-	private void updateMessageLabels(Canvas updatedCanvas) {
-		for(Canvas c : subWindows) {
-			for( Message p : c.getMessages()) {
+	private void updateMessageLabels(Window updatedWindow) {
+		for(Window w : subWindows) {
+			for( Message p : w.getMessages()) {
 				// Get updated Label name from "updatedCanvas"
-				String newLabelName = Canvas.findMessageByNumber(updatedCanvas, p.getMessageNumber()).getLabel().getLabelname();
+				String newLabelName = Window.findMessageByNumber(updatedWindow, p.getMessageNumber()).getLabel().getLabelname();
 				p.getLabel().setLabelname(newLabelName);
 			}
 		}
@@ -215,41 +214,41 @@ public class Interaction {
 	
 	/**
 	 * Updates the properties of a given message from a given canvas to its new clone.
-	 * @param updatedCanvas		The cloned canvas.
-	 * @param newCanvas			The new canvas clone.
+	 * @param updatedWindow		The cloned canvas.
+	 * @param newWindow			The new canvas clone.
 	 * @param messageToAdd		The message to update.
 	 */
-	public static void updateMessagePropertiesAfterClone(Canvas updatedCanvas , Canvas newCanvas, Message messageToAdd ) {
+	public static void updateMessagePropertiesAfterClone(Window updatedWindow , Window newWindow, Message messageToAdd ) {
 		// Update Message properties to new Canvas after clone!
-		int numberSentBy = Canvas.findPartyByNumber(updatedCanvas, messageToAdd.getSentBy().getPartyNumber()).getPartyNumber();
-		messageToAdd.setSentBy(Canvas.findPartyByNumber(newCanvas, numberSentBy));
-		int numberReceivedBy = Canvas.findPartyByNumber(updatedCanvas, messageToAdd.getReicevedBy().getPartyNumber()).getPartyNumber();
-		messageToAdd.setReicevedBy(Canvas.findPartyByNumber(newCanvas, numberReceivedBy));
+		int numberSentBy = Window.findPartyByNumber(updatedWindow, messageToAdd.getSentBy().getPartyNumber()).getPartyNumber();
+		messageToAdd.setSentBy(Window.findPartyByNumber(newWindow, numberSentBy));
+		int numberReceivedBy = Window.findPartyByNumber(updatedWindow, messageToAdd.getReicevedBy().getPartyNumber()).getPartyNumber();
+		messageToAdd.setReicevedBy(Window.findPartyByNumber(newWindow, numberReceivedBy));
 		if (messageToAdd.getPredecessor() != null) {
-			int numberPredecessor = Canvas.findMessageByNumber(updatedCanvas, messageToAdd.getPredecessor().getMessageNumber()).getMessageNumber();
-			messageToAdd.setPredecessor(Canvas.findMessageByNumber(newCanvas,numberPredecessor));
+			int numberPredecessor = Window.findMessageByNumber(updatedWindow, messageToAdd.getPredecessor().getMessageNumber()).getMessageNumber();
+			messageToAdd.setPredecessor(Window.findMessageByNumber(newWindow,numberPredecessor));
 		}
 		if (messageToAdd.getResult() != null) { // Invocation Message has Result == null
-			int numberResult = Canvas.findMessageByNumber(updatedCanvas, messageToAdd.getResult().getMessageNumber()).getMessageNumber();
-			messageToAdd.setResult((ResultMessage)Canvas.findMessageByNumber(newCanvas, numberResult));
+			int numberResult = Window.findMessageByNumber(updatedWindow, messageToAdd.getResult().getMessageNumber()).getMessageNumber();
+			messageToAdd.setResult((ResultMessage)Window.findMessageByNumber(newWindow, numberResult));
 		}
 	}
 	
-	private void updatePartyTypes(Canvas updatedCanvas){
-		for(Canvas c : subWindows) {
-			if( !c.equals(updatedCanvas)) { // No concurrent modification !
-				for( Party p : updatedCanvas.getParties()) {
+	private void updatePartyTypes(Window updatedWindow){
+		for(Window w : subWindows) {
+			if( !w.equals(updatedWindow)) { // No concurrent modification !
+				for( Party p : updatedWindow.getParties()) {
 					
 					// Clone Party with correct type -> remove Old Party -> Add new Party with correct type
 	
-					Party partyToFindInUpdatedCanvas = Canvas.findPartyByNumber(updatedCanvas, p.getPartyNumber());
+					Party partyToFindInUpdatedCanvas = Window.findPartyByNumber(updatedWindow, p.getPartyNumber());
 					
 					Party partyToAdd = partyToFindInUpdatedCanvas.clone();
 					
-					Party partyToDelete = Canvas.findPartyByNumber(c, p.getPartyNumber());
+					Party partyToDelete = Window.findPartyByNumber(w, p.getPartyNumber());
 					
 					// Update Message with new Party (partyToAdd)
-					for( Message m : c.getMessages()) {
+					for( Message m : w.getMessages()) {
 						if( m.getSentBy().equals(partyToDelete)) {
 							m.setSentBy(partyToAdd);
 						}
@@ -258,8 +257,8 @@ public class Interaction {
 						}
 					}
 										
-					c.deleteParty(partyToDelete);		
-					c.addParty(partyToAdd);
+					w.deleteParty(partyToDelete);		
+					w.addParty(partyToAdd);
 					
 				
 					
@@ -276,26 +275,26 @@ public class Interaction {
 		}
 	}
 	
-	private void updateDeletePartyOrMessage(Canvas updatedCanvas) {
-		updateMessages(updatedCanvas);
+	private void updateDeletePartyOrMessage(Window updatedWindow) {
+		updateMessages(updatedWindow);
 		
 		if( subWindows.size() > 1 ) {
-			Canvas usedForFindingPartyNumber=null;
-			for(Canvas c : subWindows) {
-				if( !c.equals(updatedCanvas)) {
-					usedForFindingPartyNumber = c;
+			Window usedForFindingPartyNumber=null;
+			for(Window w : subWindows) {
+				if( !w.equals(updatedWindow)) {
+					usedForFindingPartyNumber = w;
 				}
 			}
 			ArrayList<Party> listToDelete = new ArrayList<Party>();
 			for( Party p :usedForFindingPartyNumber.getParties()) {
-				if( Canvas.findPartyByNumber(updatedCanvas, p.getPartyNumber()) == null){
+				if( Window.findPartyByNumber(updatedWindow, p.getPartyNumber()) == null){
 					listToDelete.add(p);
 				}
 			}
-			for( Canvas  c: subWindows) {
-				if( !c.equals(updatedCanvas)) {
+			for( Window  w: subWindows) {
+				if( !w.equals(updatedWindow)) {
 					for (Party partyToDelte :  listToDelete) {
-						c.getParties().remove(Canvas.findPartyByNumber(c, partyToDelte.getPartyNumber()));
+						w.getParties().remove(Window.findPartyByNumber(w, partyToDelte.getPartyNumber()));
 					}
 				}
 			}
@@ -330,27 +329,28 @@ public class Interaction {
 	
 	/**
 	 * Copy messages from one canvas to another.
-	 * @param updatedCanvas			The canvas to copy from.
-	 * @param notUpdatedCanvas		The canvas to update.
+	 * @param updatedWindow			The canvas to copy from.
+	 * @param notUpdatedWindow		The canvas to update.
 	 */
-	public static void copyMessages(Canvas updatedCanvas , Canvas notUpdatedCanvas) {
+	public static void copyMessages(Window updatedWindow , Window notUpdatedWindow) {
 		
-		int oldXorigine = updatedCanvas.getOrigineX();
-		int oldYorigine = updatedCanvas.getOrigineY();
-		int newXorigine = notUpdatedCanvas.getOrigineX();
-		int newYorigine = notUpdatedCanvas.getOrigineY();
+		int oldXorigine = updatedWindow.getOrigineX();
+		int oldYorigine = updatedWindow.getOrigineY();
+		int newXorigine = notUpdatedWindow.getOrigineX();
+		int newYorigine = notUpdatedWindow.getOrigineY();
 		
 		// Clone Messages
-		for( Message m : updatedCanvas.getMessages()) {
+		for( Message m : updatedWindow.getMessages()) {
 			Message messageToAdd = (Message) m.clone();
-			notUpdatedCanvas.addMessage(messageToAdd);
+			notUpdatedWindow.addMessage(messageToAdd);
 		}
-		MoveWindowHandler.updateMessagePositions(notUpdatedCanvas , oldXorigine, oldYorigine, newXorigine, newYorigine);
-		for( Message m : notUpdatedCanvas.getMessages()) {
-			Interaction.updateMessagePropertiesAfterClone(updatedCanvas,notUpdatedCanvas, m);
+		MoveWindowHandler.updateMessagePositions(notUpdatedWindow , oldXorigine, oldYorigine, newXorigine, newYorigine);
+		for( Message m : notUpdatedWindow.getMessages()) {
+			Interaction.updateMessagePropertiesAfterClone(updatedWindow,notUpdatedWindow, m);
 		}
-		ResizeWindowHandler.updateYPositionLMessageLabelsSequenceDiagram(notUpdatedCanvas);
+		ResizeWindowHandler.updateYPositionLMessageLabelsSequenceDiagram(notUpdatedWindow);
 	}
+
 }
 
 

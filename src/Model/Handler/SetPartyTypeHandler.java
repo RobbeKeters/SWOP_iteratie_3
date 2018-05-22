@@ -6,6 +6,7 @@ import Model.Canvas;
 import Model.Message;
 import Model.Object;
 import Model.Party;
+import Model.Window;
 
 /**
  * A handler that handles the actions of a party changing its type.
@@ -14,13 +15,13 @@ public class SetPartyTypeHandler extends Handler {
 	
 	/**
 	 * Handles a party changing its type.
-	 * @param canvas		The canvas to edit.
+	 * @param window		The canvas to edit.
 	 * @param x				The x coordinate of the mouse event used to handle these events.
 	 * @param y				The y coordinate of the mouse event used to handle these events.
 	 */
-	public static void handle(Canvas canvas, int x, int y) {
+	public static void handle(Window window, int x, int y) {
 		
-		Party changingParty = getPartyAt(x, y, canvas);	
+		Party changingParty = getPartyAt(x, y, window);	
 		if(changingParty==null) {return;}
 		 
 		Party partyToAdd;
@@ -35,7 +36,7 @@ public class SetPartyTypeHandler extends Handler {
 		partyToAdd.setPosSeq(changingParty.getPosSeq().getX(), changingParty.getPosSeq().getY());
 		partyToAdd.setSelected(false);
 		
-		for(Message m : canvas.getMessages()) {
+		for(Message m : window.getMessages()) {
 			if(m.getSentBy().equals(changingParty))
 				m.setSentBy(partyToAdd);
 			if(m.getReicevedBy().equals(changingParty))
@@ -43,12 +44,12 @@ public class SetPartyTypeHandler extends Handler {
 		}
 		
 		// Add newly created party( Object or Actor )
-		canvas.addParty(partyToAdd);
+		window.addParty(partyToAdd);
 		// Delete "old" party ( Object or Actor )
-		canvas.deleteParty(changingParty); 
+		window.deleteParty(changingParty); 
 		
 		// Notify Interaction
-		canvas.getInteraction().adjusted(ADJUSTED_TYPE.CHANGE_TYPE, canvas);
+		window.getInteraction().adjusted(ADJUSTED_TYPE.CHANGE_TYPE, window);
 		
 		
 	}

@@ -26,18 +26,18 @@ public class frameWork {
 	
 	/**
 	 * Draws a visual representation of a given canvas's framework.
-	 * @param c		The given canvas.
+	 * @param w		The given canvas.
 	 * @param g		The graphics object used to draw.
 	 */
-	public void draw(Canvas c, Graphics g) {
+	public void draw(Window w, Graphics g) {
 		
 		// draw framework
-		this.origineX = c.getOrigineX();
-		this.origineY = c.getOrigineY();
+		this.origineX = w.getOrigineX();
+		this.origineY = w.getOrigineY();
 		
-	    g.drawRect(origineX, origineY, c.getWidth()-1, c.getHeight()-1);
+	    g.drawRect(origineX, origineY, w.getWidth()-1, w.getHeight()-1);
 
-	    bar.draw(c, g);
+	    bar.draw(w, g);
 		
 	}
 	
@@ -87,6 +87,10 @@ public class frameWork {
 	 */
 	public void setOrigineY(int origineY) {
 		this.origineY = origineY;
+	}
+
+	public void draw(Canvas canvas, Graphics graphics) {
+		throw new IllegalArgumentException("Not implemented distinguish dialogbox");
 	}
 	
 }
