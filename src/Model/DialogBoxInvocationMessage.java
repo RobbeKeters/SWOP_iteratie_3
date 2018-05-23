@@ -8,10 +8,10 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		super(width, height, origineX, origineY);
 		source = i;
 		
-		Button add = new Button(origineX+50, origineY+50);
-		Button remove = new Button(origineX+50, origineY+74);
-		Button moveUp = new Button(origineX+74, origineY+74);
-		Button moveDown = new Button(origineX+74, origineY+50);
+		Button add = new Button(origineX+50, origineY+50, Button.Type.TEXT);
+		Button remove = new Button(origineX+50, origineY+74, Button.Type.TEXT);
+		Button moveUp = new Button(origineX+74, origineY+74, Button.Type.TEXT);
+		Button moveDown = new Button(origineX+74, origineY+50, Button.Type.TEXT);
 		
 		super.addButton(moveDown);
 		super.addButton(moveUp);

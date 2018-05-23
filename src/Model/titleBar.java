@@ -25,7 +25,7 @@ public class titleBar {
 	public titleBar(int xInput, int yInput) {
 		this.OrigineX = xInput;
 		this.OrigineY = yInput;
-		this.button = new Button(OrigineX +3 , OrigineY +3);
+		this.button = new Button(OrigineX +3 , OrigineY +3, Button.Type.CLOSE);
 	}
 	
 	/**

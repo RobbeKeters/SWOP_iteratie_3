@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Color;
+import Model.Handler.OpenDialogBoxHandler;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import Model.Canvas;
 import Model.Message;
 import Model.Party;
 import Model.ResultMessage;
+import Model.Screen;
 import Model.Window;
 import View.representation.ActorRepresentation;
 import View.representation.LabelRepresentation;
@@ -49,7 +51,7 @@ public class SequenceState implements ViewState {
 		
 //		TESTEN VOOR INPUT
 //		DialogBox db = new DialogBox();
-//		db.draw(DialogBox.SelectedElement.INVOCATION_MESSAGE, canvas, graphics);
+//		db.draw(DialogBox.SelectedElement.VIEW, window, graphics);
 		
 	}
 	

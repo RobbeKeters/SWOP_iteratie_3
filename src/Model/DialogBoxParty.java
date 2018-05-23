@@ -11,8 +11,8 @@ public class DialogBoxParty extends DialogBox{
 		
 		int xI = origineX + 50 ;
 		int yI = origineY + 50 ;
-		Button actor = new Button(xI, yI);
-		Button object = new Button(xI, yI+24);
+		Button actor = new Button(xI, yI, Button.Type.RADIO);
+		Button object = new Button(xI, yI+24, Button.Type.RADIO);
 		super.addButton(actor);
 		super.addButton(object);
 		

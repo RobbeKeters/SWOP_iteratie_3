@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 public abstract class DialogBox extends Canvas {
 
-	ArrayList<Button> buttons = new ArrayList<Button>();
-	ArrayList<Label> textBoxes = new ArrayList<Label>();
+	private ArrayList<Button> buttons = new ArrayList<Button>();
+	private ArrayList<Label> textBoxes = new ArrayList<Label>();
 	
 	
 	public DialogBox(int width, int height, int origineX, int origineY) {
 		super(width, height, origineX, origineY);
+	}
+	
+	public ArrayList<Button> getButtons(){
+		return buttons;
 	}
 	
 	protected void addButton(Button b) {

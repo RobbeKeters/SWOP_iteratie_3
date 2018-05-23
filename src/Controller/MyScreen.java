@@ -12,6 +12,7 @@ import Model.Handler.AddInteractionHandler;
 import Model.Handler.AddWindowHandler;
 import Model.Handler.CloseWindowHandler;
 import Model.Handler.EditLabelHandler;
+import Model.Handler.OpenDialogBoxHandler;
 
 /**
  * A class that processes input related to the Screen class.
@@ -99,14 +100,22 @@ public class MyScreen {
 	 */
 	public void keyPressed(int id, int keyCode, char keyChar, Screen screen) {
 		
-		
+		// ctrl + n
 		if( ctrlPressed && keyCode == 78 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)) {
 			AddInteractionHandler.handle(screen.getInteractions(), screen.getSubWindows());
 		
-		}else if ( !screen.getInteractions().isEmpty() && ctrlPressed && keyCode == 68 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED) ) {
+		}
+		// ctrl + d
+		else if ( !screen.getInteractions().isEmpty() && ctrlPressed && keyCode == 68 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED) ) {
 			AddWindowHandler.handle(screen.getSubWindows());
-			
-		} else {
+		} 
+		// ctrl + ENTER
+		else if (ctrlPressed && keyCode == 10 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)){
+			System.out.println("test");
+			Window c = (Window) screen.getSubWindows().lastElement();
+			OpenDialogBoxHandler.handle(c, screen);
+		}
+		else {
 			ctrlPressed = false;
 		}		
 		if( id == KeyEvent.KEY_PRESSED && keyCode == 17) {
