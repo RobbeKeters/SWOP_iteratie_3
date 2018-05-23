@@ -82,6 +82,7 @@ public class MyCanvasWindow extends CanvasWindow{
 			//TODO
 			else if(c.getClass()==DialogBox.class) {
 				DialogBoxView box = new DialogBoxView();
+				// PartyBox wordt nu alleen getekend -> TEST 
 				box.draw( SelectedElement.PARTY, (DialogBox)c, g);
 			}
 		}
