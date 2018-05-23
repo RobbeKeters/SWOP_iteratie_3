@@ -78,12 +78,12 @@ public class CommunicationState implements ViewState {
 	}
 	
 	private void drawLabel(Party p) {
-		LabelRepresentation labelRep = new ComLabelRepresentation(p.getLabel());
+		ComLabelRepresentation labelRep = new ComLabelRepresentation(p.getLabel());
 		labelRep.draw(window, graphics);
 	}
 	
 	private void drawLabel(Message m) {
-		LabelRepresentation labelRep = new ComLabelRepresentation(m.getLabel());
+		ComLabelRepresentation labelRep = new ComLabelRepresentation(m.getLabel());
 		labelRep.draw(window, graphics);
 	}
 }
