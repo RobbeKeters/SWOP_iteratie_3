@@ -18,9 +18,9 @@ public class SeqMessageRepresentation extends MessageRepresentation {
 		super(m, messageToDraw);
 	}
 	
-	public void draw(Window w, Graphics g){
+	public void draw(Canvas w, Graphics g){
 		messageToDraw.draw(w, g);
-		drawActivationBar(w, g);
+		drawActivationBar((Window)w, g); ////////////////////////// CAST CAST CAST
 	}
 	
 	private void drawActivationBar(Window w, Graphics g) {
