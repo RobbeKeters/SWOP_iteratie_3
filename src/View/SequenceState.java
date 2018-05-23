@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import Model.Actor;
 import Model.Canvas;
+import Model.InvocationMessage;
 import Model.Message;
 import Model.Party;
 import Model.ResultMessage;
@@ -98,6 +99,8 @@ public class SequenceState implements ViewState {
 		}
 	}
 
+	private ArrayList<Message> sortedMessages = new ArrayList<Message>();
+	
 	private void drawMessages() {
 		for(Message m : window.getSortedMessages()){
 			if(m.getClass() != ResultMessage.class) {
@@ -112,6 +115,23 @@ public class SequenceState implements ViewState {
 			
 		}
 		
+		//Sort all messages.
+		HashSet<Message> unsortedMessages = window.copyMessages();
+		this.sortedMessages = messageSort(unsortedMessages);
+		
+		//Draw activation bars on lifelines.
+		for (Message m : sortedMessages) {
+			if (m.getClass() == InvocationMessage.class) {
+				Message result = m.getResult();
+				if (result == null) {
+					System.out.println("Drawing error: Invocation message does not have equivalent result message.");
+				} else {
+					drawActivationBar(graphics, window, m.getSentBy(), window.getOrigineY() + window.getHeight()/6+(getAmountPredecessors(m)*50 + 50),  window.getOrigineY() + window.getHeight()/6+(getAmountPredecessors(result)*50)+50);
+					drawActivationBar(graphics, window, m.getReicevedBy(), window.getOrigineY() + window.getHeight()/6+(getAmountPredecessors(m)*50 + 50), window.getOrigineY() + window.getHeight()/6+(getAmountPredecessors(result)*50)+50);
+				}
+			} else if (m.getClass() == ResultMessage.class) {}
+		}
+		
 	}
 	
 	private void drawLabel(Party p) {
@@ -123,5 +143,48 @@ public class SequenceState implements ViewState {
 		LabelRepresentation labelRep = new SeqLabelRepresentation(m.getLabel());
 		labelRep.draw(window, graphics);
 	}
+	//Draws an activation bar on a party's lifeline from y1 to y2.
+	private void drawActivationBar(Graphics g, Window w, Party p, int y1, int y2) {
+		int rectangleWidth = 6;
+		int outward = 3;
+		g.fillRect(p.getPosSeq().getX()-(rectangleWidth/2), y1-outward, rectangleWidth, (y2-y1)+(2*outward));
+	}
+	private int getAmountPredecessors(Message message) {
+		int amount = 0;
+		for (Message m : sortedMessages) {
+			if (m.getOrder() < message.getOrder())
+				amount++;
+		}
+		return amount;
+	}
+	private ArrayList<Message> messageSort(HashSet<Message> unsortedMessages){
+		ArrayList<Message> sorted = new ArrayList<Message>();
+		int amount = unsortedMessages.size();
+		int index = 0;
+		int currentOrder = 1;
+		while(index < amount) {
+			Message lowest = getLowestOrderMessage(unsortedMessages, currentOrder);
+			currentOrder = lowest.getOrder();
+			unsortedMessages.remove(lowest);
+			sorted.add(lowest);
+			index++;
+		}
+		
+		return sorted;
+	}
 	
+	//Return the message with the lowest order that is greater than or equal to i.
+	private Message getLowestOrderMessage(HashSet<Message> unsortedMessages, int i) {
+		Message min = null;
+		int minimum = Integer.MAX_VALUE;
+		int order;
+		for (Message m : unsortedMessages) {
+			order = m.getOrder();
+			if ((order >= i) && (order < minimum)) {
+				min = m;
+				minimum = order;
+			}
+		}
+		return min;
+	}
 }
