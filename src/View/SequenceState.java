@@ -100,15 +100,16 @@ public class SequenceState implements ViewState {
 
 	private void drawMessages() {
 		for(Message m : window.getSortedMessages()){
-			MessageRepresentation messageRep;
 			if(m.getClass() != ResultMessage.class) {
-				messageRep = new SeqInvocationMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				SeqInvocationMessageRepresentation messageRep = new SeqInvocationMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				messageRep.draw(window, graphics);
 				drawLabel(m);
 			} else {
-				messageRep = new SeqResultMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				SeqResultMessageRepresentation messageRep = new SeqResultMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				messageRep.draw(window, graphics);
+
 			}
 			
-			messageRep.draw(window, graphics);
 		}
 		
 	}
