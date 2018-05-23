@@ -12,18 +12,12 @@ import View.representation.RadioButtonRepresentation;
 import View.representation.TextButtonRepresentation;
 import View.representation.TextInputRepresentation;
 
-public class DialogBox {
+public class DialogBoxView {
 
 	protected Model.DialogBox dialogBox;
 	protected Graphics graphics;
 	private int fontHeight;
 	
-	protected enum SelectedElement {
-		VIEW, 
-		PARTY, 
-		INVOCATION_MESSAGE, 
-		RESULT_MESSAGE;
-	}
 	
 	public void draw(SelectedElement element, Model.DialogBox db, Graphics g){
 		this.dialogBox = db;

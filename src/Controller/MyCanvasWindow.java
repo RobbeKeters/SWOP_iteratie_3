@@ -19,7 +19,8 @@ import View.SequenceState;
 import View.View;
 import View.ViewContext;
 import View.ViewState;
-// henk
+import View.DialogBoxView;
+import View.SelectedElement;
 
 /**
  * A window for custom drawing.
@@ -69,6 +70,7 @@ public class MyCanvasWindow extends CanvasWindow{
 					v = new SequenceState();
 				else 
 					v = new CommunicationState();
+					viewContext.setState(new CommunicationState());
 				v.draw(viewContext, w, g);
 	//			View v;
 	//			if (c.getView() == Canvas.View.SEQUENCE)
@@ -78,7 +80,10 @@ public class MyCanvasWindow extends CanvasWindow{
 	//			v.draw(c, g);
 			}
 			//TODO
-			if(c.getClass()==DialogBox.class) {}
+			else if(c.getClass()==DialogBox.class) {
+				DialogBoxView box = new DialogBoxView();
+				box.draw( SelectedElement.PARTY, (DialogBox)c, g);
+			}
 		}
 	}
 	
@@ -93,7 +98,7 @@ public class MyCanvasWindow extends CanvasWindow{
 	@Override
 	protected void handleMouseEvent(int id, int x, int y, int clickCount){
 		// 
-		if( !screen.getInteractions().isEmpty()) {
+		if( !screen.getInteractions().isEmpty() && screen.getSubWindows().lastElement().getClass() == Model.Window.class) {
 			// TODO Handle DialogBox
 			Window window = (Window)screen.getSubWindows().lastElement();
 			
