@@ -1,5 +1,6 @@
 package View.representation;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import Model.Canvas;
@@ -17,13 +18,17 @@ public class ActorRepresentation extends PartyRepresentation {
 	}
 	
 	protected void drawStickFigure(Graphics g) {
-		
+	if(  this.party.getSelected()) {
+		g.setColor(Color.RED);
+	}
 		g.drawLine(x, y-10, x, y+10);
 		g.drawLine(x, y+10, x+5, y+15);
 		g.drawLine(x, y+10, x-5, y+15);
 		g.drawLine(x, y-3, x+5, y+2);
 		g.drawLine(x, y-3, x-5, y+2);
 		g.drawOval(x-5, y-20, 10, 10);
-	}
+		
+		g.setColor(Color.BLACK);
 
+	}
 }
