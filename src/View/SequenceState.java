@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Color;
+import Model.Handler.OpenDialogBoxHandler;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +11,8 @@ import Model.Canvas;
 import Model.Message;
 import Model.Party;
 import Model.ResultMessage;
+import Model.Screen;
+import Model.Window;
 import View.representation.ActorRepresentation;
 import View.representation.LabelRepresentation;
 import View.representation.MessageRepresentation;
@@ -29,15 +32,15 @@ import View.representation.SimplePartyRepresentation;
 
 public class SequenceState implements ViewState {
 	
-	private Canvas canvas;
+	private Window window;
 	private Graphics graphics;
 	
 	/**
 	 * draw the basic 
 	 */
 	@Override
-	public void draw(ViewContext viewContext, Canvas canvas, Graphics graphics) {
-		this.canvas = canvas;
+	public void draw(ViewContext viewContext, Window window, Graphics graphics) {
+		this.window = window;
 		this.graphics = graphics;
 		
 		drawSubWindow();
@@ -48,7 +51,7 @@ public class SequenceState implements ViewState {
 		
 //		TESTEN VOOR INPUT
 //		DialogBox db = new DialogBox();
-//		db.draw(DialogBox.SelectedElement.INVOCATION_MESSAGE, canvas, graphics);
+//		db.draw(DialogBox.SelectedElement.VIEW, window, graphics);
 		
 	}
 	
@@ -56,21 +59,21 @@ public class SequenceState implements ViewState {
 	 * Draws the subwindow.
 	 */
 	private void drawSubWindow() {
-		graphics.setClip(canvas.getOrigineX(), canvas.getOrigineY(), canvas.getWidth(), canvas.getHeight());
+		graphics.setClip(window.getOrigineX(), window.getOrigineY(), window.getWidth(), window.getHeight());
 		
 		graphics.setColor(Color.WHITE);
-		graphics.fillRect(canvas.getOrigineX(), canvas.getOrigineY(), canvas.getWidth(), canvas.getHeight());
+		graphics.fillRect(window.getOrigineX(), window.getOrigineY(), window.getWidth(), window.getHeight());
 		graphics.setColor(Color.BLACK);
 
-		canvas.getFramework().draw(canvas, graphics);
+		window.getFramework().draw(window, graphics);
 	}
 	
 	/**
 	 * draws the box in which parties resign.
 	 */
 	private void drawPartiesBox() {
-		graphics.drawRect(canvas.getOrigineX()+10,  canvas.getOrigineY()+ 20, canvas.getWidth()-20,10+ canvas.getHeight()/6);
-		graphics.drawString("Parties", canvas.getOrigineX()+ 20, canvas.getOrigineY()+ 40);
+		graphics.drawRect(window.getOrigineX()+10,  window.getOrigineY()+ 20, window.getWidth()-20,10+ window.getHeight()/6);
+		graphics.drawString("Parties", window.getOrigineX()+ 20, window.getOrigineY()+ 40);
 	}
 
 	/**
@@ -80,7 +83,7 @@ public class SequenceState implements ViewState {
 		// TODO:
 		// Better way of getting which type of party it is.
 		
-		for(Party p : canvas.getParties()) {
+		for(Party p : window.getParties()) {
 			PartyRepresentation partyRep;
 			
 			if (p.getClass().equals(Actor.class)) {
@@ -89,35 +92,36 @@ public class SequenceState implements ViewState {
 			} else 
 				partyRep = new SeqObjectRepresentation(p, new SeqPartyRepresentation(p, new SeqSimplePartyRepresentation(p)));
 
-			partyRep.draw(canvas, graphics);
+			partyRep.draw(window, graphics);
 			drawLabel(p);
 			
 		}
 	}
 
 	private void drawMessages() {
-		for(Message m : canvas.getSortedMessages()){
-			MessageRepresentation messageRep;
+		for(Message m : window.getSortedMessages()){
 			if(m.getClass() != ResultMessage.class) {
-				messageRep = new SeqInvocationMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				SeqInvocationMessageRepresentation messageRep = new SeqInvocationMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				messageRep.draw(window, graphics);
 				drawLabel(m);
 			} else {
-				messageRep = new SeqResultMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				SeqResultMessageRepresentation messageRep = new SeqResultMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
+				messageRep.draw(window, graphics);
+
 			}
 			
-			messageRep.draw(canvas, graphics);
 		}
 		
 	}
 	
 	private void drawLabel(Party p) {
 		LabelRepresentation labelRep = new SeqLabelRepresentation(p.getLabel());
-		labelRep.draw(canvas, graphics);
+		labelRep.draw(window, graphics);
 	}
 	
 	private void drawLabel(Message m) {
 		LabelRepresentation labelRep = new SeqLabelRepresentation(m.getLabel());
-		labelRep.draw(canvas, graphics);
+		labelRep.draw(window, graphics);
 	}
 	
 }

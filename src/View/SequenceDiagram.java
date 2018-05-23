@@ -14,6 +14,7 @@ import Model.Label;
 import Model.Message;
 import Model.Party;
 import Model.ResultMessage;
+import Model.Window;
 import Model.titleBar;
 import Model.Handler.MoveWindowHandler;
 import Model.Object;
@@ -29,14 +30,14 @@ public class SequenceDiagram extends View {
 	/**
 	 * Draws a seuence diagram of the given canvas.
 	 * 
-	 * @param c		The canvas to draw.
+	 * @param w		The canvas to draw.
 	 * @param g		The graphics object used for drawing.
 	 */
 	@Override
-	public void draw(Canvas c, Graphics g) {
+	public void draw(Window w, Graphics g) {
 		
 		// Update message Positions -------------> nog te verbeteren!!!!!!!!!!!!
-		MoveWindowHandler.updateMessagePositions(c, c.getOrigineX(), c.getOrigineY(), c.getOrigineX(), c.getOrigineY());
+		MoveWindowHandler.updateMessagePositions(w, w.getOrigineX(), w.getOrigineY(), w.getOrigineX(), w.getOrigineY());
 		//
 		
 		
@@ -45,47 +46,47 @@ public class SequenceDiagram extends View {
 		There can only be drawn in this clip!
 		
 		*/ 
-		g.setClip(c.getOrigineX(), c.getOrigineY(), c.getWidth(), c.getHeight());
+		g.setClip(w.getOrigineX(), w.getOrigineY(), w.getWidth(), w.getHeight());
 		
 		// fill white rectangle to draw on
 		g.setColor(Color.WHITE);
-		g.fillRect(c.getOrigineX(), c.getOrigineY(), c.getWidth(), c.getHeight());
+		g.fillRect(w.getOrigineX(), w.getOrigineY(), w.getWidth(), w.getHeight());
 		g.setColor(Color.BLACK);
 
 		// draw frameWork
-		c.getFramework().draw(c, g);
+		w.getFramework().draw(w, g);
 		// ------------------------------------------
 		
 		//Draw the "Parties" box.
-		g.drawRect(c.getOrigineX()+10,  c.getOrigineY()+ 20, c.getWidth()-20,10+ c.getHeight()/6);
-		g.drawString("Parties", c.getOrigineX()+ 20, c.getOrigineY()+ 40);
+		g.drawRect(w.getOrigineX()+10,  w.getOrigineY()+ 20, w.getWidth()-20,10+ w.getHeight()/6);
+		g.drawString("Parties", w.getOrigineX()+ 20, w.getOrigineY()+ 40);
 		
 		
 		//Draw all parties, their lifelines and their labels.
-		for (Party a : c.getParties()) {
+		for (Party a : w.getParties()) {
 			drawnParties.add(new DrawnParty(a.getPosSeq().getX(), a));
 			if (a.getSelected())
 				g.setColor(Color.RED);
 			if (a.getClass() == Actor.class) {
-				drawStickFigure(g, c, a.getPosSeq().getX(), a.getPosSeq().getY()+10);
+				drawStickFigure(g, w, a.getPosSeq().getX(), a.getPosSeq().getY()+10);
 			} else if (a.getClass() == Object.class) {
 				//g.drawRect(a.getPosSeq().getX()-a.getWidth()/2, a.getPosSeq().getY()-a.getHeight()/2, a.getWidth(), a.getHeight());
 			}
 			g.drawRect(a.getLabel().getLabelPositionSequence().getX() - a.getLabel().getWidth()/2, a.getLabel().getLabelPositionSequence().getY() - a.getLabel().getHeight()/2, a.getLabel().getWidth(), a.getLabel().getHeight());
 			
 			g.setColor(Color.BLACK);
-			drawLifeline(c, g, a.getPosSeq().getX());
-			drawLabel(g, c, a.getLabel());
+			drawLifeline(w, g, a.getPosSeq().getX());
+			drawLabel(g, w, a.getLabel());
 		}
 		
 		//Sort all messages.
-		HashSet<Message> unsortedMessages = c.copyMessages();
+		HashSet<Message> unsortedMessages = w.copyMessages();
 		this.sortedMessages = messageSort(unsortedMessages);
 		
 		//Draw all messages.
 		for (Message m : sortedMessages) {
-			int y = c.getOrigineY() + c.getHeight()/6 + 50 + (50 * getAmountPredecessors(m));
-			drawMessage(c, g, m, y);
+			int y = w.getOrigineY() + w.getHeight()/6 + 50 + (50 * getAmountPredecessors(m));
+			drawMessage(w, g, m, y);
 		}
 		
 		//Draw activation bars on lifelines.
@@ -95,25 +96,25 @@ public class SequenceDiagram extends View {
 				if (result == null) {
 					System.out.println("Drawing error: Invocation message does not have equivalent result message.");
 				} else {
-					drawActivationBar(g, c, m.getSentBy(), c.getOrigineY() + c.getHeight()/6+(getAmountPredecessors(m)*50 + 50),  c.getOrigineY() + c.getHeight()/6+(getAmountPredecessors(result)*50)+50);
-					drawActivationBar(g, c, m.getReicevedBy(), c.getOrigineY() + c.getHeight()/6+(getAmountPredecessors(m)*50 + 50), c.getOrigineY() + c.getHeight()/6+(getAmountPredecessors(result)*50)+50);
+					drawActivationBar(g, w, m.getSentBy(), w.getOrigineY() + w.getHeight()/6+(getAmountPredecessors(m)*50 + 50),  w.getOrigineY() + w.getHeight()/6+(getAmountPredecessors(result)*50)+50);
+					drawActivationBar(g, w, m.getReicevedBy(), w.getOrigineY() + w.getHeight()/6+(getAmountPredecessors(m)*50 + 50), w.getOrigineY() + w.getHeight()/6+(getAmountPredecessors(result)*50)+50);
 				}
 			} else if (m.getClass() == ResultMessage.class) {}
 		}
 		
 	}
 
-	private void drawLifeline(Canvas c, Graphics g, int x) {
-		g.drawLine(x, c.getOrigineY()+ (c.getHeight()/6)+10+c.getFramework().getBar().getHeight(), x, c.getOrigineY()+ c.getHeight()-10);
+	private void drawLifeline(Window w, Graphics g, int x) {
+		g.drawLine(x, w.getOrigineY()+ (w.getHeight()/6)+10+w.getFramework().getBar().getHeight(), x, w.getOrigineY()+ w.getHeight()-10);
 	}
 	
-	private void drawMessage(Canvas c, Graphics g, Message message, int y) {
+	private void drawMessage(Window w, Graphics g, Message message, int y) {
 		DrawnParty sender = searchForEquivalentDrawnParty(message.getSentBy());
 		DrawnParty receiver = searchForEquivalentDrawnParty(message.getReicevedBy());
 		if ((sender == null) || (receiver == null))
 			System.out.println("The message to be drawn has either no sender or no receiver.");
 		if(message.getClass()!=ResultMessage.class)
-			drawLabel(g, c, message.getLabel());
+			drawLabel(g, w, message.getLabel());
 		if (message.getSelected())
 			g.setColor(Color.RED);
 		int senderX = 0;
@@ -157,7 +158,7 @@ public class SequenceDiagram extends View {
 	}
 	
 	//Draws a label
-	private void drawLabel(Graphics g, Canvas c, Label label) {
+	private void drawLabel(Graphics g, Window w, Label label) {
 		if (label.getSelected())
 			g.setColor(Color.RED);
 		int x = label.getLabelPositionSequence().getX();
@@ -172,7 +173,7 @@ public class SequenceDiagram extends View {
 	}
 	
 	//Draws a stick figure at (x, y).
-	private void drawStickFigure(Graphics g, Canvas c, int x, int y) {
+	private void drawStickFigure(Graphics g, Window w, int x, int y) {
 		g.drawLine(x, y-10, x, y+10);
 		g.drawLine(x, y+10, x+5, y+15);
 		g.drawLine(x, y+10, x-5, y+15);
@@ -182,7 +183,7 @@ public class SequenceDiagram extends View {
 	}
 	
 	//Draws an activation bar on a party's lifeline from y1 to y2.
-	private void drawActivationBar(Graphics g, Canvas c, Party p, int y1, int y2) {
+	private void drawActivationBar(Graphics g, Window w, Party p, int y1, int y2) {
 		int rectangleWidth = 6;
 		int outward = 3;
 		g.fillRect(p.getPosSeq().getX()-(rectangleWidth/2), y1-outward, rectangleWidth, (y2-y1)+(2*outward));

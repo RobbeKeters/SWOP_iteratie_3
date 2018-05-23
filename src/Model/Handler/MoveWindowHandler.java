@@ -4,6 +4,7 @@ import Model.Canvas;
 import Model.Message;
 import Model.Party;
 import Model.Point;
+import Model.Window;
 
 /**
  * A handler that handles the actions of a window being moved.
@@ -13,30 +14,30 @@ public class MoveWindowHandler extends Handler {
 	/**
 	 * Handles a window being moved.
 	 * 
-	 * @param canvas			The window being moved.
+	 * @param window			The window being moved.
 	 * @param oldXorigine		Old origin of the window along the X-axis. 
 	 * @param oldYorigine		Old origin of the window along the Y-axis. 
 	 * @param newXorigine		New origin of the window along the X-axis. 
 	 * @param newYorigine		New origin of the window along the Y-axis. 
 	 */
-	public static void handle(Canvas canvas, int oldXorigine, int oldYorigine, int newXorigine, int newYorigine) {
-		canvas.setOrigineX(newXorigine);
-		canvas.setOrigineY(newYorigine);
-		updatePartyPositions(canvas ,oldXorigine,oldYorigine, newXorigine,newYorigine );
-		updateMessagePositions(canvas,oldXorigine,oldYorigine, newXorigine,newYorigine);
+	public static void handle(Window window, int oldXorigine, int oldYorigine, int newXorigine, int newYorigine) {
+		window.setOrigineX(newXorigine);
+		window.setOrigineY(newYorigine);
+		updatePartyPositions(window ,oldXorigine,oldYorigine, newXorigine,newYorigine );
+		updateMessagePositions(window,oldXorigine,oldYorigine, newXorigine,newYorigine);
 	}
 	
 	/**
 	 * Updates the positions of the parties on the given canvas.
 	 * 
-	 * @param canvas			Canvas to be updated.
+	 * @param window			Canvas to be updated.
 	 * @param oldXorigine		Old origin of the window along the X-axis. 
 	 * @param oldYorigine		Old origin of the window along the Y-axis. 
 	 * @param newXorigine		New origin of the window along the X-axis. 
 	 * @param newYorigine		New origin of the window along the Y-axis. 
 	 */
-	public static void updatePartyPositions(Canvas canvas ,int oldXorigine,int oldYorigine,int newXorigine,int newYorigine) {
-		for( Party p :canvas.getParties()) {
+	public static void updatePartyPositions(Window window ,int oldXorigine,int oldYorigine,int newXorigine,int newYorigine) {
+		for( Party p :window.getParties()) {
 			
 			// Update Positions Sequence Diagram
 			int xSeq = p.getPosSeq().getX();
@@ -47,7 +48,7 @@ public class MoveWindowHandler extends Handler {
 			
 			p.setPosSeq((newXorigine+dx),(newYorigine + dy));
 			// Update Label Positin for  Sequence Diagram
-			int yLabel = newYorigine + canvas.getHeight()/12 + +p.getHeight() + 10; // Needs to be in sync with AddPartyHandler
+			int yLabel = newYorigine + window.getHeight()/12 + +p.getHeight() + 10; // Needs to be in sync with AddPartyHandler
 			p.getLabel().setLabelPositionSeq((newXorigine+dx), yLabel);
 
 			// Update Positions Communication Diagram
@@ -67,18 +68,18 @@ public class MoveWindowHandler extends Handler {
 	/**
 	 * Updates the positions of the messages on the given canvas.
 	 * 
-	 * @param canvas			Canvas to be updated.
+	 * @param window			Canvas to be updated.
 	 * @param oldXorigine		Old origin of the window along the X-axis. 
 	 * @param oldYorigine		Old origin of the window along the Y-axis. 
 	 * @param newXorigine		New origin of the window along the X-axis. 
 	 * @param newYorigine		New origin of the window along the Y-axis. 
 	 */
-	public static void updateMessagePositions(Canvas canvas,int oldXorigine,int oldYorigine,int newXorigine,int newYorigine) {
-		for( Message m: canvas.getMessages()) {
+	public static void updateMessagePositions(Window window,int oldXorigine,int oldYorigine,int newXorigine,int newYorigine) {
+		for( Message m: window.getMessages()) {
 			
 			if( m.getClass().equals( Model.InvocationMessage.class) ){
 				int invocLabelX = Math.max(m.getReicevedBy().getPosSeq().getX(), m.getSentBy().getPosSeq().getX()) - Math.abs( (m.getReicevedBy().getPosSeq().getX() - m.getSentBy().getPosSeq().getX() )/2);
-				int invocLabelY = canvas.getOrigineY() +canvas.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(canvas, m));
+				int invocLabelY = window.getOrigineY() +window.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(window, m));
 				m.getLabel().setLabelPositionSeq(new Point(invocLabelX, invocLabelY));
 			}
 			

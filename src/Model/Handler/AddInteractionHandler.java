@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import Model.Canvas;
 import Model.Interaction;
+import Model.Window;
 
 /**
  * A handler that handles the actions of an interaction being added.
@@ -21,8 +22,8 @@ public class AddInteractionHandler extends Handler{
 		// New interaction
 		Interaction i = new Interaction(subWindows.size()*10);
 		interactions.add(i);
-		for( Canvas c : i.getSubWindows()) {
-			subWindows.push(c);
+		for( Window w : i.getSubWindows()) {
+			subWindows.push(w);
 		}
 	}
 

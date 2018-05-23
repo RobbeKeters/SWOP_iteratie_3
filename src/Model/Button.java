@@ -10,6 +10,7 @@ import java.awt.Graphics;
  */
 public class Button {
 	
+	private Type type;
 	private int width;
 	private int height;
 	private int OrigineX;
@@ -20,11 +21,12 @@ public class Button {
 	 * @param xInput	The x coordinate of the origin of the new button.
 	 * @param yInput	The y coordinate of the origin of the new button.
 	 */
-	public Button(int xInput,int yInput) {
+	public Button(int xInput,int yInput, Type type) {
 		this.OrigineX = xInput;
 		this.OrigineY =yInput;
 		this.width = 14;
 		this.height = 14;
+		setType(type);
 	}
 	
 	/**
@@ -102,6 +104,20 @@ public class Button {
 	 */
 	public void setOrigineY(int origineY) {
 		OrigineY = origineY;
+	}
+	
+	public enum Type {
+		CLOSE,
+		TEXT,
+		RADIO;
+	}
+	
+	private void setType(Type t){
+		type = t;
+	}
+	
+	public Type getType(){
+		return type;
 	}
 	
 }

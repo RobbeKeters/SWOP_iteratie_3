@@ -3,6 +3,7 @@ package Model.Handler;
 import Model.Canvas;
 import Model.Message;
 import Model.Party;
+import Model.ResizeWindow;
 import Model.Window;
 
 /**
@@ -18,7 +19,7 @@ public class ResizeWindowHandler extends Handler{
 	 * @param y			The new y coordinate of the part being resized.
 	 * @param action	The kind of resize being applied.
 	 */
-	public static void handle(Canvas canvas, int x, int y, Window action) {
+	public static void handle(Canvas canvas, int x, int y, ResizeWindow action) {
 		switch(action) {
 		case ResizeXRight:
 			canvas.resizeXRightCanvas(x);
@@ -53,30 +54,30 @@ public class ResizeWindowHandler extends Handler{
 	
 	/**
 	 * Updates the position of the messages of the given canvas.
-	 * @param canvas	Canvas for which to update the message positions.
+	 * @param window	Canvas for which to update the message positions.
 	 * 
 	 */
 	
 	//TODO Move to canvas?
 	
-	public static void updateYPositionLMessageLabelsSequenceDiagram(Canvas canvas) {
-		for (Message m : canvas.getMessages()) {
-			int newY = canvas.getOrigineY() +canvas.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(canvas, m));
+	public static void updateYPositionLMessageLabelsSequenceDiagram(Window window) {
+		for (Message m : window.getMessages()) {
+			int newY = window.getOrigineY() +window.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(window, m));
 			m.getLabel().setLabelPositionSeq(m.getLabel().getLabelPositionSequence().getX(), newY);
 		}
 	}
 	
 	/**
 	 * Updates the position of the parties of the given canvas.
-	 * @param canvas	Canvas for which to update the party positions.
+	 * @param window	Canvas for which to update the party positions.
 	 * 
 	 */
 	
 	//TODO Move to canvas?
 	
-	private static void updateYPositionPartySequenceDiagram(Canvas canvas) {
-		for( Party p : canvas.getParties()) {
-			int newY = canvas.getOrigineY() +canvas.getHeight()/12;
+	private static void updateYPositionPartySequenceDiagram(Window window) {
+		for( Party p : window.getParties()) {
+			int newY = window.getOrigineY() +window.getHeight()/12;
 			p.setPosSeq(p.getPosSeq().getX(), newY);
 			p.getLabel().setLabelPositionSeq(p.getLabel().getLabelPositionSequence().getX(),newY +p.getHeight() + 10);
 		}

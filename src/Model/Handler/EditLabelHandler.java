@@ -9,6 +9,8 @@ import Model.Label;
 import Model.Message;
 import Model.Party;
 import Model.Point;
+import Model.ResultMessage;
+import Model.Window;
 
 /**
  * A handler that handles the actions of a label being edited.
@@ -17,39 +19,39 @@ public class EditLabelHandler extends Handler{
 	
 	/**
 	 * Handles a label being edited.
-	 * @param canvas		The canvas to in which the label is present.
+	 * @param window		The canvas to in which the label is present.
 	 * @param label			The label being edited.
 	 * @param x			The x coordinate of the mouse event used to handle this event.
 	 * @param y			The y coordinate of the mouse event used to handle this event.
 	 */
-	public static void handle(Canvas canvas, Label label, int x, int y) {
-		handle(canvas, label, Character.MIN_VALUE, x, y);
+	public static void handle(Window window, Label label, Message message, int x, int y) {
+		handle(window, label, message, Character.MIN_VALUE, x, y);
 	}
 	
 	/**
 	 * Handles a label being edited.
-	 * @param canvas		The canvas to in which the label is present.
+	 * @param window		The canvas to in which the label is present.
 	 * @param label			The label being edited.
 	 * @param party			The party which the given label belongs to.
 	 * @param character		The key character used to edit the label.
 	 * @param x				The x coordinate of the mouse event used to handle this event.
 	 * @param y				The y coordinate of the mouse event used to handle this event.
 	 */
-	public static void handle(Canvas canvas, Label label, Party party, char character, int x, int y) {
+	public static void handle(Window window, Label label, Party party, char character, int x, int y) {
 		
 		if(label.getSelected()) {
 			if(character==KeyEvent.VK_DELETE) {return;}
 			if (character == KeyEvent.VK_BACK_SPACE){
-				handle(canvas, label, "BACKSPACE");
+				handle(window, label, "BACKSPACE");
 				return;	
 			} else if (character == KeyEvent.VK_ENTER){
 				if(isCorrectPartyLabel(label.getLabelname())) {
-					handle(canvas, label, "ENTER");
+					handle(window, label, "ENTER");
 				}
 				return;
 			} else if (character == KeyEvent.VK_ESCAPE)
 				return;			
-			if(canvas.getView() == Canvas.View.SEQUENCE)
+			if(window.getView() == Window.View.SEQUENCE)
 				label.setLabelPositionSeq(new Point(x, y));
 			else 
 				label.setLabelPositionComm(new Point(x, y));
@@ -61,7 +63,7 @@ public class EditLabelHandler extends Handler{
 			label.setWidth(width);
 			// Notify Interaction if Party is allowed !!!!!!!!!!!!!!!!!!!!
 			if (isCorrectPartyLabel(label.getLabelname())) {
-				canvas.getInteraction().adjusted(ADJUSTED_TYPE.PARTY_LABEL,canvas);
+				window.getInteraction().adjusted(ADJUSTED_TYPE.PARTY_LABEL,window);
 			}
 		} else {
 			label.setLabelname(label.getLabelname().replace("|", ""));
@@ -70,26 +72,34 @@ public class EditLabelHandler extends Handler{
 	
 	/**
 	 * Handle a label being edited.
-	 * @param canvas		The canvas to edit.
+	 * @param window		The canvas to edit.
 	 * @param label			The label being edited.
 	 * @param character			The key character used to edit the label.
 	 * @param x			The x coordinate of the mouse event used to handle this event.
 	 * @param y			The y coordinate of the mouse event used to handle this event.
 	 */
-	public static void handle(Canvas canvas, Label label, char character, int x, int y) {
+	public static void handle(Window window, Label label, Message message, char character, int x, int y) {
 		
 		
 		if(label.getSelected()){
 			if(character==KeyEvent.VK_DELETE) {return;}
 			if (character == KeyEvent.VK_BACK_SPACE){
-				handle(canvas, label, "BACKSPACE");
+				handle(window, label, "BACKSPACE");
+				if (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname())) {
+					setInvocationMethodNameAndArguments((InvocationMessage) message, label.getLabelname());
+				}
 				return;	
 			} else if (character == KeyEvent.VK_ENTER) {
-				handle(canvas, label, "ENTER");
+				if(message.getClass() == ResultMessage.class || (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname()))) {
+					handle(window, label, "ENTER");
+					if (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname())) {
+						setInvocationMethodNameAndArguments((InvocationMessage) message, label.getLabelname());
+					}
+				}
 				return;
 			} else if (character == KeyEvent.VK_ESCAPE)
 				return;			
-			if(canvas.getView() == Canvas.View.SEQUENCE)
+			if(window.getView() == Window.View.SEQUENCE)
 				label.setLabelPositionSeq(new Point(x, y));
 			else 
 				label.setLabelPositionComm(new Point(x, y));
@@ -101,8 +111,10 @@ public class EditLabelHandler extends Handler{
 			label.setWidth(width);
 			
 			
-			// Notify Interaction
-			canvas.getInteraction().adjusted(ADJUSTED_TYPE.MESSAGE_LABEL,canvas);
+			// Notify Interaction if label is allowed
+			if (message.getClass() == ResultMessage.class || (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname()))) {
+				window.getInteraction().adjusted(ADJUSTED_TYPE.MESSAGE_LABEL,window);
+			}
 		} else {
 			label.setLabelname(label.getLabelname().replace("|", ""));
 		}
@@ -110,11 +122,11 @@ public class EditLabelHandler extends Handler{
 	
 	/**
 	 * Handle a label being edited.
-	 * @param canvas		The canvas to edit.
+	 * @param window		The canvas to edit.
 	 * @param label			The label being edited.
 	 * @param keyCode		The kind of key event being handled.
 	 */
-	public static void handle(Canvas canvas, Label label, String keyCode){
+	public static void handle(Window window, Label label, String keyCode){
 		String name = label.getLabelname().replace("|", "");
 		if(name.length() <= 0) return;
 		switch(keyCode){
@@ -122,7 +134,7 @@ public class EditLabelHandler extends Handler{
 			name = name.substring(0, name.length()-1);
 			label.setLabelname(name + '|');
 			if (isCorrectPartyLabel(label.getLabelname())) 
-				canvas.getInteraction().adjusted(ADJUSTED_TYPE.PARTY_LABEL,canvas);
+				window.getInteraction().adjusted(ADJUSTED_TYPE.PARTY_LABEL,window);
 			break;
 		case "ENTER":
 			label.setLabelname(name);
@@ -130,21 +142,34 @@ public class EditLabelHandler extends Handler{
 		}
 	}
 	
-	static private boolean isCorrectPartyLabel(String label){
+	static public boolean isCorrectPartyLabel(String label){
 		if(label.matches("([a-z][a-zA-Z]*)?:[A-Z][a-zA-Z]*\\|")){
 			return true;
 		}
 		return false;
 	}
 	
+	static public boolean isCorrectInvocationMessageLabel(String label) {
+		return label.matches("|([a-z][a-zA-Z_0-9]*)[/(]((([^,/(/)]+[,])*[^,/(/)]+)|)[/)]");
+	}
+	
+	static private void setInvocationMethodNameAndArguments(InvocationMessage message, String labelName) {
+		//set method name and arguments for invocation message.
+		String[] s1 = labelName.split("(");
+		message.setMethodName(s1[0]);
+		String[] s2 = s1[1].split(",");
+		s2[s2.length-1] = s2[s2.length-1].substring(0, s2[s2.length-1].length()-1);
+		message.setArguments(s2);
+	}
+	
 	/**
 	 * Checks whether a canvas is in the label editing mode of a party or not.
 	 * 
-	 * @param canvas 	The canvas to check.
+	 * @param window 	The canvas to check.
 	 * @return			True if the canvas is in the label editing mode for a certain party.
 	 */
-	static public boolean editLabelModeParty(Canvas  canvas) {
-		for(Party p : canvas.getParties()){
+	static public boolean editLabelModeParty(Window  window) {
+		for(Party p : window.getParties()){
 			if(p.getLabel().getSelected()) {
 				return !(isCorrectPartyLabel(p.getLabel().getLabelname()));
 			}
@@ -155,11 +180,11 @@ public class EditLabelHandler extends Handler{
 	/**
 	 * Checks whether a canvas is in the label editing mode of a message or not.
 	 * 
-	 * @param canvas 	The canvas to check.
+	 * @param window 	The canvas to check.
 	 * @return			True if the canvas is in the label editing mode for a certain message.
 	 */
-	static public boolean editLabelModeMessage(Canvas canvas) {
-		for( Message m : canvas.getMessages()) {
+	static public boolean editLabelModeMessage(Window window) {
+		for( Message m : window.getMessages()) {
 			if( m.getClass() == InvocationMessage.class && m.getLabel().getSelected()) {
 				return true;
 			}

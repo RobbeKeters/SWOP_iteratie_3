@@ -3,6 +3,7 @@ package View;
 import java.awt.Graphics;
 
 import Model.Canvas;
+import Model.Window;
 /**
  * 
  * Visual representation of a canvas.
@@ -18,6 +19,6 @@ public abstract class View {
 	 * @param canvas		The canvas to draw.
 	 * @param g				The graphics object used for drawing.
 	 */
-	public void draw(Canvas canvas, Graphics g) {}
+	public void draw(Window window, Graphics g) {}
 	
 }

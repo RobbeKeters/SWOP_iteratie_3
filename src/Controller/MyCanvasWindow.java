@@ -8,7 +8,9 @@ import java.awt.event.MouseEvent;
 
 import Controller.Mouse;
 import Model.Canvas;
+import Model.DialogBox;
 import Model.Screen;
+import Model.Window;
 import Model.Handler.EditLabelHandler;
 import View.CommunicationDiagram;
 import View.CommunicationState;
@@ -58,19 +60,25 @@ public class MyCanvasWindow extends CanvasWindow{
 		g.setFont(font);
 				
 		for(Canvas c : screen.getSubWindows()) {
-			ViewContext viewContext = new ViewContext();
-			ViewState v;
-			if(c.getView() == Canvas.View.SEQUENCE)
-				v = new SequenceState();
-			else 
-				v = new CommunicationState();
-			v.draw(viewContext, c, g);
-//			View v;
-//			if (c.getView() == Canvas.View.SEQUENCE)
-//				v = new SequenceDiagram();
-//			else
-//				v = new CommunicationDiagram();
-//			v.draw(c, g);
+			if(c.getClass()==Window.class) {
+				Window w = (Window)c;
+				ViewContext viewContext = new ViewContext();
+				ViewState v;
+				
+				if(w.getView() == Window.View.SEQUENCE)
+					v = new SequenceState();
+				else 
+					v = new CommunicationState();
+				v.draw(viewContext, w, g);
+	//			View v;
+	//			if (c.getView() == Canvas.View.SEQUENCE)
+	//				v = new SequenceDiagram();
+	//			else
+	//				v = new CommunicationDiagram();
+	//			v.draw(c, g);
+			}
+			//TODO
+			if(c.getClass()==DialogBox.class) {}
 		}
 	}
 	
@@ -86,11 +94,12 @@ public class MyCanvasWindow extends CanvasWindow{
 	protected void handleMouseEvent(int id, int x, int y, int clickCount){
 		// 
 		if( !screen.getInteractions().isEmpty()) {
-			Canvas canvas = screen.getSubWindows().lastElement();
+			// TODO Handle DialogBox
+			Window window = (Window)screen.getSubWindows().lastElement();
 			
-			System.out.println("######## "+canvas.getMode()+" ########");
+			System.out.println("######## "+window.getMode()+" ########");
 			
-			if(!EditLabelHandler.editLabelModeParty(canvas)) {
+			if(!EditLabelHandler.editLabelModeParty(window)) {
 				
 				switch(id) {
 					

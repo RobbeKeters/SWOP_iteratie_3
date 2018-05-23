@@ -8,6 +8,7 @@ import Model.Canvas;
 import Model.InvocationMessage;
 import Model.Message;
 import Model.Party;
+import Model.Window;
 import View.representation.ComActorRepresentation;
 import View.representation.ComLabelRepresentation;
 import View.representation.ComMessageRepresentation;
@@ -20,12 +21,12 @@ import View.representation.SimpleMessageRepresentation;
 
 public class CommunicationState implements ViewState {
 	
-	private Canvas canvas;
+	private Window window;
 	private Graphics graphics;
 	
 	@Override
-	public void draw(ViewContext viewContext, Canvas canvas, Graphics graphics) {
-		this.canvas = canvas;
+	public void draw(ViewContext viewContext, Window window, Graphics graphics) {
+		this.window = window;
 		this.graphics = graphics;
 		
 		drawSubWindow();
@@ -35,18 +36,18 @@ public class CommunicationState implements ViewState {
 	}
 	
 	private void drawSubWindow() {
-		graphics.setClip(canvas.getOrigineX(), canvas.getOrigineY(), canvas.getWidth(), canvas.getHeight());
+		graphics.setClip(window.getOrigineX(), window.getOrigineY(), window.getWidth(), window.getHeight());
 		
 		graphics.setColor(Color.WHITE);
-		graphics.fillRect(canvas.getOrigineX(), canvas.getOrigineY(), canvas.getWidth(), canvas.getHeight());
+		graphics.fillRect(window.getOrigineX(), window.getOrigineY(), window.getWidth(), window.getHeight());
 		graphics.setColor(Color.BLACK);
 
-		canvas.getFramework().draw(canvas, graphics);
+		window.getFramework().draw(window, graphics);
 	}
 
 	private void drawParties() {
 		
-		for(Party p : canvas.getParties()) {
+		for(Party p : window.getParties()) {
 			Representation partyRep;
 			
 			// TODO:
@@ -57,19 +58,19 @@ public class CommunicationState implements ViewState {
 			 else 
 				partyRep = new ComObjectRepresentation(p, new ComSimplePartyRepresentation(p));
 			
-			partyRep.draw(canvas, graphics);
+			partyRep.draw(window, graphics);
 			drawLabel(p);
 			
 		}
 	}
 
 	private void drawMessages() {
-		for(Message m : canvas.getSortedMessages()){
+		for(Message m : window.getSortedMessages()){
 			MessageRepresentation messageRep;
 			
 			messageRep = new ComMessageRepresentation(m, new SimpleMessageRepresentation(m));
 			
-			messageRep.draw(canvas, graphics);
+			messageRep.draw(window, graphics);
 			if(m.getClass().equals(InvocationMessage.class))
 				drawLabel(m);
 			
@@ -77,12 +78,12 @@ public class CommunicationState implements ViewState {
 	}
 	
 	private void drawLabel(Party p) {
-		LabelRepresentation labelRep = new ComLabelRepresentation(p.getLabel());
-		labelRep.draw(canvas, graphics);
+		ComLabelRepresentation labelRep = new ComLabelRepresentation(p.getLabel());
+		labelRep.draw(window, graphics);
 	}
 	
 	private void drawLabel(Message m) {
-		LabelRepresentation labelRep = new ComLabelRepresentation(m.getLabel());
-		labelRep.draw(canvas, graphics);
+		ComLabelRepresentation labelRep = new ComLabelRepresentation(m.getLabel());
+		labelRep.draw(window, graphics);
 	}
 }

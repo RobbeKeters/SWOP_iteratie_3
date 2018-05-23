@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import Model.Canvas;
 import Model.Mode;
+import Model.Window;
 
 /**
  * A handler that handles the closing of a window.
@@ -16,16 +17,16 @@ public class CloseWindowHandler extends Handler{
 	 * 
 	 * @param subWindows	The given list of subwindows.
 	 */
-	public static void handle(ArrayList<Canvas> subWindows) {
+	public static void handle(ArrayList<Window> subWindows) {
 		// Find any canvas objects that need to be closed/deleted!
-		ArrayList<Canvas> toBeDeleted = new ArrayList<Canvas>();
-		for( Canvas c :subWindows) {
-			if(c.getMode()  == Mode.CLOSING) {
-				toBeDeleted.add(c);
+		ArrayList<Window> toBeDeleted = new ArrayList<Window>();
+		for( Window w :subWindows) {
+			if(w.getMode()  == Mode.CLOSING) {
+				toBeDeleted.add(w);
 			}
 		}
-		for (Canvas c : toBeDeleted) {
-			subWindows.remove(c);
+		for (Window w : toBeDeleted) {
+			subWindows.remove(w);
 		}
 	}
 
@@ -36,14 +37,17 @@ public class CloseWindowHandler extends Handler{
 	 */
 	public static void handle(Stack<Canvas> subWindows) {
 		// Find any canvas objects that need to be closed/deleted!
-		ArrayList<Canvas> toBeDeleted = new ArrayList<Canvas>();
+		ArrayList<Window> toBeDeleted = new ArrayList<Window>();
 		for( Canvas c :subWindows) {
-			if(c.getMode()  == Mode.CLOSING) {
-				toBeDeleted.add(c);
+			if(c.getClass()==Window.class) {
+				Window w = (Window)c;
+				if(w.getMode()  == Mode.CLOSING) {
+					toBeDeleted.add(w);
+				}
 			}
 		}
-		for (Canvas c : toBeDeleted) {
-			subWindows.remove(c);
+		for (Window w : toBeDeleted) {
+			subWindows.remove(w);
 		}
 	}
 

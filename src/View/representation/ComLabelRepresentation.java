@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import Model.Canvas;
 import Model.Label;
+import Model.Window;
 
 public class ComLabelRepresentation extends LabelRepresentation {
 
@@ -12,8 +13,8 @@ public class ComLabelRepresentation extends LabelRepresentation {
 		super(l);
 	}
 	
-	public void draw(Canvas c, Graphics g) {
-		c.updatePosComm();
+	public void draw(Window w, Graphics g) {
+		w.updatePosComm();
 		
 		if (label.getSelected())
 			g.setColor(Color.RED);

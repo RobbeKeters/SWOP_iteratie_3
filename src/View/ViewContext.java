@@ -3,6 +3,7 @@ package View;
 import java.awt.Graphics;
 
 import Model.Canvas;
+import Model.Window;
 
 public class ViewContext {
 
@@ -12,8 +13,8 @@ public class ViewContext {
 		setState(new SequenceState());
 	}
 	
-	public void draw(Canvas canvas, Graphics graphics) {
-		myView.draw(this, canvas, graphics);
+	public void draw(Window window, Graphics graphics) {
+		myView.draw(this, window, graphics);
 	}
 	
 	private void setState(ViewState viewState) {

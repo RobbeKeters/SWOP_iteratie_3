@@ -7,6 +7,7 @@ import Model.Canvas;
 import Model.InvocationMessage;
 import Model.Message;
 import Model.Party;
+import Model.Window;
 
 public class SeqInvocationMessageRepresentation extends MessageRepresentation {
 
@@ -14,12 +15,12 @@ public class SeqInvocationMessageRepresentation extends MessageRepresentation {
 		super(m, messageToDraw);
 	}
 	
-	public void draw(Canvas c, Graphics g) {
-		messageToDraw.draw(c, g);
-		drawMessage(c, g);
+	public void draw(Window w, Graphics g) {
+		messageToDraw.draw(w, g);
+		drawMessage(w, g);
 	}
 	
-	private void drawMessage(Canvas c, Graphics g) {
+	private void drawMessage(Window w, Graphics g) {
 		Party sender = message.getSentBy();
 		Party receiver = message.getReicevedBy();
 
@@ -28,7 +29,7 @@ public class SeqInvocationMessageRepresentation extends MessageRepresentation {
 		
 		int senderX = 0;
 		int receiverX = 0;
-		int y = c.getOrigineY() + c.getHeight()/6 + 50 + (50 * c.getAmountPredecessors(message));
+		int y = w.getOrigineY() + w.getHeight()/6 + 50 + (50 * w.getAmountPredecessors(message));
 		
 		if (sender.getPosSeq().getX() < receiver.getPosSeq().getX()) {
 			senderX = sender.getPosSeq().getX()+3;
