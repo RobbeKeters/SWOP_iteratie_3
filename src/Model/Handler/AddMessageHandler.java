@@ -97,7 +97,7 @@ public class AddMessageHandler extends Handler {
 			window.getInteraction().adjusted(ADJUSTED_TYPE.ADDED_MESSAGE,window); // 2 messages are added
 			window.getInteraction().adjusted(ADJUSTED_TYPE.ADDED_MESSAGE,window);
 
-			EditLabelHandler.handle(window, labelInvocation, invocLabelX, invocLabelY);			
+			EditLabelHandler.handle(window, labelInvocation, invocationMessage, invocLabelX, invocLabelY);			
 		}
 		// Reset roles
 		resetRoles(window);

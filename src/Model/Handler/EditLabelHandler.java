@@ -9,6 +9,7 @@ import Model.Label;
 import Model.Message;
 import Model.Party;
 import Model.Point;
+import Model.ResultMessage;
 import Model.Window;
 
 /**
@@ -23,8 +24,8 @@ public class EditLabelHandler extends Handler{
 	 * @param x			The x coordinate of the mouse event used to handle this event.
 	 * @param y			The y coordinate of the mouse event used to handle this event.
 	 */
-	public static void handle(Window window, Label label, int x, int y) {
-		handle(window, label, Character.MIN_VALUE, x, y);
+	public static void handle(Window window, Label label, Message message, int x, int y) {
+		handle(window, label, message, Character.MIN_VALUE, x, y);
 	}
 	
 	/**
@@ -77,16 +78,24 @@ public class EditLabelHandler extends Handler{
 	 * @param x			The x coordinate of the mouse event used to handle this event.
 	 * @param y			The y coordinate of the mouse event used to handle this event.
 	 */
-	public static void handle(Window window, Label label, char character, int x, int y) {
+	public static void handle(Window window, Label label, Message message, char character, int x, int y) {
 		
 		
 		if(label.getSelected()){
 			if(character==KeyEvent.VK_DELETE) {return;}
 			if (character == KeyEvent.VK_BACK_SPACE){
 				handle(window, label, "BACKSPACE");
+				if (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname())) {
+					setInvocationMethodNameAndArguments((InvocationMessage) message, label.getLabelname());
+				}
 				return;	
 			} else if (character == KeyEvent.VK_ENTER) {
-				handle(window, label, "ENTER");
+				if(message.getClass() == ResultMessage.class || (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname()))) {
+					handle(window, label, "ENTER");
+					if (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname())) {
+						setInvocationMethodNameAndArguments((InvocationMessage) message, label.getLabelname());
+					}
+				}
 				return;
 			} else if (character == KeyEvent.VK_ESCAPE)
 				return;			
@@ -102,8 +111,10 @@ public class EditLabelHandler extends Handler{
 			label.setWidth(width);
 			
 			
-			// Notify Interaction
-			window.getInteraction().adjusted(ADJUSTED_TYPE.MESSAGE_LABEL,window);
+			// Notify Interaction if label is allowed
+			if (message.getClass() == ResultMessage.class || (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname()))) {
+				window.getInteraction().adjusted(ADJUSTED_TYPE.MESSAGE_LABEL,window);
+			}
 		} else {
 			label.setLabelname(label.getLabelname().replace("|", ""));
 		}
@@ -131,11 +142,24 @@ public class EditLabelHandler extends Handler{
 		}
 	}
 	
-	static private boolean isCorrectPartyLabel(String label){
+	static public boolean isCorrectPartyLabel(String label){
 		if(label.matches("([a-z][a-zA-Z]*)?:[A-Z][a-zA-Z]*\\|")){
 			return true;
 		}
 		return false;
+	}
+	
+	static public boolean isCorrectInvocationMessageLabel(String label) {
+		return label.matches("|([a-z][a-zA-Z_0-9]*)[/(]((([^,/(/)]+[,])*[^,/(/)]+)|)[/)]");
+	}
+	
+	static private void setInvocationMethodNameAndArguments(InvocationMessage message, String labelName) {
+		//set method name and arguments for invocation message.
+		String[] s1 = labelName.split("(");
+		message.setMethodName(s1[0]);
+		String[] s2 = s1[1].split(",");
+		s2[s2.length-1] = s2[s2.length-1].substring(0, s2[s2.length-1].length()-1);
+		message.setArguments(s2);
 	}
 	
 	/**

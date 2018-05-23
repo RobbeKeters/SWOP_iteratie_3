@@ -100,9 +100,9 @@ public class MyInteraction {
 			for(Message m : window.getMessages()){
 				if(m.getLabel().getSelected()) {
 					if(window.getView() == Window.View.SEQUENCE)
-						EditLabelHandler.handle(window, m.getLabel(), keyChar, m.getLabel().getLabelPositionSequence().getX(), m.getLabel().getLabelPositionSequence().getY());
+						EditLabelHandler.handle(window, m.getLabel(), m, keyChar, m.getLabel().getLabelPositionSequence().getX(), m.getLabel().getLabelPositionSequence().getY());
 					else 
-						EditLabelHandler.handle(window, m.getLabel(), keyChar, m.getLabel().getLabelPositionComm().getX(), m.getLabel().getLabelPositionComm().getY());
+						EditLabelHandler.handle(window, m.getLabel(), m, keyChar, m.getLabel().getLabelPositionComm().getX(), m.getLabel().getLabelPositionComm().getY());
 					break;
 				}
 			}
