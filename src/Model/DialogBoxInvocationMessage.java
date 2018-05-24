@@ -22,8 +22,25 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		super.addButton(remove);
 		super.addButton(add);
 		
-		String methodCall = i.getLabel().getLabelname();
+		int index = 0;
 		
+		Label method = new Label(i.getMethodName(), xI - 75, yI - 125);
+		method.setWidth(150);
+		super.addTextBox(method);
+		
+		for(String s : i.getArguments()){
+			Label arg = new Label(s, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
+			arg.setWidth(150);
+			super.addTextBox(arg);
+			index++;
+		}
+		
+		Label newArg = new Label("", xI - 75, yI - 25 + i.getLabel().getHeight()*index);
+		newArg.setWidth(150);
+		super.addTextBox(newArg);
+		
+//		String methodCall = i.getLabel().getLabelname();
+		/*
 		boolean methodName = true;
 		int index = 0;
 		boolean stop = false;
@@ -36,6 +53,9 @@ public class DialogBoxInvocationMessage extends DialogBox{
 						methodName=false;
 						j=k;
 						index++;
+						Label l = new Label(var, xI - 75, yI - 125 + i.getLabel().getHeight()*index);
+						l.setWidth(150);
+						super.addTextBox(l);
 						break;
 					}
 					else {
@@ -60,9 +80,11 @@ public class DialogBoxInvocationMessage extends DialogBox{
 			Label l = new Label(var, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
 			l.setWidth(150);
 			super.addTextBox(l);
-			
 		}
-		
+		Label newArg = new Label("", xI - 75, yI - 50 + i.getLabel().getHeight()*index);
+		newArg.setWidth(150);
+		super.addTextBox(newArg);
+		*/
 	}
 
 }
