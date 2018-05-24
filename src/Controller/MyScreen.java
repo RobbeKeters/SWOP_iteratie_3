@@ -135,9 +135,7 @@ public class MyScreen {
 				}
 			}
 			if (!c.getMessages().isEmpty()) {
-				System.out.println("test");
 				for(Message m : c.getMessages()){
-					System.out.println("Message class: " + m.getClass());
 					if(m.getSelected() || m.getLabel().getSelected()){
 						found = true;
 						if(m.getClass().equals(InvocationMessage.class)){

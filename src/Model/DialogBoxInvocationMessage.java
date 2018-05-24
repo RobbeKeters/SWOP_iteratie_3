@@ -42,58 +42,10 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		newArg.setWidth(150);
 		super.addTextBox(newArg);
 		
-//		String methodCall = i.getLabel().getLabelname();
-		/*
-		boolean methodName = true;
-		int index = 0;
-		boolean stop = false;
-		for(int j=0; j<methodCall.length();j++) {
-			if(stop) break;
-			String var = "";
-			for(int k=j; k<methodCall.length();k++) {
-				if(methodName) {
-					if(methodCall.charAt(k)=='(') {
-						methodName=false;
-						j=k;
-						index++;
-						Label l = new Label(var, xI - 75, yI - 125 + i.getLabel().getHeight()*index);
-						l.setWidth(150);
-						super.addTextBox(l);
-						break;
-					}
-					else {
-						var = var + methodCall.charAt(k);
-						}
-				}
-				else {
-					if(methodCall.charAt(k)==',') {
-						j=k;
-						index++;
-						break;
-					} else if (methodCall.charAt(k) == ')'){
-						stop = true;
-						index++;
-						break;
-					}
-					else {
-						var = var + methodCall.charAt(k);
-					}
-				}
-			}
-			Label l = new Label(var, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
-			l.setWidth(150);
-			super.addTextBox(l);
-		}
-<<<<<<< HEAD
-		Label newArg = new Label("", xI - 75, yI - 50 + i.getLabel().getHeight()*index);
-		newArg.setWidth(150);
-		super.addTextBox(newArg);
-		*/
-=======
+//		
 		// Add all buttons en textboxes to one list 
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
->>>>>>> refs/remotes/origin/master
 	}
 
 }

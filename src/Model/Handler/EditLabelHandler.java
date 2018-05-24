@@ -93,6 +93,7 @@ public class EditLabelHandler extends Handler{
 				if(message.getClass() == ResultMessage.class || (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname()))) {
 					handle(window, label, "ENTER");
 					if (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname())) {
+						System.out.println("CORRECT");
 						setInvocationMethodNameAndArguments((InvocationMessage) message, label.getLabelname());
 					}
 				}
@@ -150,12 +151,13 @@ public class EditLabelHandler extends Handler{
 	}
 	
 	static public boolean isCorrectInvocationMessageLabel(String label) {
-		return label.matches("|([a-z][a-zA-Z_0-9]*)[/(]((([^,/(/)]+[,])*[^,/(/)]+)|)[/)]");
+		String corLabel = label.replace("|", "").trim();
+		return corLabel.matches("([a-z][a-zA-Z_0-9]*)[\\(]((([^,\\(\\)]+[,])*[^,\\(\\)]+)*[\\)])");
 	}
 	
 	static private void setInvocationMethodNameAndArguments(InvocationMessage message, String labelName) {
 		//set method name and arguments for invocation message.
-		String[] s1 = labelName.split("(");
+		String[] s1 = labelName.split("\\(");
 		message.setMethodName(s1[0]);
 		String[] s2 = s1[1].split(",");
 		s2[s2.length-1] = s2[s2.length-1].substring(0, s2[s2.length-1].length()-1);

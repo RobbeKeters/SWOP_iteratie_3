@@ -36,5 +36,13 @@ public class InvocationMessage extends Message {
 	public String[] getArguments() {
 		return this.arguments;
 	}
+
+	public void addArgument(String var) {
+		String[] newArguments = new String[arguments.length+1];
+		for(int i = 0; i<arguments.length; i++){
+			newArguments[i] = arguments[i];
+		}
+		newArguments[arguments.length] = var;
+	}
 	
 }

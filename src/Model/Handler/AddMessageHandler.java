@@ -1,5 +1,6 @@
 package Model.Handler;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -87,6 +88,8 @@ public class AddMessageHandler extends Handler {
 			
 			invocationMessage.setLabel(labelInvocation);
 			
+			
+
 			// First all the orders needs to be updated because of the number of predecessors
 			for (Message m : window.getMessages()) {
 				if( m.getClass()== InvocationMessage.class) {
@@ -97,7 +100,11 @@ public class AddMessageHandler extends Handler {
 			window.getInteraction().adjusted(ADJUSTED_TYPE.ADDED_MESSAGE,window); // 2 messages are added
 			window.getInteraction().adjusted(ADJUSTED_TYPE.ADDED_MESSAGE,window);
 
-			EditLabelHandler.handle(window, labelInvocation, invocationMessage, invocLabelX, invocLabelY);			
+			EditLabelHandler.handle(window, labelInvocation, invocationMessage, invocLabelX, invocLabelY);	
+			
+//			System.out.println(labelInvocation.getLabelname());
+//			setArguments(invocationMessage, labelInvocation);
+			
 		}
 		// Reset roles
 		resetRoles(window);
@@ -213,5 +220,49 @@ public class AddMessageHandler extends Handler {
 		}
 		return null;
 	}
+	
+	/*private static void setArguments(InvocationMessage i, Label messLabel){
+		String methodCall = messLabel.getLabelname();
+		boolean methodName = true;
+		int index = 0;
+		boolean stop = false;
+				
+		for(int j=0; j<methodCall.length();j++) {
+			if(stop) break;
+			String var = "";
+			for(int k=j; k<methodCall.length();k++) {
+				if(methodName) {
+					if(methodCall.charAt(k)=='(') {
+						methodName=false;
+						j=k;
+						index++;
+						System.out.println("new method: " + var);
+						i.setMethodName(var);
+						break;
+					}
+					else {
+						var = var + methodCall.charAt(k);
+						}
+				}
+				else {
+					if(methodCall.charAt(k)==',') {
+						j=k;
+						index++;
+						System.out.println("new arg: " + var);
+						i.addArgument(var);
+						break;
+					} else if (methodCall.charAt(k) == ')'){
+						stop = true;
+						index++;
+						break;
+					}
+					else {
+						var = var + methodCall.charAt(k);
+					}
+				}
+			}
+		}
+		
+	}*/
 	
 }
