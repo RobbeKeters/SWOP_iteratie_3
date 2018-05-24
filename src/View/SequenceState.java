@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import Model.Actor;
 import Model.Canvas;
+import Model.InvocationMessage;
 import Model.Message;
 import Model.Party;
 import Model.ResultMessage;
@@ -98,6 +99,8 @@ public class SequenceState implements ViewState {
 		}
 	}
 
+	private ArrayList<Message> sortedMessages = new ArrayList<Message>();
+	
 	private void drawMessages() {
 		for(Message m : window.getSortedMessages()){
 			if(m.getClass() != ResultMessage.class) {
@@ -111,7 +114,6 @@ public class SequenceState implements ViewState {
 			}
 			
 		}
-		
 	}
 	
 	private void drawLabel(Party p) {
@@ -123,5 +125,4 @@ public class SequenceState implements ViewState {
 		LabelRepresentation labelRep = new SeqLabelRepresentation(m.getLabel());
 		labelRep.draw(window, graphics);
 	}
-	
 }

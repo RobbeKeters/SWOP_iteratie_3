@@ -115,6 +115,19 @@ public class Label {
 		labelPositionComm.yCoordinate = y;
 	}
 	
+	public Point getLabelPositionDialog(){
+		return dialogboxPos;
+	}
+	
+	public void setLabelPositionDialog(Point labelPositionDialog){
+		this.dialogboxPos = labelPositionDialog;
+	}
+	
+	public void setLabelPositionDialog(int x, int y){
+		dialogboxPos.xCoordinate = x;
+		dialogboxPos.yCoordinate = y;
+	}
+	
 	/**
 	 * 
 	 * Returns whether or not this label is selected.

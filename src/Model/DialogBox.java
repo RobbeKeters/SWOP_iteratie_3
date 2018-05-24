@@ -32,6 +32,10 @@ public abstract class DialogBox extends Canvas {
 		return buttons.indexOf(b);
 	}
 	
+	public ArrayList<Label> getTextBoxes(){
+		return textBoxes;
+	}
+
 	protected void addTextBox(Label l) {
 		textBoxes.add(l);
 	}

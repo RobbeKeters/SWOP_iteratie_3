@@ -121,7 +121,9 @@ public class MyScreen {
 		if( id == KeyEvent.KEY_PRESSED && keyCode == 17) {
 			ctrlPressed = true;
 		} else if(!screen.getInteractions().isEmpty() && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)) {
-			MyInteraction.keyPressed(id, keyCode, keyChar, (Window)screen.getSubWindows().lastElement());
+			if( screen.getSubWindows().lastElement().getClass() == Model.Window.class) { // Alleen naar interaction als het een window is
+				MyInteraction.keyPressed(id, keyCode, keyChar, (Window)screen.getSubWindows().lastElement());
+			}
 		}
 	}
 	

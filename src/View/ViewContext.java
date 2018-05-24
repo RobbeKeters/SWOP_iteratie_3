@@ -17,7 +17,7 @@ public class ViewContext {
 		myView.draw(this, window, graphics);
 	}
 	
-	private void setState(ViewState viewState) {
+	public void setState(ViewState viewState) {
 		myView = viewState;
 	}
 }
