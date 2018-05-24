@@ -5,8 +5,11 @@ import java.awt.Graphics;
 
 import Model.Button;
 import Model.Canvas;
+import Model.Label;
 import Model.Window;
+import View.representation.DialogLabelRepresentation;
 import View.representation.InputRepresentation;
+import View.representation.LabelRepresentation;
 import View.representation.ListInputRepresentation;
 import View.representation.RadioButtonRepresentation;
 import View.representation.TextButtonRepresentation;
@@ -32,6 +35,7 @@ public class DialogBox {
 		
 		drawSubWindow();
 		drawButtons();
+		drawLabels();
 //		switch(element){
 //		case VIEW:
 //			drawViewControls();
@@ -74,7 +78,14 @@ public class DialogBox {
 				break;
 			}
 		}
-		
+	}	
+	
+	private void drawLabels(){
+		for(Label l : dialogBox.getTextBoxes()){
+			LabelRepresentation lRep = new DialogLabelRepresentation(l);
+			lRep.draw(dialogBox, graphics);
+		}
+	}
 		
 //		RadioButtonRepresentation sequenceB = new RadioButtonRepresentation("SEQUENCE: ", window.getWidth()/2 - 50, window.getHeight()/2);
 //		RadioButtonRepresentation communicationB = new RadioButtonRepresentation("COMMUNICATION: ", window.getWidth()/2 + 100, window.getHeight()/2);
@@ -89,7 +100,7 @@ public class DialogBox {
 //		
 //		sequenceB.draw(window, graphics);
 //		communicationB.draw(window, graphics);
-	}
+//	}
 /*	
 	private void drawPartyControls(){
 		TextInputRepresentation instanceI = new TextInputRepresentation("Instance: ", window.getWidth()/2, (window.getHeight()/2)-50, 50, fontHeight);
