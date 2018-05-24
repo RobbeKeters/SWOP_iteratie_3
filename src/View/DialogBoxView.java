@@ -28,7 +28,6 @@ public class DialogBoxView {
 		fontHeight = graphics.getFontMetrics().getHeight();
 		
 		drawSubWindow();
-		System.out.println("DRAWING DIALOG BOX");
 		drawButtons();
 		drawLabels();
 //		switch(element){
@@ -62,11 +61,12 @@ public class DialogBoxView {
 		for(Button b : dialogBox.getButtons()){
 			switch(b.getType()){
 			case RADIO:				
-				RadioButtonRepresentation r = new RadioButtonRepresentation("TEST: ", b.getOrigineX(), b.getOrigineY());
+				RadioButtonRepresentation r = new RadioButtonRepresentation(b.getTitle(), b.getOrigineX(), b.getOrigineY());
+				r.setActivated(b.getActivated());
 				r.draw(dialogBox, graphics);
 				break;
 			case TEXT:
-				TextButtonRepresentation t = new TextButtonRepresentation("TEST: ", b.getOrigineX(), b.getOrigineY(), b.getWidth(), b.getHeight());
+				TextButtonRepresentation t = new TextButtonRepresentation(b.getTitle(), b.getOrigineX(), b.getOrigineY(), b.getWidth(), b.getHeight());
 				t.draw(dialogBox, graphics);
 				break;
 			case CLOSE:

@@ -27,41 +27,36 @@ public class RadioButtonRepresentation implements Representation{
 		selected = s;
 	}
 	
-	public void draw(Window w, Graphics g) {		
+	public void draw(Canvas c, Graphics g) {		
 		if(selected)
 			g.setColor(Color.blue);
 		else
 			g.setColor(Color.black);
-		drawCircle(w , g);
-		drawTitle(w , g);
+		drawCircle(c , g);
+		drawTitle(c, g);
 		
 		g.setColor(Color.black);
 		if(activated){
-			drawFilledCircle(w , g);
+			drawFilledCircle(c , g);
 		}
 	}
 	
-	private void drawCircle(Window w , Graphics g){
+	private void drawCircle(Canvas w , Graphics g){
 		int diameter = 10;
-		g.drawOval(x + w .getOrigineX(), y + w .getOrigineY(), diameter, diameter);
+		g.drawOval(x, y, diameter, diameter);
 	}
 	
-	private void drawFilledCircle(Window w , Graphics g){
+	private void drawFilledCircle(Canvas w , Graphics g){
 		int diameter = 8;
 		g.setColor(Color.BLACK);
-		g.fillOval(x+w .getOrigineX() + 1, y+w .getOrigineY() + 1, diameter, diameter);
+		g.fillOval(x + 1, y+ 1, diameter, diameter);
 	}
 	
-	private void drawTitle(Window w , Graphics g){
+	private void drawTitle(Canvas w , Graphics g){
 		int margin = 2;
 		int stringWidth = g.getFontMetrics().stringWidth(text);
 		int stringHeight = g.getFontMetrics().getHeight();
-		g.drawString(text, x + w .getOrigineX() - stringWidth - margin, y + w .getOrigineY() + stringHeight/2);
+		g.drawString(text, x - stringWidth - margin, y + stringHeight/2);
 	}
 
-	@Override
-	public void draw(Canvas c, Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
 }

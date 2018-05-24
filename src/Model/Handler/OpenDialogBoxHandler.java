@@ -14,8 +14,8 @@ public class OpenDialogBoxHandler extends Handler{
 	
 	private static final int xOrigin = 50;
 	private static final int yOrigin = 50;
-	private static final int height = 200;
-	private static final int width = 200;
+	private static final int height = 300;
+	private static final int width = 300;
 
 	public static void handle(Party p, Screen s) {
 		DialogBoxParty db = new DialogBoxParty(xOrigin,yOrigin,height,width,p); 

@@ -11,6 +11,8 @@ import java.awt.Graphics;
 public class Button {
 	
 	private Type type;
+	private String title;
+	private boolean activated;
 	private int width;
 	private int height;
 	private int OrigineX;
@@ -27,6 +29,11 @@ public class Button {
 		this.width = 14;
 		this.height = 14;
 		setType(type);
+	}
+	
+	public Button(String title, int xInput, int yInput, Type type){
+		this(xInput, yInput, type);
+		setTitle(title);
 	}
 	
 	/**
@@ -118,6 +125,22 @@ public class Button {
 	
 	public Type getType(){
 		return type;
+	}
+	
+	private void setTitle(String title){
+		this.title = title;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
+	public void setActivated(boolean a){
+		activated = a;
+	}
+	
+	public boolean getActivated(){
+		return activated;
 	}
 	
 }

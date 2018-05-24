@@ -9,6 +9,9 @@ import java.awt.event.MouseEvent;
 import Controller.Mouse;
 import Model.Canvas;
 import Model.DialogBox;
+import Model.DialogBoxInvocationMessage;
+import Model.DialogBoxParty;
+import Model.DialogBoxResultMessage;
 import Model.DialogBoxWindow;
 import Model.Screen;
 import Model.Window;
@@ -62,7 +65,6 @@ public class MyCanvasWindow extends CanvasWindow{
 		g.setFont(font);
 				
 		for(Canvas c : screen.getSubWindows()) {
-			System.out.println(c.getClass());
 			if(c.getClass()==Window.class) {
 				Window w = (Window)c;
 				ViewContext viewContext = new ViewContext();
@@ -74,17 +76,23 @@ public class MyCanvasWindow extends CanvasWindow{
 					v = new CommunicationState();
 					viewContext.setState(new CommunicationState());
 				v.draw(viewContext, w, g);
-	//			View v;
-	//			if (c.getView() == Canvas.View.SEQUENCE)
-	//				v = new SequenceDiagram();
-	//			else
-	//				v = new CommunicationDiagram();
-	//			v.draw(c, g);
 			}
 			//TODO
 			else if(c.getClass().equals(DialogBoxWindow.class)) {
 				DialogBoxView box = new DialogBoxView();
 				box.draw(SelectedElement.VIEW, (DialogBox) c, g);
+			}
+			else if (c.getClass().equals(DialogBoxParty.class)) {
+				DialogBoxView box = new DialogBoxView();
+				box.draw(SelectedElement.PARTY, (DialogBox) c, g);
+			}
+			else if (c.getClass().equals(DialogBoxInvocationMessage.class)) {
+				DialogBoxView box = new DialogBoxView();
+				box.draw(SelectedElement.INVOCATION_MESSAGE, (DialogBox) c, g);
+			}
+			else if (c.getClass().equals(DialogBoxResultMessage.class)) {
+				DialogBoxView box = new DialogBoxView();
+				box.draw(SelectedElement.RESULT_MESSAGE, (DialogBox) c, g);
 			}
 		}
 	}
