@@ -4,15 +4,23 @@ public class DialogBoxParty extends DialogBox{
 
 	Party source; 
 	
-	public DialogBoxParty(int width, int height, int origineX, int origineY, Party p) {
-		super(width, height, origineX, origineY);
+	public DialogBoxParty(int origineX, int origineY, int width, int height,  Party p) {
+		super(origineX, origineY, width, height);
 		
 		source = p;
+
+		int xI = origineX + width/2 ;
+		int yI = origineY + height/2 ;
+		Button actor = new Button("actor: ",xI - 50, yI + 25, Button.Type.RADIO);
+		Button object = new Button("object: ",xI + 50, yI + 25, Button.Type.RADIO);
 		
-		int xI = origineX + 50 ;
-		int yI = origineY + 50 ;
-		Button actor = new Button(xI, yI, Button.Type.RADIO);
-		Button object = new Button(xI, yI+24, Button.Type.RADIO);
+		if(p.getClass().equals(Actor.class)){
+			actor.setActivated(true);
+			object.setActivated(false);
+		} else {
+			actor.setActivated(false);
+			object.setActivated(true);
+		}
 		super.addButton(actor);
 		super.addButton(object);
 		
@@ -27,8 +35,11 @@ public class DialogBoxParty extends DialogBox{
 			else {_class = _class+name.charAt(i);}
 		}
 		
-		Label instanceName = new Label(_instance,xI, yI+24 );
-		Label className = new Label(_class,xI+24, yI+24);
+		Label instanceName = new Label(_instance,xI, yI-25 );
+		Label className = new Label(_class,xI, yI);
+		
+		instanceName.setTitle("instance: ");
+		className.setTitle("class: ");
 		super.addTextBox(className);
 		super.addTextBox(instanceName);
 		

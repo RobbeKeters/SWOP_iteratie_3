@@ -77,7 +77,9 @@ public class DialogBoxView {
 		
 	private void drawLabels(){
 		for(Label l : dialogBox.getTextBoxes()){
-			LabelRepresentation lRep = new DialogLabelRepresentation(l);
+			DialogLabelRepresentation lRep = new DialogLabelRepresentation(l);
+//			TextInputRepresentation tRep = new TextInputRepresentation(l.getLabelname(), l.getLabelPositionDialog().getX() - graphics.getFontMetrics().stringWidth(l.getLabelname()), l.getLabelPositionDialog().getY(), l.getWidth(), l.getHeight());
+//			tRep.draw(dialogBox, graphics);
 			lRep.draw(dialogBox, graphics);
 		}
 	}

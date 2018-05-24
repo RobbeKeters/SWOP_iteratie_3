@@ -18,7 +18,7 @@ public class TextInputRepresentation extends InputRepresentation{
 	public void draw(Canvas c, Graphics g) {
 		super.draw(c, g);
 //		drawLabel(c, g);
-		drawText(c, g);
+//		drawText(c, g);
 	}
 	
 	

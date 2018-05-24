@@ -13,6 +13,7 @@ public class Label {
 	private boolean selected;
 	private int width = 50;
 	private int height = 20;
+	private String title;
 	
 	/**
 	 * 
@@ -193,6 +194,14 @@ public class Label {
 	public void setHeight(int h) throws IllegalArgumentException {
 		if(h<0) {throw new IllegalArgumentException("Negative Height");}
 		height = h;
+	}
+	
+	public void setTitle(String t){
+		title = t;
+	}
+	
+	public String getTitle(){
+		return title;
 	}
 	
 }

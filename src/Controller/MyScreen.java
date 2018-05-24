@@ -6,6 +6,10 @@ import java.util.Stack;
 
 import Model.Canvas;
 import Model.Interaction;
+import Model.InvocationMessage;
+import Model.Message;
+import Model.Party;
+import Model.ResultMessage;
 import Model.Screen;
 import Model.Window;
 import Model.Handler.AddInteractionHandler;
@@ -112,7 +116,24 @@ public class MyScreen {
 		// ctrl + ENTER
 		else if (ctrlPressed && keyCode == 10 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)){
 			Window c = (Window) screen.getSubWindows().lastElement();
-			OpenDialogBoxHandler.handle(c, screen);
+			if(!c.getParties().isEmpty()){
+				for(Party p : c.getParties()){
+					if(p.getSelected()){
+						OpenDialogBoxHandler.handle(p, screen);
+						break;
+					}
+				}
+			} else if (!c.getMessages().isEmpty()) {
+				for(Message m : c.getMessages()){
+					if(m.getSelected()){
+						if(m.getClass().equals(InvocationMessage.class))
+							OpenDialogBoxHandler.handle((InvocationMessage) m, screen);
+						else
+							OpenDialogBoxHandler.handle((ResultMessage) m, screen);
+					}
+				}
+			} else 
+				OpenDialogBoxHandler.handle(c, screen);
 		}
 		else {
 			ctrlPressed = false;

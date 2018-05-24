@@ -23,9 +23,22 @@ public class DialogLabelRepresentation extends LabelRepresentation {
 			g.setColor(Color.RED);
 
 		char[] name = label.getLabelname().toCharArray();
-		g.drawChars(name, 0, name.length, x-(width/2)+5, y);
+		g.drawChars(name, 0, name.length, x, y);
 		label.setWidth(width);
 		g.setColor(Color.BLACK);
+		
+		drawRectangle(c, g);
+		drawTitle(c, g);
+	}
+	
+	private void drawTitle(Canvas c, Graphics g) {
+		String title = label.getTitle();
+		g.drawString(title, x - g.getFontMetrics().stringWidth(title) - 10, y);
+	}
+
+	private void drawRectangle(Canvas c, Graphics g){
+		g.setColor(Color.BLACK);
+		g.drawRect(x - 5, y - g.getFontMetrics().getHeight(), width, height);
 	}
 
 }

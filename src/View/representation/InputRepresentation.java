@@ -24,7 +24,7 @@ public class InputRepresentation {
 	private void drawRectangle(Canvas c, Graphics g){
 //		int height = ;
 		g.setColor(Color.BLACK);
-		g.drawRect(x + c.getOrigineX(), y + c.getOrigineY(), width, height);
+		g.drawRect(x, y, width, height);
 	}
 	
 	
