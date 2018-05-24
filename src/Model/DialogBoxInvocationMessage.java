@@ -4,14 +4,18 @@ public class DialogBoxInvocationMessage extends DialogBox{
 
 	InvocationMessage source;
 	
-	public DialogBoxInvocationMessage(int width, int height, int origineX, int origineY, InvocationMessage i) {
-		super(width, height, origineX, origineY);
+	public DialogBoxInvocationMessage(int origineX, int origineY, int width, int height, InvocationMessage i) {
+		super(origineX, origineY, width, height);
+		
+		int xI = origineX + width/2;
+		int yI = origineY + height/2;
+				
 		source = i;
 		
-		Button add = new Button(origineX+50, origineY+50, Button.Type.TEXT);
-		Button remove = new Button(origineX+50, origineY+74, Button.Type.TEXT);
-		Button moveUp = new Button(origineX+74, origineY+74, Button.Type.TEXT);
-		Button moveDown = new Button(origineX+74, origineY+50, Button.Type.TEXT);
+		Button add = new Button("add", xI+50, yI+50, Button.Type.TEXT);
+		Button remove = new Button("X", xI+50, yI-75, Button.Type.TEXT);
+		Button moveUp = new Button("/\\", xI+50, yI-50, Button.Type.TEXT);
+		Button moveDown = new Button("\\/",xI+50, yI-25, Button.Type.TEXT);
 		
 		super.addButton(moveDown);
 		super.addButton(moveUp);
@@ -21,20 +25,42 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		String methodCall = i.getLabel().getLabelname();
 		
 		boolean methodName = true;
-		int index = 1;
+		int index = 0;
+		boolean stop = false;
 		for(int j=0; j<methodCall.length();j++) {
+			if(stop) break;
 			String var = "";
 			for(int k=j; k<methodCall.length();k++) {
 				if(methodName) {
-					if(methodCall.charAt(k)=='(') {methodName=false;j=k+1;index++;break;}
-					else {var = var + methodCall.charAt(k);}
+					if(methodCall.charAt(k)=='(') {
+						methodName=false;
+						j=k;
+						index++;
+						break;
+					}
+					else {
+						var = var + methodCall.charAt(k);
+						}
 				}
 				else {
-					if(methodCall.charAt(k)==',') {j=k+1;index++;break;}
-					else {var = var + methodCall.charAt(k);}
+					if(methodCall.charAt(k)==',') {
+						j=k;
+						index++;
+						break;
+					} else if (methodCall.charAt(k) == ')'){
+						stop = true;
+						index++;
+						break;
+					}
+					else {
+						var = var + methodCall.charAt(k);
+					}
 				}
 			}
-			super.addTextBox(new Label(var, 50, 64+14*index));
+			Label l = new Label(var, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
+			l.setWidth(150);
+			super.addTextBox(l);
+			
 		}
 		
 	}

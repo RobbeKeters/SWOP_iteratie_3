@@ -116,23 +116,34 @@ public class MyScreen {
 		// ctrl + ENTER
 		else if (ctrlPressed && keyCode == 10 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)){
 			Window c = (Window) screen.getSubWindows().lastElement();
+			//TODO: voorlopig staat alles hier in, maar ik denk niet dat dat zo correct is...
+			boolean found = false;
 			if(!c.getParties().isEmpty()){
 				for(Party p : c.getParties()){
-					if(p.getSelected()){
+					if(p.getSelected() || p.getLabel().getSelected()){
+						found = true;
 						OpenDialogBoxHandler.handle(p, screen);
 						break;
 					}
 				}
-			} else if (!c.getMessages().isEmpty()) {
+			}
+			if (!c.getMessages().isEmpty()) {
+				System.out.println("test");
 				for(Message m : c.getMessages()){
-					if(m.getSelected()){
-						if(m.getClass().equals(InvocationMessage.class))
+					System.out.println("Message class: " + m.getClass());
+					if(m.getSelected() || m.getLabel().getSelected()){
+						found = true;
+						if(m.getClass().equals(InvocationMessage.class)){
 							OpenDialogBoxHandler.handle((InvocationMessage) m, screen);
-						else
+							break;
+						} else {
 							OpenDialogBoxHandler.handle((ResultMessage) m, screen);
+							break;
+						}
 					}
 				}
-			} else 
+			} 
+			if(!found)
 				OpenDialogBoxHandler.handle(c, screen);
 		}
 		else {
