@@ -35,7 +35,7 @@ public class MyInteraction {
 	 * @param interaction	The interaction to be handled and edited.
 	 */
 	public static void mouseClicked(Mouse id, int x, int y, Window window, Interaction interaction) {
-		
+				
 		if(window.getMode()==Mode.ADDMESSAGE) {SelectElementHandler.deselectAll(window);}
 		
 		switch(id){
@@ -44,10 +44,12 @@ public class MyInteraction {
 			if(window.getMode()==Mode.ADDMESSAGE) {System.out.println("######## Handling Message ########");AddMessageHandler.handle(window, x, y);}
 			if(window.getMode()==Mode.ADDMESSAGE || window.getMode()==Mode.MOVEPARTY) {SelectElementHandler.handle(window, x, y, Mouse.RELEASED);break;}
 		case DRAGGED:
-			if(window.getMode()==Mode.MOVEPARTY) {MovePartyHandler.handle(window, x, y);break;}		
+			if(window.getMode()==Mode.MOVEPARTY) {MovePartyHandler.handle(window, x, y);}	
+			else { SelectElementHandler.handle(window, x, y, Mouse.PRESSED);}
+			break;
 		case PRESSED:
-			SelectElementHandler.handle(window, x, y, Mouse.PRESSED);break;	
-		
+			SelectElementHandler.handle(window, x, y, Mouse.PRESSED);
+			break;	
 		case SINGLECLICK:
 			SelectElementHandler.handle(window, x, y, Mouse.SINGLECLICK);break; 
 			
@@ -58,7 +60,7 @@ public class MyInteraction {
 				}
 		}
 		
-		CloseWindowHandler.handle(interaction.getSubWindows());
+		//CloseWindowHandler.handle(interaction.getSubWindows());
 		
 	}
 	

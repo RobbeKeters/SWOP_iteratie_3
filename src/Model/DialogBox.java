@@ -51,5 +51,41 @@ public abstract class DialogBox extends Canvas {
 	public int getIndex(Label l) {
 		return textBoxes.indexOf(l);
 	}
-	
+	public static void updatePositionsAttributes(DialogBox db , int newXorigine, int newYorigine) {
+		int oldOrigineX = db.getOrigineX();
+		int oldOrigineY = db.getOrigineY();
+		db.setOrigineX(newXorigine);
+		db.setOrigineY(newYorigine);
+		
+		int xOld = 0;
+		int yOld = 0;
+		int dx = 0;
+		int dy = 0;
+		
+		// update Buttons
+		ArrayList<Button> buttons = db.getButtons();
+		for( Button b : buttons) {
+			xOld = b.getOrigineX();
+			yOld = b.getOrigineY();
+		
+			dx = Math.abs((xOld-oldOrigineX));
+			dy = Math.abs((yOld-oldOrigineY));
+			
+			b.setOrigineX(newXorigine+dx);
+			b.setOrigineY(newYorigine+dy);
+		}
+		// update Labels
+		ArrayList<Label> labels = db.getTextBoxes();
+		for( Label l : labels) {
+			xOld = l.getLabelPositionDialog().getX();
+			yOld = l.getLabelPositionDialog().getY();
+			
+			dx = Math.abs((xOld-oldOrigineX));
+			dy = Math.abs((yOld-oldOrigineY));
+			
+			l.setLabelPositionDialog(newXorigine+ dx, newYorigine+dy);
+			
+		}
+		
+	}
 }

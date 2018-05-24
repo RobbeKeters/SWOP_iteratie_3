@@ -1,7 +1,7 @@
 package Model;
 import java.util.ArrayList;
 import Model.Handler.MoveWindowHandler;
-import Model.Handler.ResizeWindowHandler;
+import Model.Handler.*;
 
 /**
  * A collection of canvases that all share the same message system.
@@ -348,7 +348,7 @@ public class Interaction {
 		for( Message m : notUpdatedWindow.getMessages()) {
 			Interaction.updateMessagePropertiesAfterClone(updatedWindow,notUpdatedWindow, m);
 		}
-		ResizeWindowHandler.updateYPositionLMessageLabelsSequenceDiagram(notUpdatedWindow);
+		Window.updateYPositionLMessageLabelsSequenceDiagram(notUpdatedWindow);
 	}
 
 }

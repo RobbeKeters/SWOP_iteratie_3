@@ -9,7 +9,7 @@ import Model.Window;
 /**
  * A handler that handles the actions of a window being resized.
  */
-public class ResizeWindowHandler extends Handler{
+public class ResizeCanvasHandler extends Handler{
 
 	/**
 	 * Handles the resizing of a window
@@ -52,35 +52,5 @@ public class ResizeWindowHandler extends Handler{
 		}
 	}
 	
-	/**
-	 * Updates the position of the messages of the given canvas.
-	 * @param window	Canvas for which to update the message positions.
-	 * 
-	 */
-	
-	//TODO Move to Window?
-	
-	public static void updateYPositionLMessageLabelsSequenceDiagram(Window window) {
-		for (Message m : window.getMessages()) {
-			int newY = window.getOrigineY() +window.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(window, m));
-			m.getLabel().setLabelPositionSeq(m.getLabel().getLabelPositionSequence().getX(), newY);
-		}
-	}
-	
-	/**
-	 * Updates the position of the parties of the given canvas.
-	 * @param window	Canvas for which to update the party positions.
-	 * 
-	 */
-	
-	//TODO Move to window?
-	
-	private static void updateYPositionPartySequenceDiagram(Window window) {
-		for( Party p : window.getParties()) {
-			int newY = window.getOrigineY() +window.getHeight()/12;
-			p.setPosSeq(p.getPosSeq().getX(), newY);
-			p.getLabel().setLabelPositionSeq(p.getLabel().getLabelPositionSequence().getX(),newY +p.getHeight() + 10);
-		}
-	}
 	
 }

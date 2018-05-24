@@ -108,14 +108,16 @@ public class MyCanvasWindow extends CanvasWindow{
 	@Override
 	protected void handleMouseEvent(int id, int x, int y, int clickCount){
 		// 
-		if( !screen.getInteractions().isEmpty() && screen.getSubWindows().lastElement().getClass() == Model.Window.class) {
+		if( !screen.getInteractions().isEmpty()) {
 			// TODO Handle DialogBox
-			Window window = (Window)screen.getSubWindows().lastElement();
+			Canvas currentCanvas = screen.getSubWindows().lastElement();
 			
-			System.out.println("######## "+window.getMode()+" ########");
+			System.out.println("######## "+currentCanvas.getMode()+" ########");
 			
-			if(!EditLabelHandler.editLabelModeParty(window)) {
-				
+			if(screen.getSubWindows().lastElement().getClass() == Model.Window.class && EditLabelHandler.editLabelModeParty((Window)currentCanvas)) {
+				// Do nothing! -> Still in EditMode
+			}	
+			else {	
 				switch(id) {
 					
 				case MouseEvent.MOUSE_CLICKED: 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import Model.Canvas;
+import Model.DialogBox;
 import Model.Interaction;
 import Model.InvocationMessage;
 import Model.Message;
@@ -17,6 +18,7 @@ import Model.Handler.AddWindowHandler;
 import Model.Handler.CloseWindowHandler;
 import Model.Handler.EditLabelHandler;
 import Model.Handler.OpenDialogBoxHandler;
+import Model.Handler.SelectElementHandlerDialogBox;
 
 /**
  * A class that processes input related to the Screen class.
@@ -51,16 +53,16 @@ public class MyScreen {
 	 * @param screen	The screen to be handled and edited.
 	 */
 	public void mouseClicked(Mouse id, int x, int y, Screen screen) {
-		
+			
 		ctrlPressed = false;
 		
-		// First check if a party label is left in a valid state + check if there are any interactions
-		if (!screen.getInteractions().isEmpty() && !EditLabelHandler.editLabelModeParty((Window)screen.getSubWindows().lastElement())) {
+// 		if (!screen.getInteractions().isEmpty() && (screen.getSubWindows().lastElement().getClass() == Model.DialogBox.class  ||!EditLabelHandler.editLabelModeParty((Window)screen.getSubWindows().lastElement()))) {
+		
+		if (!screen.getInteractions().isEmpty()) {
 			// Determine Canvas 
 			Canvas canvas = null;
-			
-			
-			Stack<Canvas> findList = new Stack<Canvas>();
+					
+			Stack<Canvas> findList = new Stack<Canvas>(); 
 			findList.addAll(screen.getSubWindows());
 			boolean found = false;
 			Canvas top = findList.lastElement();
@@ -76,14 +78,19 @@ public class MyScreen {
 			
 			// Check if the selected canvas was on top of the stack(active canvas)
 			if( top == canvas) {
-				// Delegate to Interaction
-				MyInteraction.mouseClicked(id, x, y, (Window) canvas,((Window) canvas).getInteraction() );
+				// Delegate to Interaction ( if top of the stack is a window!)
+				if( screen.getSubWindows().lastElement().getClass() == Model.Window.class) {
+					MyInteraction.mouseClicked(id, x, y, (Window) canvas,((Window) canvas).getInteraction() );
+				} else { 
+					// Top is DialogBox
+					SelectElementHandlerDialogBox.handle((DialogBox) canvas, x, y, id);
+				}
 			}
 		}
 		
 		CloseWindowHandler.handle(screen.getSubWindows());
 		
-		// Find any Empty Interaction(empty interaction =  canvas left) ==> delete empty Interaction
+		// Find any Empty Interaction(empty interaction =  window left) ==> delete empty Interaction
 		ArrayList<Interaction> toBeDeletedInteraction = new ArrayList<Interaction>();
 		for( Interaction i :screen.getInteractions()) {
 			if(i.getSubWindows().isEmpty()) {
@@ -170,7 +177,7 @@ public class MyScreen {
 		// "+4" is for resize -> canvas.resize methods
 		int xHigh = xLow + lastElement.getWidth() + 8 ;
 		int yHigh = yLow + lastElement.getHeight() + 8;
-		
+			
 		if( x >= xLow && x <= xHigh && y >= yLow && y <= yHigh) {
 			return true;
 		}

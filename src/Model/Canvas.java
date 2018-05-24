@@ -197,5 +197,122 @@ public abstract class Canvas {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	
+	public static boolean closeCanvas(Canvas window, int xMouse, int yMouse) {
+		Button button = window.getFramework().getBar().getButton();
+		int buttonOrigineX = button.getOrigineX();
+		int buttonOrigineY = button.getOrigineY();
+		int upperX = buttonOrigineX + button.getWidth();
+		int upperY = buttonOrigineY + button.getHeight();
+		if( xMouse >= buttonOrigineX && xMouse <= upperX && yMouse >= buttonOrigineY && yMouse <= upperY ) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean moveCanvas(Canvas window,int xMouse, int yMouse) {
+		// If cursor is in button Area => wait for id==Mouse.SINGLECLICK in handle Method
+		if(closeCanvas(window, xMouse,yMouse)) {
+			return false;
+		}
+		
+		titleBar bar = window.getFramework().getBar();
+		int barOrigineX = bar.getOrigineX();
+		int barOrigineY = bar.getOrigineY();
+		int upperX = barOrigineX + window.getFramework().getBar().getWidth(window);
+		int upperY = barOrigineY + window.getFramework().getBar().getHeight();
+		if( xMouse >= barOrigineX && xMouse <= upperX && yMouse >= barOrigineY && yMouse <= upperY ) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean resizeXRightCanvas(Canvas canvas, int xMouse, int yMouse ) {		
+		int origineX = canvas.getOrigineX();
+		int origineY = canvas.getOrigineY();
+		int width = canvas.getWidth();
+		int height = canvas.getHeight();
+		// Right check 
+		if ( (origineX + width -4) <= xMouse && (origineX + width +4) >= xMouse	 && (origineY -4) <= yMouse && (origineY +4 + height) >= yMouse ) {
+			return true;
+		}
+		return false;		
+	}
+	public static boolean resizeXLeftCanvas(Canvas canvas, int xMouse, int yMouse) {
+		int origineX = canvas.getOrigineX();
+		int origineY = canvas.getOrigineY();
+		int width = canvas.getWidth();
+		int height = canvas.getHeight();
+		// Left check
+		if( (origineX-4) <= xMouse && (origineX+4) >= xMouse && (origineY -4) <= origineY && (origineY + height+4) >= yMouse) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean resizeYTopCanvas(Canvas canvas, int xMouse, int yMouse) {
+		int origineX = canvas.getOrigineX();
+		int origineY = canvas.getOrigineY();
+		int width = canvas.getWidth();
+		int height = canvas.getHeight();
+		// Top check
+		if( (origineX-4) <= xMouse && xMouse <= (origineX + width +4) && (origineY -4) <= yMouse && (origineY +4) >= yMouse) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean resizeYLowerCanvas(Canvas canvas,int xMouse, int yMouse) {
+		int origineX = canvas.getOrigineX();
+		int origineY = canvas.getOrigineY();
+		int width = canvas.getWidth();
+		int height = canvas.getHeight();
+		// Lower check
+		if( (origineX-4) <= xMouse && (origineX + width +4) >= xMouse && (origineY +height -4) <= yMouse && (origineY+height+4)>= yMouse ) {
+			return true;
+		}
+		return  false;
+	}
+	public static boolean resizeLowerRightCornerCanvas(Canvas canvas, int xMouse, int yMouse) {
+		int xLow = canvas.getOrigineX() + canvas.getWidth() - 4;
+		int xHigh = xLow + 8;
+		int yLow = canvas.getOrigineY() + canvas.getHeight() -4;
+		int yHigh = yLow + 8;
+		if ( xMouse >= xLow && xMouse <= xHigh && yMouse  >= yLow && yMouse <= yHigh) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean resizeLowerLeftCornerCanvas(Canvas canvas, int xMouse, int yMouse) {
+		int xLow = canvas.getOrigineX() - 4;
+		int xHigh = xLow + 8;
+		int yLow = canvas.getOrigineY() + canvas.getHeight() -4;
+		int yHigh = yLow + 8;
+		if ( xMouse >= xLow && xMouse <= xHigh && yMouse  >= yLow && yMouse <= yHigh) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean resizeTopLeftCornerCanvas(Canvas canvas, int xMouse, int yMouse) {
+		int xLow = canvas.getOrigineX() - 4;
+		int xHigh = xLow + 8;
+		int yLow = canvas.getOrigineY()  -4;
+		int yHigh = yLow + 8;
+		if ( xMouse >= xLow && xMouse <= xHigh && yMouse  >= yLow && yMouse <= yHigh) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean resizeTopRightCornerCanvas(Canvas canvas, int xMouse, int yMouse) {
+		int xLow = canvas.getOrigineX() + canvas.getWidth() - 4;
+		int xHigh = xLow + 8;
+		int yLow = canvas.getOrigineY() -4;
+		int yHigh = yLow + 8;
+		if ( xMouse >= xLow && xMouse <= xHigh && yMouse  >= yLow && yMouse <= yHigh) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 
 }
