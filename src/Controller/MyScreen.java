@@ -161,8 +161,11 @@ public class MyScreen {
 		} else if(!screen.getInteractions().isEmpty() && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)) {
 			if( screen.getSubWindows().lastElement().getClass() == Model.Window.class) { // Alleen naar interaction als het een window is
 				MyInteraction.keyPressed(id, keyCode, keyChar, (Window)screen.getSubWindows().lastElement());
+			} else {
+				SelectElementHandlerDialogBox.handleKey(id, keyCode, keyChar, (DialogBox)screen.getSubWindows().lastElement());
 			}
 		}
+		
 	}
 	
 	/**

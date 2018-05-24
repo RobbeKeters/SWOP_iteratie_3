@@ -13,6 +13,9 @@ public class DialogBoxWindow extends DialogBox{
 		Button sequence = new Button("SEQUENCE: ", xI - 50, yI, Button.Type.RADIO);
 		Button communication = new Button("COMMUNICATION: ",xI+100, yI, Button.Type.RADIO);
 		
+		// sequence is geselecteerd bij instantiatie
+		sequence.setSelectedControl(true);
+		
 		if(s.getView().equals(Window.View.SEQUENCE)){
 			sequence.setActivated(true);
 			communication.setActivated(false);
@@ -23,6 +26,10 @@ public class DialogBoxWindow extends DialogBox{
 		
 		super.addButton(sequence);
 		super.addButton(communication);
+		
+		// Add all buttons en textboxes to one list 
+		this.getListControls().addAll(this.getButtons());
+		this.getListControls().addAll(this.getTextBoxes());
 	}
 	
 	

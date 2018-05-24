@@ -63,11 +63,13 @@ public class DialogBoxView {
 			case RADIO:				
 				RadioButtonRepresentation r = new RadioButtonRepresentation(b.getTitle(), b.getOrigineX(), b.getOrigineY());
 				r.setActivated(b.getActivated());
+				r.setSelected(b.isSelected());
 				r.draw(dialogBox, graphics);
 				break;
 			case TEXT:
 				TextButtonRepresentation t = new TextButtonRepresentation(b.getTitle(), b.getOrigineX(), b.getOrigineY(), b.getWidth(), b.getHeight());
 				t.draw(dialogBox, graphics);
+				t.setSelected(b.isSelected());
 				break;
 			case CLOSE:
 				break;

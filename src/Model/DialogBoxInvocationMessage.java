@@ -17,6 +17,9 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		Button moveUp = new Button("/\\", xI+50, yI-50, Button.Type.TEXT);
 		Button moveDown = new Button("\\/",xI+50, yI-25, Button.Type.TEXT);
 		
+		// add is geselecteerd bij instantiatie 
+		add.setSelectedControl(true);
+		
 		super.addButton(moveDown);
 		super.addButton(moveUp);
 		super.addButton(remove);
@@ -62,7 +65,9 @@ public class DialogBoxInvocationMessage extends DialogBox{
 			super.addTextBox(l);
 			
 		}
-		
+		// Add all buttons en textboxes to one list 
+		this.getListControls().addAll(this.getButtons());
+		this.getListControls().addAll(this.getTextBoxes());
 	}
 
 }

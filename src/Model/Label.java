@@ -4,7 +4,7 @@ package Model;
  * 
  * @author Kevin Lavrijssen, Wout Mees, Florent Nander Meijer, Robbe Keters
  */
-public class Label {
+public class Label implements Control{
 	
 	private String labelname;
 	private Point labelPositionSeq;
@@ -22,6 +22,7 @@ public class Label {
 	 * @param labelName		The new label's name.
 	 */
 	public Label(String labelName) {
+		this.selected = false;
 		this.labelname = labelName;
 		this.labelPositionSeq = new Point(5,5);
 		this.labelPositionComm = new Point(5,5);
@@ -202,6 +203,16 @@ public class Label {
 	
 	public String getTitle(){
 		return title;
+	}
+
+	@Override
+	public void setSelectedControl(Boolean selected) {
+		this.selected = selected;
+	}
+
+	@Override
+	public boolean isSelectedControl() {
+		return this.selected;
 	}
 	
 }

@@ -8,7 +8,7 @@ import java.awt.Graphics;
  * 
  * @author Kevin Lavrijssen, Wout Mees, Florent Nander Meijer, Robbe Keters
  */
-public class Button {
+public class Button implements Control{
 	
 	private Type type;
 	private String title;
@@ -17,6 +17,7 @@ public class Button {
 	private int height;
 	private int OrigineX;
 	private int OrigineY;
+	private boolean selected;
 	
 	/**
 	 * Constructor.
@@ -24,6 +25,7 @@ public class Button {
 	 * @param yInput	The y coordinate of the origin of the new button.
 	 */
 	public Button(int xInput,int yInput, Type type) {
+		this.selected = false;
 		this.OrigineX = xInput;
 		this.OrigineY =yInput;
 		this.width = 14;
@@ -69,7 +71,7 @@ public class Button {
 	}
 	
 	/**
-	 * Sraws a visual representation of this button.
+	 * Draws a visual representation of this button.
 	 * @param g		The graphics object used to draw.
 	 */
 	public void draw(Graphics g) {
@@ -142,5 +144,19 @@ public class Button {
 	public boolean getActivated(){
 		return activated;
 	}
+
+	@Override
+	public void setSelectedControl(Boolean selected) {
+		this.selected= selected;		
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	@Override
+	public boolean isSelectedControl() {
+		return this.selected;
+	}	
 	
 }

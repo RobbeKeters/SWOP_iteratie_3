@@ -1,16 +1,24 @@
 package Model;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Stack;
+
+import Controller.Mouse;
 
 public abstract class DialogBox extends Canvas {
 
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private ArrayList<Label> textBoxes = new ArrayList<Label>();
-	
+	private ArrayList<Control> listControls = new ArrayList<Control>();
 	
 	public DialogBox(int origineX, int origineY, int width, int height) {
 		super(width, height, origineX, origineY);
 	}
+	
+	public void handleMouse(Mouse id, int x, int y ) {
+		
+	};
 	
 	public ArrayList<Button> getButtons(){
 		return buttons;
@@ -88,4 +96,21 @@ public abstract class DialogBox extends Canvas {
 		}
 		
 	}
+
+	public ArrayList<Control> getListControls() {
+		return listControls;
+	}
+
+	public void setListControls(ArrayList<Control> listControls) {
+		this.listControls = listControls;
+	}
+	public Control findActiveControl() {
+		for( Control c : this.getListControls()) {
+			if ( c.isSelectedControl()	) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
 }
