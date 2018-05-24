@@ -28,7 +28,8 @@ public class DialogLabelRepresentation extends LabelRepresentation {
 		g.setColor(Color.BLACK);
 		
 		drawRectangle(c, g);
-		drawTitle(c, g);
+		if(label.getTitle() != null)
+			drawTitle(c, g);
 	}
 	
 	private void drawTitle(Canvas c, Graphics g) {

@@ -13,7 +13,7 @@ public class Label {
 	private boolean selected;
 	private int width = 50;
 	private int height = 20;
-	private String title;
+	private String title = null;
 	
 	/**
 	 * 
