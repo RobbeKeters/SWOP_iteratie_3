@@ -58,7 +58,7 @@ public class ResizeWindowHandler extends Handler{
 	 * 
 	 */
 	
-	//TODO Move to canvas?
+	//TODO Move to Window?
 	
 	public static void updateYPositionLMessageLabelsSequenceDiagram(Window window) {
 		for (Message m : window.getMessages()) {
@@ -73,7 +73,7 @@ public class ResizeWindowHandler extends Handler{
 	 * 
 	 */
 	
-	//TODO Move to canvas?
+	//TODO Move to window?
 	
 	private static void updateYPositionPartySequenceDiagram(Window window) {
 		for( Party p : window.getParties()) {
