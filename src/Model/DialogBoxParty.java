@@ -14,6 +14,9 @@ public class DialogBoxParty extends DialogBox{
 		Button actor = new Button("actor: ",xI - 50, yI + 25, Button.Type.RADIO);
 		Button object = new Button("object: ",xI + 50, yI + 25, Button.Type.RADIO);
 		
+		// actor is geselecteerd bij instantiatie
+		actor.setSelectedControl(true);
+		
 		if(p.getClass().equals(Actor.class)){
 			actor.setActivated(true);
 			object.setActivated(false);
@@ -42,6 +45,10 @@ public class DialogBoxParty extends DialogBox{
 		className.setTitle("class: ");
 		super.addTextBox(className);
 		super.addTextBox(instanceName);
+		
+		// Add all buttons en textboxes to one list 
+		this.getListControls().addAll(this.getButtons());
+		this.getListControls().addAll(this.getTextBoxes());
 		
 	}
 

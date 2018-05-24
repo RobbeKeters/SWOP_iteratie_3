@@ -36,4 +36,12 @@ public class TextButtonRepresentation {
 	private void drawString(Canvas c, Graphics g){
 		g.drawString(text, x + c.getOrigineX() + width/2-g.getFontMetrics().stringWidth(text)/2, y + c.getOrigineY() + g.getFontMetrics().getHeight()-2);
 	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 }

@@ -1,7 +1,11 @@
 package Model.Handler;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
 import Controller.Mouse;
 import Model.Canvas;
+import Model.Control;
 import Model.Mode;
 import Model.ResizeWindow;
 import Model.DialogBox;
@@ -19,6 +23,8 @@ public class SelectElementHandlerDialogBox extends Handler {
 			// Closing Canvas 
 			if (Canvas.closeCanvas(db,x,y)) {
 				db.setMode(Mode.CLOSING);
+			} else {
+				db.handleMouse(id, x,y);
 			}
 		}
 		
@@ -53,6 +59,21 @@ public class SelectElementHandlerDialogBox extends Handler {
 			}
 			else if( Canvas.moveCanvas(db, x,y)) {
 				DialogBox.updatePositionsAttributes(db, newXorigine, newYorigine);
+			}
+		}
+	}
+
+	public static void handleKey(int id, int keyCode, char keyChar, DialogBox db) {;
+		if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_TAB ) {
+			// Switch to next Control (Button or textBox)
+			Control activeControl = db.findActiveControl();
+			ArrayList<Control> listControls = db.getListControls();
+			if( listControls.size() > 1) {
+				listControls.remove(activeControl);
+				activeControl.setSelectedControl(false);
+				Control nextControl = listControls.get(0);
+				nextControl.setSelectedControl(true);
+				listControls.add(listControls.size()-1, activeControl);
 			}
 		}
 	}
