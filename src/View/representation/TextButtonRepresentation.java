@@ -30,11 +30,11 @@ public class TextButtonRepresentation {
 	}
 	
 	private void drawRectangle(Canvas c, Graphics g){
-		g.drawRect(x + c.getOrigineX(), y + c.getOrigineY(), width, height);
+		g.drawRect(x, y, width, height);
 	}
 	
 	private void drawString(Canvas c, Graphics g){
-		g.drawString(text, x + c.getOrigineX() + width/2-g.getFontMetrics().stringWidth(text)/2, y + c.getOrigineY() + g.getFontMetrics().getHeight()-2);
+		g.drawString(text, x + width/2-g.getFontMetrics().stringWidth(text)/2, y + g.getFontMetrics().getHeight()-2);
 	}
 
 	public boolean isSelected() {
