@@ -89,8 +89,14 @@ public class frameWork {
 		this.origineY = origineY;
 	}
 
-	public void draw(Canvas canvas, Graphics graphics) {
-		throw new IllegalArgumentException("Not implemented distinguish dialogbox");
+	public void draw(Canvas c, Graphics g) {
+		//throw new IllegalArgumentException("Not implemented distinguish dialogbox");
+		this.origineX = c.getOrigineX();
+		this.origineY = c.getOrigineY();
+		
+	    g.drawRect(origineX, origineY, c.getWidth()-1, c.getHeight()-1);
+
+	    bar.draw(c, g);
 	}
 	
 }

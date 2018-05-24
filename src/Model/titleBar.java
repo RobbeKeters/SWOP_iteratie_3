@@ -89,6 +89,26 @@ public class titleBar {
 
 	}
 	
+	public void draw(Canvas c, Graphics g){
+		
+		title = "Dialog Box";
+		
+		this.OrigineX = c.getOrigineX();
+		this.OrigineY = c.getOrigineY();
+		
+		// Title Bar
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(OrigineX, OrigineY, c.getWidth(), height);
+		g.setColor(Color.BLACK);
+		g.drawRect(OrigineX, OrigineY, c.getWidth(), height);
+		g.drawString(title, OrigineX + 20 , OrigineY + 14);
+		
+		button.setOrigineX(OrigineX);
+		button.setOrigineY(OrigineY);
+		button.draw(g);
+		
+	}
+	
 	/**
 	 * Returns this title bar's x coordinate of origin.
 	 * @return This title bar's x coordinate of origin.

@@ -111,7 +111,6 @@ public class MyScreen {
 		} 
 		// ctrl + ENTER
 		else if (ctrlPressed && keyCode == 10 && (id == KeyEvent.KEY_PRESSED || id == KeyEvent.KEY_TYPED)){
-			System.out.println("test");
 			Window c = (Window) screen.getSubWindows().lastElement();
 			OpenDialogBoxHandler.handle(c, screen);
 		}

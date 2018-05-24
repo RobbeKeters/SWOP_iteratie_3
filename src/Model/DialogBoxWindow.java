@@ -4,8 +4,8 @@ public class DialogBoxWindow extends DialogBox{
 
 	Window source;
 	
-	public DialogBoxWindow(int width, int height, int origineX, int origineY, Window s) {
-		super(width, height, origineX, origineY);
+	public DialogBoxWindow(int origineX, int origineY, int width, int height, Window s) {
+		super(origineX, origineY, width, height);
 		source = s;
 		
 		int xI = origineX + 50 ;

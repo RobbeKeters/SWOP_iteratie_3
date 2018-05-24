@@ -8,7 +8,7 @@ public abstract class DialogBox extends Canvas {
 	private ArrayList<Label> textBoxes = new ArrayList<Label>();
 	
 	
-	public DialogBox(int width, int height, int origineX, int origineY) {
+	public DialogBox(int origineX, int origineY, int width, int height) {
 		super(width, height, origineX, origineY);
 	}
 	

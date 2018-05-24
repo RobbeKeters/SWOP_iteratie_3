@@ -34,7 +34,7 @@ public class OpenDialogBoxHandler extends Handler{
 	
 	public static void handle(Window w, Screen s) {
 		DialogBoxWindow db = new DialogBoxWindow(xOrigin,yOrigin,height,width,w);
-		s.getSubWindows().push(db);
+		s.getSubWindows().add(db);
 	}
 	
 }

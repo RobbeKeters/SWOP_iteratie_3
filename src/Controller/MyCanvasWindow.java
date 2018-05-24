@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import Controller.Mouse;
 import Model.Canvas;
 import Model.DialogBox;
+import Model.DialogBoxWindow;
 import Model.Screen;
 import Model.Window;
 import Model.Handler.EditLabelHandler;
@@ -61,6 +62,7 @@ public class MyCanvasWindow extends CanvasWindow{
 		g.setFont(font);
 				
 		for(Canvas c : screen.getSubWindows()) {
+			System.out.println(c.getClass());
 			if(c.getClass()==Window.class) {
 				Window w = (Window)c;
 				ViewContext viewContext = new ViewContext();
@@ -80,10 +82,9 @@ public class MyCanvasWindow extends CanvasWindow{
 	//			v.draw(c, g);
 			}
 			//TODO
-			else if(c.getClass()==DialogBox.class) {
+			else if(c.getClass().equals(DialogBoxWindow.class)) {
 				DialogBoxView box = new DialogBoxView();
-				// PartyBox wordt nu alleen getekend -> TEST 
-				box.draw( SelectedElement.PARTY, (DialogBox)c, g);
+				box.draw(SelectedElement.VIEW, (DialogBox) c, g);
 			}
 		}
 	}
