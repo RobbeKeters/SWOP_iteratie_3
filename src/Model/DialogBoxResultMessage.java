@@ -9,7 +9,7 @@ public class DialogBoxResultMessage extends DialogBox{
 	/**
 	 * The linked result message.
 	 */
-	ResultMessage source;
+	public ResultMessage source;
 	
 	/**
 	 * Constructor.
