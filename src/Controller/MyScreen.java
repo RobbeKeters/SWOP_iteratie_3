@@ -302,12 +302,13 @@ public class MyScreen {
 					}
 				}
 			} else if ( c.getClass().equals(Model.DialogBoxWindow.class)){
+				/*
 				DialogBoxWindow db = (DialogBoxWindow) c;
 				//Interaction iDialog = findInteractionForDialogParty(screen, db);
 				DialogBoxWindow newDb = new DialogBoxWindow(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source );
 				int indexOldDB = screen.getSubWindows().indexOf(db);
 				screen.getSubWindows().set(indexOldDB, newDb);
-
+				*/
 			} else if ( c.getClass().equals(Model.DialogBoxResultMessage.class) ){
 				DialogBoxResultMessage db = (DialogBoxResultMessage) c;
 				//Interaction iDialog = findInteractionForDialogParty(screen, db);				
