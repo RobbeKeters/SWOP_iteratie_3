@@ -28,7 +28,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		
 		ArrayList<Label> arguments = new ArrayList<Label>();
 		ListBox listBox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100, arguments);
-		listBox.setTitle("arguments: ");
+//		listBox.setTitle("arguments: ");
 		listBox.setWidth(150);
 		
 		
@@ -38,7 +38,6 @@ public class DialogBoxInvocationMessage extends DialogBox{
 			listBox.addArgument(arg);
 			index++;
 		}
-		
 		super.addListBox(listBox);
 		
 		Label newArg;

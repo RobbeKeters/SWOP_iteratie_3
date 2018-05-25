@@ -82,6 +82,14 @@ public class ListBox implements Control{
 		selected = b;
 	}
 	
+	public int getX(){
+		return originX;
+	}
+	
+	public int getY(){
+		return originY;
+	}
+	
 	public int getHeight(){
 		return height;
 	}
