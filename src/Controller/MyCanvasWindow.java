@@ -164,11 +164,11 @@ public class MyCanvasWindow extends CanvasWindow{
 		MyCanvasWindow myCanvas = new MyCanvasWindow("My Canvas Window");
 		
 //		2 -- Create a recording
-	    String pathPrefix =
-		 "C:\\Users\\robbe\\git\\SWOP_iteratie_3\\src\\tests\\recordings\\";
-		 String newFile = "moveParty/moveMultiplePartyCom";
-	     String filePath = pathPrefix + newFile;
-		 myCanvas.recordSession(filePath);
+//	    String pathPrefix =
+//		 "C:\\Users\\robbe\\git\\SWOP_iteratie_3\\src\\tests\\recordings\\";
+//		 String newFile = "moveParty/moveMultiplePartyCom";
+//	     String filePath = pathPrefix + newFile;
+//		 myCanvas.recordSession(filePath);
 		
 //		1 -- Run the interactrr
 	     java.awt.EventQueue.invokeLater(() -> {
