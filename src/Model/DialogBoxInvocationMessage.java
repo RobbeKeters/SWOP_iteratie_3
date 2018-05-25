@@ -31,7 +31,6 @@ public class DialogBoxInvocationMessage extends DialogBox{
 //		listBox.setTitle("arguments: ");
 		listBox.setWidth(150);
 		
-		
 		for(String s : i.getArguments()){
 			Label arg = new Label(s, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
 			arg.setWidth(150);
@@ -39,24 +38,14 @@ public class DialogBoxInvocationMessage extends DialogBox{
 			index++;
 		}
 		
-		System.out.println(listBox.getArguments());
 		super.addListBox(listBox);
 		
-		
-		Label newArg;
-//		if(index > 2)
-			newArg = new Label("", xI - 75, yI - 50 + listBox.getHeight());
-//		else
-//			newArg = new Label("", xI - 75, yI - 50 + i.getLabel().getHeight()*3);
+		Label newArg = new Label("", xI - 75, yI - 50 + listBox.getHeight());
 		newArg.setTitle("add arg.:");
 		newArg.setWidth(150);
 		super.addTextBox(newArg);
 		
-		Button add;
-//		if(index > 2)
-			add = new Button("+", xI+75, yI - 50 + listBox.getHeight(), Button.Type.TEXT);
-//		else
-//			add = new Button("+", xI+75, yI - 65 + i.getLabel().getHeight()*3, Button.Type.TEXT);
+		Button add = new Button("+", xI+75, yI - 50 + listBox.getHeight(), Button.Type.TEXT);
 
 		Button remove = new Button("X", xI+75, yI - 100, Button.Type.TEXT);
 		Button moveUp = new Button("/\\", xI+75, yI- 100 + i.getLabel().getHeight(), Button.Type.TEXT);
