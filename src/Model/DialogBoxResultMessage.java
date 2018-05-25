@@ -17,6 +17,7 @@ public class DialogBoxResultMessage extends DialogBox{
 		int yI = origineY + height/2;
 		
 		Label result = new Label(r.getLabel().getLabelname(),xI, yI);
+		result.setTitle("result: ");
 		super.addTextBox(result);
 		result.setSelected(true);
 		
