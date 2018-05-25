@@ -11,7 +11,7 @@ public class ListBox implements Control{
 	ArrayList<Label> arguments = new ArrayList<Label>();
 	Label selectedLabel = null;
 	
-	public ListBox() {
+	public ListBox(int x, int y, ArrayList<Label> labels) {
 		
 	}
 	
@@ -48,11 +48,11 @@ public class ListBox implements Control{
 		else {arguments.get(arguments.size()-1).setSelected(true);selectedLabel.setSelected(false); selectedLabel = arguments.get(arguments.size()-1);}
 	}
 	
-	public Label getSelected() {
+	public Label getSelectedLabel() {
 		return selectedLabel;
 	}
 	
-	public void setSelected(Label l) {
+	public void setSelectedLabel(Label l) {
 		selectedLabel.setSelected(false);
 		l.setSelected(true);
 		selectedLabel = l;
@@ -61,6 +61,14 @@ public class ListBox implements Control{
 	public Object getArguments() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public boolean getSelected() {
+		return selected;
+	}
+	
+	public void setSelected(boolean b) {
+		selected = b;
 	}
 	
 }
