@@ -77,11 +77,11 @@ public class MoveWindowHandler extends Handler {
 	public static void updateMessagePositions(Window window,int oldXorigine,int oldYorigine,int newXorigine,int newYorigine) {
 		for( Message m: window.getMessages()) {
 			
-			if( m.getClass().equals( Model.InvocationMessage.class) ){
+			//if( m.getClass().equals( Model.InvocationMessage.class) ){
 				int invocLabelX = Math.max(m.getReicevedBy().getPosSeq().getX(), m.getSentBy().getPosSeq().getX()) - Math.abs( (m.getReicevedBy().getPosSeq().getX() - m.getSentBy().getPosSeq().getX() )/2);
 				int invocLabelY = window.getOrigineY() +window.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(window, m));
 				m.getLabel().setLabelPositionSeq(new Point(invocLabelX, invocLabelY));
-			}
+			//}
 			
 			// Update Label Positions Sequence Diagram
 			int xSeq = m.getLabel().getLabelPositionSequence().getX();

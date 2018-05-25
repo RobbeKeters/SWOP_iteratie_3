@@ -157,6 +157,19 @@ public class Button implements Control{
 	@Override
 	public boolean isSelectedControl() {
 		return this.selected;
+	}
+
+	@Override
+	public TypeControl returnType() {
+		return TypeControl.Button;
+	}
+
+	@Override
+	public boolean inArea(int x, int y) {
+		if ( x <= this.getOrigineX() + this.width && x >= this.getOrigineX() && y <= this.OrigineY+this.height && y >= this.OrigineY ) {
+			return true;
+		} 
+		return false;
 	}	
 	
 }

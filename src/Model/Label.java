@@ -214,5 +214,18 @@ public class Label implements Control{
 	public boolean isSelectedControl() {
 		return this.selected;
 	}
+
+	@Override
+	public TypeControl returnType() {
+		return TypeControl.Label;
+	}
+
+	@Override
+	public boolean inArea(int x, int y) {
+		if ( x <= this.dialogboxPos.getX() + this.width && x >= this.dialogboxPos.getX() && y <= this.dialogboxPos.getY()+this.height && y >= this.dialogboxPos.getY() ) {
+			return true;
+		} 
+		return false;
+	}
 	
 }

@@ -1,0 +1,8 @@
+package Model;
+
+public enum diaLogAdjusted {
+	LABELADJUSTED,
+	NOTADJUSTED,
+	TYPEADJUSTED,
+	DIAGRAMTYPECHANGED
+}

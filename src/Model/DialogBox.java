@@ -16,9 +16,8 @@ public abstract class DialogBox extends Canvas {
 		super(width, height, origineX, origineY);
 	}
 	
-	public void handleMouse(Mouse id, int x, int y ) {
-		
-	};
+	public abstract void handleMouse(Mouse id, int x, int y );
+	public abstract void handleKey(int id, int keyCode, char keyChar);
 	
 	public ArrayList<Button> getButtons(){
 		return buttons;
@@ -104,13 +103,4 @@ public abstract class DialogBox extends Canvas {
 	public void setListControls(ArrayList<Control> listControls) {
 		this.listControls = listControls;
 	}
-	public Control findActiveControl() {
-		for( Control c : this.getListControls()) {
-			if ( c.isSelectedControl()	) {
-				return c;
-			}
-		}
-		return null;
-	}
-	
 }

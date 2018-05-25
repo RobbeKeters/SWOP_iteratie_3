@@ -219,6 +219,8 @@ public class Window extends Canvas{
 	 * Switch this canvas's diagram type.
 	 */
 	public void switchView() {
+		// Notify Interaction that view is switched!!
+		this.interaction.adjustedDialog = diaLogAdjusted.DIAGRAMTYPECHANGED;
 		if(getView() == View.SEQUENCE) {setCommunicationDiagram();}
 		else if(getView() == View.COMMUNICATION) {setSequenceDiagram();}	
 	}

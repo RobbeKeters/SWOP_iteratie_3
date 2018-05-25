@@ -11,6 +11,7 @@ import Model.Party;
 import Model.Point;
 import Model.ResultMessage;
 import Model.Window;
+import Model.diaLogAdjusted;
 
 /**
  * A handler that handles the actions of a label being edited.
@@ -64,6 +65,9 @@ public class EditLabelHandler extends Handler{
 			// Notify Interaction if Party is allowed !!!!!!!!!!!!!!!!!!!!
 			if (isCorrectPartyLabel(label.getLabelname())) {
 				window.getInteraction().adjusted(ADJUSTED_TYPE.PARTY_LABEL,window);
+				window.getInteraction().adjustedDialog = diaLogAdjusted.LABELADJUSTED;
+				window.getInteraction().oldParty = party;
+				window.getInteraction().newParty = party;
 			}
 		} else {
 			label.setLabelname(label.getLabelname().replace("|", ""));

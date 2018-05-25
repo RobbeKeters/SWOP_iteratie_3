@@ -7,6 +7,7 @@ import Model.Message;
 import Model.Object;
 import Model.Party;
 import Model.Window;
+import Model.diaLogAdjusted;
 
 /**
  * A handler that handles the actions of a party changing its type.
@@ -51,6 +52,10 @@ public class SetPartyTypeHandler extends Handler {
 		// Notify Interaction
 		window.getInteraction().adjusted(ADJUSTED_TYPE.CHANGE_TYPE, window);
 		
+		// Notify Dialog
+		window.getInteraction().oldParty = changingParty;
+		window.getInteraction().newParty = partyToAdd;
+		window.getInteraction().adjustedDialog = diaLogAdjusted.TYPEADJUSTED;
 		
 	}
 }

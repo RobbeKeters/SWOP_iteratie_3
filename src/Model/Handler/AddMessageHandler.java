@@ -88,14 +88,24 @@ public class AddMessageHandler extends Handler {
 			
 			invocationMessage.setLabel(labelInvocation);
 			
+			// Handle ResultMessage 
+			Label labelResultMessage = new Label("RESULT");
+			labelResultMessage.setSelected(false);
+			int RLabelX = Math.max(resultMessage.getReicevedBy().getPosSeq().getX(), resultMessage.getSentBy().getPosSeq().getX()) - Math.abs( (resultMessage.getReicevedBy().getPosSeq().getX() - resultMessage.getSentBy().getPosSeq().getX() )/2);
+			int RLabelY = window.getOrigineY() +window.getHeight()/6 + 42 + (50 * getAmountPredecessors(window, resultMessage));
 			
-
+			System.out.println(RLabelX  + "       ----------=-=-=-=-=-=-=-=-=-=-:(");
+			labelInvocation.setLabelPositionSeq(new Point(RLabelX, RLabelY));
+			
+			resultMessage.setLabel(labelResultMessage);
+			
 			// First all the orders needs to be updated because of the number of predecessors
 			for (Message m : window.getMessages()) {
-				if( m.getClass()== InvocationMessage.class) {
-					m.getLabel().setLabelPositionSeq(m.getLabel().getLabelPositionSequence().getX(),window.getOrigineY() + window.getHeight()/6 + 42 + (50 * getAmountPredecessors(window, m)));
-				}
+				//if( m.getClass()== InvocationMessage.class) {
+					m.getLabel().setLabelPositionSeq(Math.max(m.getReicevedBy().getPosSeq().getX(), m.getSentBy().getPosSeq().getX()) - Math.abs( (m.getReicevedBy().getPosSeq().getX() - m.getSentBy().getPosSeq().getX() )/2),window.getOrigineY() + window.getHeight()/6 + 42 + (50 * getAmountPredecessors(window, m)));
+				//}
 			}
+			System.out.println(resultMessage.getLabel().getLabelPositionSequence().getX() + " =====<><><><>++++++");
 			// Notify Interaction
 			window.getInteraction().adjusted(ADJUSTED_TYPE.ADDED_MESSAGE,window); // 2 messages are added
 			window.getInteraction().adjusted(ADJUSTED_TYPE.ADDED_MESSAGE,window);

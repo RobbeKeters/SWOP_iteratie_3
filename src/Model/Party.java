@@ -20,6 +20,8 @@ public abstract class Party {
 	private Random randNumberPos;
 	private  int partyNumber;
 	private int selectedYPosition;
+	public diaLogAdjusted adjustedThroughDialog;
+
 	
 	/**
 	 * Constructor for a party.

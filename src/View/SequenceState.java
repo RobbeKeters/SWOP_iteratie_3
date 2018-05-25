@@ -110,7 +110,7 @@ public class SequenceState implements ViewState {
 			} else {
 				SeqResultMessageRepresentation messageRep = new SeqResultMessageRepresentation(m, new SeqMessageRepresentation(m, new SeqSimpleMessageRepresentation(m)));
 				messageRep.draw(window, graphics);
-
+				drawLabel(m);
 			}
 			
 		}

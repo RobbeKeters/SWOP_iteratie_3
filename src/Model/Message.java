@@ -17,6 +17,7 @@ public class Message {
 	private int width = 1;
 	ResultMessage result = null;
 	private int messageNumber;
+	public diaLogAdjusted adjustedThroughDialog;
 	
 	/**
 	 * Constructor.

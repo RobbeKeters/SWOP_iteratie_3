@@ -24,6 +24,15 @@ public class Interaction {
 		subWindows.add(w);
 	}
 
+	// If the interaction is changed -> sign for screen to update the correct Dialog if there is one
+	public diaLogAdjusted adjustedDialog;
+	
+	public Party oldParty;
+	public Party newParty;
+	public Label oldLabel;
+	public Label newLabel;
+	public Window changedWindow;
+	
 	private ArrayList<Window> subWindows = new ArrayList<Window>();
 	//private Random randNumberPos = new Random();
 	
@@ -350,7 +359,9 @@ public class Interaction {
 		}
 		Window.updateYPositionLMessageLabelsSequenceDiagram(notUpdatedWindow);
 	}
-
+	public void updatedInteractionToWarnDiaglog(diaLogAdjusted value) {
+		this.adjustedDialog = value;
+	}
 }
 
 

@@ -1,5 +1,10 @@
 package Model;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import Controller.Mouse;
+
 public class DialogBoxWindow extends DialogBox{
 
 	Window source;
@@ -31,7 +36,72 @@ public class DialogBoxWindow extends DialogBox{
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
 	}
+
+	@Override
+	public void handleMouse(Mouse id, int x, int y) {
+		if ( id == Mouse.SINGLECLICK) {
+			Button clickedButton = null;
+			for ( Button b : this.getButtons() ) {
+				if( b.inArea(x, y)) {
+					b.setSelectedControl(true);
+					b.setActivated(true);
+					source.switchView();
+					clickedButton = b;
+					break;
+				} 
+			}
+			if ( clickedButton != null ) {
+				for ( Button b : this.getButtons())	{
+					if ( b != clickedButton) {
+						b.setSelectedControl(false);
+						b.setActivated(false);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void handleKey(int id, int keyCode, char keyChar) {
+		if(id  == KeyEvent.KEY_TYPED && keyChar == KeyEvent.VK_TAB ) {
+			Button clickedButton = null;
+			for ( Button b : this.getButtons() ) {
+				if ( !b.isSelected()) { // only 2 options
+					b.setSelectedControl(true);
+					clickedButton = b;
+				}
+			}
+			if( clickedButton != null	) {
+				for ( Button b: this.getButtons()) {
+					if ( b != clickedButton) {
+						b.setSelectedControl(false);
+					}
+				}
+			}
+		}
+		if( id == KeyEvent.KEY_TYPED && keyChar == KeyEvent.VK_SPACE) {
+			for ( Button b: this.getButtons()) {
+				if ( b.isSelected()) {
+					b.setActivated(true);
+				} else {
+					b.setActivated(false);
+				}
+			}
+			source.switchView();
+		}
+	}
 	
-	
+	public void updateButtons() {
+		for ( Button b : this.getButtons()) {
+			b.setActivated(false);
+		}
+		for ( Button b : this.getButtons()) {
+			if( b.getTitle().equals("SEQUENCE: ") && source.getView() == Window.View.SEQUENCE) {
+				b.setActivated(true);
+			} else if (  b.getTitle().equals("COMMUNICATION: ") && source.getView() == Window.View.COMMUNICATION) {
+				b.setActivated(true);
+			}
+		}
+	}
 
 }
