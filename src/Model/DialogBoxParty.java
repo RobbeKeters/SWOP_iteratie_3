@@ -147,8 +147,12 @@ public class DialogBoxParty extends DialogBox{
 					classs.setLabelname(classs.getLabelname().substring(0, classs.getLabelname().length()-1));
 				}
 			}
-			source.getLabel().setLabelname(instance.getLabelname()+":"+classs.getLabelname());
-			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
+			
+			String newLabelName = instance.getLabelname()+":"+classs.getLabelname();
+			if (EditLabelHandler.isCorrectPartyLabel(newLabelName + "|")) {
+				source.getLabel().setLabelname(newLabelName);
+				source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
+			}
 			
 			int width = 8*instance.getLabelname().length();
 			if (width == 0)

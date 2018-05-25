@@ -148,7 +148,7 @@ public class EditLabelHandler extends Handler{
 	}
 	
 	static public boolean isCorrectPartyLabel(String label){
-		if(label.matches("([a-z][a-zA-Z]*)?:[A-Z][a-zA-Z]*\\|")){
+		if(label.matches("([a-z][a-zA-Z]*):[A-Z][a-zA-Z]*\\|")){
 			return true;
 		}
 		return false;

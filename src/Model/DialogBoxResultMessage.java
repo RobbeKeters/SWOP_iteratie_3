@@ -59,6 +59,12 @@ public class DialogBoxResultMessage extends DialogBox{
 					l.setSelected(false);
 				}
 			}
+		} else if (id == KeyEvent.KEY_TYPED && keyChar == KeyEvent.VK_TAB ) {
+			for ( Label l : this.getTextBoxes()) {
+				if ( !l.isSelectedControl()) {
+					l.setSelected(true);
+				}
+			}
 		} else if ( id== KeyEvent.KEY_TYPED && selectedLabel != null && keyChar != KeyEvent.VK_BACK_SPACE ) {
 			source.getLabel().setLabelname(source.getLabel().getLabelname()+keyChar);
 			selectedLabel.setLabelname(source.getLabel().getLabelname());
