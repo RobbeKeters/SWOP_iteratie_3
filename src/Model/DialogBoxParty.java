@@ -60,7 +60,6 @@ public class DialogBoxParty extends DialogBox{
 
 	@Override
 	public void handleMouse(Mouse id, int x, int y) {
-//		this.getListControls().get(0).setSelectedControl(false);
 		if ( id == Mouse.SINGLECLICK) {
 			Control clickedControl = null;
 			for ( Control d :this.getListControls()) {
@@ -72,9 +71,8 @@ public class DialogBoxParty extends DialogBox{
 			}
 			if ( clickedControl != null) {
 				for ( Control d :this.getListControls()) {
-					if (d == clickedControl) {
+					if (d == clickedControl) 
 						d.setSelectedControl(true);
-					}
 					else
 						d.setSelectedControl(false);
 				}
@@ -108,10 +106,10 @@ public class DialogBoxParty extends DialogBox{
 		}
 		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_SPACE ) {
 			Control c = getSelectedControl();
-			if ( c.returnType() == TypeControl.Button	) {
-				// deActivate the other 
+			if (c!=null && c.returnType() == TypeControl.Button	) {
+				// deactivate the other button
 				for ( Button b : this.getButtons()) {
-					if ( c == b	) {
+					if ( b == c	) {
 						source.adjustedThroughDialog =diaLogAdjusted.TYPEADJUSTED;
 						b.setActivated(true);
 						b.setSelectedControl(true);
@@ -120,7 +118,7 @@ public class DialogBoxParty extends DialogBox{
 						b.setSelectedControl(false);
 					}
 				}
-			} else if (c.returnType() == TypeControl.Label) {
+			} else if (c!=null && c.returnType() == TypeControl.Label) {
 				// EDIT LABEL van Party
 			}
 		}
