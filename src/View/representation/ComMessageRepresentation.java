@@ -5,12 +5,25 @@ import java.awt.Graphics;
 import Model.Canvas;
 import Model.Message;
 
+/**
+ * A visual representation of an message in a communication diagram.
+ */
 public class ComMessageRepresentation extends MessageRepresentation {
-
+	
+	/**
+	 * Constructor.
+	 * @param m					The message to represent.
+	 * @param messageToDraw		The message to draw.
+	 */
 	public ComMessageRepresentation(Message m, Representation messageToDraw) {
 		super(m, messageToDraw);
 	}
-
+	
+	/**
+	 * Draws the message's representation.
+	 * @param c		The canvas to which the actor belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas c, Graphics g) {
 		messageToDraw.draw(c, g);
 		drawLine(c, g);

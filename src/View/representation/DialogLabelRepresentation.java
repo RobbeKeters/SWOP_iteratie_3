@@ -6,10 +6,17 @@ import java.awt.Graphics;
 import Model.Canvas;
 import Model.Label;
 
+/**
+ * A visual representation of a dialog label.
+ */
 public class DialogLabelRepresentation extends LabelRepresentation {
 
 	private int x, y, width, height;
 	
+	/**
+	 * Constructor.
+	 * @param l		The label to represent.
+	 */
 	public DialogLabelRepresentation(Label l) {
 		super(l);
 		this.x = l.getLabelPositionDialog().getX();
@@ -18,6 +25,11 @@ public class DialogLabelRepresentation extends LabelRepresentation {
 		this.height = l.getHeight();
 	}
 	
+	/**
+	 * Draws the dialog label's representation.
+	 * @param c		The canvas to which the actor belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas c, Graphics g){
 		if (label.getSelected())
 			g.setColor(Color.RED);

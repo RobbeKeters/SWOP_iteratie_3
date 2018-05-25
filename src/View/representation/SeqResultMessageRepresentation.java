@@ -8,12 +8,25 @@ import Model.Message;
 import Model.Party;
 import Model.Window;
 
+/**
+ * A visual representation of a result message in a sequence diagram.
+ */
 public class SeqResultMessageRepresentation extends MessageRepresentation {
-
+	
+	/**
+	 * Constructor.
+	 * @param m					The message to represent.
+	 * @param messageToDraw		The message to draw.
+	 */
 	public SeqResultMessageRepresentation(Message m, Representation messageToDraw) {
 		super(m, messageToDraw);
 	}
 	
+	/**
+	 * Draws the message's representation.
+	 * @param c		The canvas to which the actor belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Window w, Graphics g) {
 		messageToDraw.draw(w, g);
 		drawMessage(w, g);

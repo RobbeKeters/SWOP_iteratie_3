@@ -6,12 +6,24 @@ import java.awt.Graphics;
 import Model.Canvas;
 import Model.Label;
 
+/**
+ * A visual representation of an label in a sequence diagram.
+ */
 public class SeqLabelRepresentation extends LabelRepresentation {
-
+	
+	/**
+	 * Constructor.
+	 * @param l		The label to represent.
+	 */
 	public SeqLabelRepresentation(Label l) {
 		super(l);
 	}
 	
+	/**
+	 * Draws the label's representation.
+	 * @param c		The canvas to which the label belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas c, Graphics g) {
 		if (label.getSelected())
 			g.setColor(Color.RED);
