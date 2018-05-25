@@ -222,7 +222,7 @@ public class Label implements Control{
 
 	@Override
 	public boolean inArea(int x, int y) {
-		if ( x <= this.dialogboxPos.getX() + this.width && x >= this.dialogboxPos.getX() && y <= this.dialogboxPos.getY()+this.height && y >= this.dialogboxPos.getY() ) {
+		if ( x <= this.dialogboxPos.getX() + this.width && x >= this.dialogboxPos.getX() && y >= this.dialogboxPos.getY()-this.height && y <= this.dialogboxPos.getY() ) {
 			return true;
 		} 
 		return false;

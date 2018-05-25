@@ -120,11 +120,11 @@ public class UseCaseTests {
 	}
 	@Test
 	public void addSinglePartyComTest() {
-		MyCanvasWindow.replayRecording(path + "addParty/addSingleCom", canvasWindow);
+		MyCanvasWindow.replayRecording(path + "addParty/addSinglePartyCom", canvasWindow);
 	}
 	@Test
 	public void addMultiplePartyComTest() {
-		MyCanvasWindow.replayRecording(path + "addParty/addMultipleCom", canvasWindow);
+		MyCanvasWindow.replayRecording(path + "addParty/addMultiplePartyCom", canvasWindow);
 	}
 	
 	@Test
@@ -150,7 +150,7 @@ public class UseCaseTests {
 	}
 	@Test
 	public void moveSinglePartyComTest() {
-		MyCanvasWindow.replayRecording(path + "moveParty/moveSingleCom", canvasWindow);
+		MyCanvasWindow.replayRecording(path + "moveParty/moveSinglePartyCom", canvasWindow);
 	}
 	@Test
 	public void moveMultiplePartySeqTest() {
@@ -158,7 +158,7 @@ public class UseCaseTests {
 	}
 	@Test
 	public void moveMultiplePartyComTest() {
-		MyCanvasWindow.replayRecording(path + "moveParty/moveMultipleCom", canvasWindow);
+		MyCanvasWindow.replayRecording(path + "moveParty/moveMultiplePartyCom", canvasWindow);
 	}
 	
 	/**
@@ -187,8 +187,12 @@ public class UseCaseTests {
 		MyCanvasWindow.replayRecording(path + "selectElement/selectPartySeq", canvasWindow);
 	}
 	@Test
-	public void selectMessageSeqTest() {
-		MyCanvasWindow.replayRecording(path + "selectElement/selectMessageSeq", canvasWindow);
+	public void selectInvocationMessageSeqTest() {
+		MyCanvasWindow.replayRecording(path + "selectElement/selectInvocationMessageSeq", canvasWindow);
+	}
+	@Test
+	public void selectResultMessageSeqTest() {
+		MyCanvasWindow.replayRecording(path + "selectElement/selectResultMessageSeq", canvasWindow);
 	}
 	@Test
 	public void selectLabelSeqTest() {
@@ -199,8 +203,8 @@ public class UseCaseTests {
 		MyCanvasWindow.replayRecording(path + "selectElement/selectPartyCom", canvasWindow);
 	}
 	@Test
-	public void selectMessageComTest() {
-		MyCanvasWindow.replayRecording(path + "selectElement/selectMessageCom", canvasWindow);
+	public void selectInvocationMessageComTest() {
+		MyCanvasWindow.replayRecording(path + "selectElement/selectInvocationMessageCom", canvasWindow);
 	}
 	@Test
 	public void selectLabelComTest() {

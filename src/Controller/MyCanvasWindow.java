@@ -165,8 +165,8 @@ public class MyCanvasWindow extends CanvasWindow{
 		
 //		2 -- Create a recording
 //	    String pathPrefix =
-//		 "C:\\Users\\Gebruiker\\Documents\\SourceTree\\test_iteration_2\\test_iteratie_2\\src\\tests\\recordings\\";
-//		 String newFile = "moveParty/moveMultipleCom";
+//		 "C:\\Users\\robbe\\git\\SWOP_iteratie_3\\src\\tests\\recordings\\";
+//		 String newFile = "moveParty/moveMultiplePartyCom";
 //	     String filePath = pathPrefix + newFile;
 //		 myCanvas.recordSession(filePath);
 		
