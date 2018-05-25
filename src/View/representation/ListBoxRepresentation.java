@@ -54,7 +54,7 @@ public class ListBoxRepresentation {
 //	}
 	
 	private void drawRectangle(Canvas c, Graphics g){
-		g.drawRect(x, y, width, height);
+		g.drawRect(x - 5, y - g.getFontMetrics().getHeight(), width, height);
 	}
 	
 	public void setArguments(ArrayList<Label> args){
