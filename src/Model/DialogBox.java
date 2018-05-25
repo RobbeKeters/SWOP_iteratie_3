@@ -198,6 +198,16 @@ public abstract class DialogBox extends Canvas {
 			lb.setOriginX(newXorigine+ dx);
 			lb.setOriginY(newYorigine+dy);
 			
+			for(Label l : lb.getArguments()){
+				xOld = l.getLabelPositionDialog().getX();
+				yOld = l.getLabelPositionDialog().getY();
+				
+				dx = Math.abs((xOld-oldOrigineX));
+				dy = Math.abs((yOld-oldOrigineY));
+				
+				l.setLabelPositionDialog(newXorigine+ dx, newYorigine+dy);
+			}
+			
 		}
 
 	}

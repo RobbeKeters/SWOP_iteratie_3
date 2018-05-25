@@ -86,14 +86,6 @@ public class ListBox implements Control{
 		selectedLabel.setSelected(true);
 	}
 	
-	public int getX(){
-		return originX;
-	}
-	
-	public int getY(){
-		return originY;
-	}
-	
 	public int getHeight(){
 		return height;
 	}
@@ -123,7 +115,7 @@ public class ListBox implements Control{
 	}
 	
 	public void setOriginY(int y) {
-		originX = y;
+		originY = y;
 	}
 	
 }
