@@ -140,6 +140,17 @@ public class DialogBoxInvocationMessage extends DialogBox{
 				listControls.add(listControls.size(), activeControl);
 			}
 		}
+		
+		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_DOWN && top.getClass()==ListBox.class) {
+			ListBox lb = (ListBox)top;
+			lb.selectPrevious();
+		}
+		
+		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_UP && top.getClass()==ListBox.class) {
+			ListBox lb = (ListBox)top;
+			lb.selectNext();
+		}
+		
 		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_SPACE ) {
 			Control c =this.getListControls().get(0);
 			if ( c.returnType() == TypeControl.Button	) {
