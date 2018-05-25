@@ -7,9 +7,20 @@ import Controller.Mouse;
 import Model.Handler.EditLabelHandler;
 
 public class DialogBoxParty extends DialogBox{
-
+	
+	/**
+	 * The linked party.
+	 */
 	public Party source; 
 	
+	/**
+	 * Constructor.
+	 * @param origineX		The x coordinate of origin.
+	 * @param origineY		The y coordinate of origin.
+	 * @param width			The width.
+	 * @param height		The height.
+	 * @param p				The linked party.
+	 */
 	public DialogBoxParty(int origineX, int origineY, int width, int height,  Party p) {
 		super(origineX, origineY, width, height);
 		

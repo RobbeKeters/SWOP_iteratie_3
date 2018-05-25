@@ -21,22 +21,42 @@ public class InvocationMessage extends Message {
 	
 	private String[] arguments = new String[1];
 	
+	/**
+	 * Sets this invocation message's method name to the given method name.
+	 * @param methodName	The given method name.
+	 */
 	public void setMethodName(String methodName) {
 		this.methodName = methodName;
 	}
 	
+	/**
+	 * Sets this invocation message's arguments name to the given method arguments.
+	 * @param arguments		The given method arguments.
+	 */
 	public void setArguments(String[] arguments) {
 		this.arguments = arguments;
 	}
 	
+	/**
+	 * Return this invocation message's method name.
+	 * @return		This invocation message's method name.
+	 */
 	public String getMethodName() {
 		return this.methodName;
 	}
 	
+	/**
+	 * Return this invocation message's arguments.
+	 * @return		This invocation message's arguments.
+	 */
 	public String[] getArguments() {
 		return this.arguments;
 	}
-
+	
+	/**
+	 * Adds an arguments to the list of arguments.
+	 * @param var		The argument to add.
+	 */
 	public void addArgument(String var) {
 		String[] newArguments = new String[arguments.length+1];
 		for(int i = 0; i<arguments.length; i++){

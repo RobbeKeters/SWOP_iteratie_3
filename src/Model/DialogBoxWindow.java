@@ -6,9 +6,20 @@ import java.util.ArrayList;
 import Controller.Mouse;
 
 public class DialogBoxWindow extends DialogBox{
-
+	
+	/**
+	 * The linked window.
+	 */
 	Window source;
 	
+	/**
+	 * Constructor.
+	 * @param origineX		The x coordinate of origin.
+	 * @param origineY		The y coordinate of origin.
+	 * @param width			The width.
+	 * @param height		The height.
+	 * @param s				The linked window.
+	 */
 	public DialogBoxWindow(int origineX, int origineY, int width, int height, Window s) {
 		super(origineX, origineY, width, height);
 		source = s;
@@ -91,6 +102,9 @@ public class DialogBoxWindow extends DialogBox{
 		}
 	}
 	
+	/**
+	 * Updates the data of the buttons.
+	 */
 	public void updateButtons() {
 		for ( Button b : this.getButtons()) {
 			b.setActivated(false);

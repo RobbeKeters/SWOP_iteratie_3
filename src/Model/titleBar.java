@@ -89,6 +89,11 @@ public class titleBar {
 
 	}
 	
+	/**
+	 * Draws this title bar.
+	 * @param c		The canvas in which to draw.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas c, Graphics g){
 		
 		title = "Dialog Box";

@@ -117,10 +117,21 @@ public class Label implements Control{
 		labelPositionComm.yCoordinate = y;
 	}
 	
+	/**
+	 * Returns this label's position in the dialog box.
+	 * 
+	 * @return		This label's position in the dialog box.
+	 */
 	public Point getLabelPositionDialog(){
 		return dialogboxPos;
 	}
 	
+	/**
+	 * 
+	 * Sets this label's position in the dialog box to the given position.
+	 * 
+	 * @param labelPositionDialog		The given position.
+	 */
 	public void setLabelPositionDialog(Point labelPositionDialog){
 		this.dialogboxPos = labelPositionDialog;
 	}
@@ -197,14 +208,22 @@ public class Label implements Control{
 		height = h;
 	}
 	
+	/**
+	 * Sets this label's title to the given title.
+	 * @param t		The given title.
+	 */
 	public void setTitle(String t){
 		title = t;
 	}
 	
+	/**
+	 * Returns this label's title.
+	 * @return 		This label's title.
+	 */
 	public String getTitle(){
 		return title;
 	}
-
+	
 	@Override
 	public void setSelectedControl(Boolean selected) {
 		this.selected = selected;

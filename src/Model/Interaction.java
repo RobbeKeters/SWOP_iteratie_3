@@ -359,6 +359,11 @@ public class Interaction {
 		}
 		Window.updateYPositionLMessageLabelsSequenceDiagram(notUpdatedWindow);
 	}
+	
+	/**
+	 * Updates the type of the interaction change to update the dialog boxes.
+	 * @param value		The type of edit applied to the interaction.
+	 */
 	public void updatedInteractionToWarnDiaglog(diaLogAdjusted value) {
 		this.adjustedDialog = value;
 	}
