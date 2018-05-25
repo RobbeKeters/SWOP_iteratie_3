@@ -49,10 +49,10 @@ public class DialogBoxParty extends DialogBox{
 		
 		instanceName.setTitle("instance: ");
 		className.setTitle("class: ");
-		super.addTextBox(className);
 		super.addTextBox(instanceName);
+		super.addTextBox(className);
 		
-		// Add all buttons en textboxes to one list 
+		// Add all buttons and textboxes to one list 
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
 		System.out.println(this.getListControls().size() + " size ======== ");
@@ -60,58 +60,64 @@ public class DialogBoxParty extends DialogBox{
 
 	@Override
 	public void handleMouse(Mouse id, int x, int y) {
-		this.getListControls().get(0).setSelectedControl(false);
+//		this.getListControls().get(0).setSelectedControl(false);
 		if ( id == Mouse.SINGLECLICK) {
-			Control c = null;
+			Control clickedControl = null;
 			for ( Control d :this.getListControls()) {
 				if ( d.inArea(x, y)) {
-					c = d; break;
+					clickedControl = d;
+				} else {
+					d.setSelectedControl(false);
 				}
 			}
-			if ( c != null) {
-				this.getListControls().remove(c);
-				this.getListControls().add(0, c);
-				if( c.returnType() == TypeControl.Button) {
-					// deActivate the other 
+			if ( clickedControl != null) {
+				for ( Control d :this.getListControls()) {
+					if (d == clickedControl) {
+						d.setSelectedControl(true);
+					}
+					else
+						d.setSelectedControl(false);
+				}
+				if (clickedControl.returnType() == TypeControl.Button) {
 					for ( Button b :this.getButtons()) {
-						if ( c == b	) {
+						if (b == clickedControl) {
 							source.adjustedThroughDialog =diaLogAdjusted.TYPEADJUSTED;
 							b.setActivated(true);
+							b.setSelectedControl(true);
 						} else {
 							b.setActivated(false);
+							b.setSelectedControl(false);
 						}
 					}
 				}
 			}
 		}
-		this.getListControls().get(0).setSelectedControl(true);
 	}
 
 	@Override
 	public void handleKey(int id, int keyCode, char keyChar) {
-		Control top = this.getListControls().get(0);
-		top.setSelectedControl(false);
-
 		if(id  == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_TAB ) {
 			// Switch to next Control (Button or textBox)
-			ArrayList<Control> listControls = this.getListControls();
-			Control activeControl = listControls.get(0);
-			if( listControls.size() > 1) {
-				listControls.remove(activeControl);
-				Control nextControl = listControls.get(0);
-				listControls.add(listControls.size(), activeControl);
+			Control previousSelectedControl = getSelectedControl();
+			if (previousSelectedControl != null) {
+				previousSelectedControl.setSelectedControl(false);
+				getNextControl(previousSelectedControl).setSelectedControl(true);
+			} else {
+				this.getListControls().get(0).setSelectedControl(true);
 			}
 		}
 		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_SPACE ) {
-			Control c =this.getListControls().get(0);
+			Control c = getSelectedControl();
 			if ( c.returnType() == TypeControl.Button	) {
 				// deActivate the other 
-				for ( Button b :this.getButtons()) {
+				for ( Button b : this.getButtons()) {
 					if ( c == b	) {
 						source.adjustedThroughDialog =diaLogAdjusted.TYPEADJUSTED;
 						b.setActivated(true);
+						b.setSelectedControl(true);
 					} else {
 						b.setActivated(false);
+						b.setSelectedControl(false);
 					}
 				}
 			} else if (c.returnType() == TypeControl.Label) {
@@ -120,7 +126,7 @@ public class DialogBoxParty extends DialogBox{
 		}
 		
 		else if ( id == KeyEvent.KEY_TYPED && keyChar != KeyEvent.VK_TAB) {
-			Control c = this.getListControls().get(0);
+			Control c = getSelectedControl();
 			Label label = source.getLabel();
 			// LET OP: IN Dialog wordt de label van een party opgedeeld in 2 Labels
 			Label instance = searchForLabelName("instance: ");
@@ -141,7 +147,7 @@ public class DialogBoxParty extends DialogBox{
 					classs.setLabelname(classs.getLabelname().substring(0, classs.getLabelname().length()-1));
 				}
 			}
-			source.getLabel().setLabelname(classs.getLabelname()+":"+instance.getLabelname());
+			source.getLabel().setLabelname(instance.getLabelname()+":"+classs.getLabelname());
 			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 			
 			int width = 8*instance.getLabelname().length();
@@ -160,8 +166,8 @@ public class DialogBoxParty extends DialogBox{
 			source.getLabel().setWidth(width);
 			
 		}
-		this.getListControls().get(0).setSelectedControl(true);
 	}
+	
 	private Label searchForLabelName(String toSearchFor) {
 		for( Label l: this.getTextBoxes()) {
 			if( l.getTitle().equals( toSearchFor )) {
@@ -171,6 +177,30 @@ public class DialogBoxParty extends DialogBox{
 		return null;
 	}
 	
+	private Control getNextControl(Control previous) {
+		ArrayList<Control> controls = this.getListControls();
+		int index = 0;
+		for (Control c : controls) {
+			if (previous == c)
+				break;
+			index++;
+		}
+		if (index == controls.size()-1)
+			return controls.get(0);
+		else
+			return controls.get(index+1);
+	}
+	
+	private Control getSelectedControl() {
+		Control c = null;
+		for (Control d : this.getListControls()) {
+			if (d.isSelectedControl()) {
+				c = d;
+				break;
+			}
+		}
+		return c;
+	}
 	
 }
 
