@@ -7,6 +7,7 @@ import java.util.Stack;
 import Model.ADJUSTED_TYPE;
 import Model.Canvas;
 import Model.DialogBox;
+import Model.DialogBoxInvocationMessage;
 import Model.DialogBoxParty;
 import Model.DialogBoxResultMessage;
 import Model.DialogBoxWindow;
@@ -105,8 +106,9 @@ public class MyScreen {
 		for (Interaction i : toBeDeletedInteraction) {
 			screen.getInteractions().remove(i);
 		}
-		this.checkDialogForUpdatedParties(screen);
-		this.updateDiaLogs(screen);
+		this.checkForUpdates(screen);
+		this.updateDialogs(screen);
+		undoInteractionAdjusted(screen);
 
 	}
 	
@@ -171,8 +173,9 @@ public class MyScreen {
 				SelectElementHandlerDialogBox.handleKey(id, keyCode, keyChar, (DialogBox)screen.getSubWindows().lastElement());
 			}
 		}
-		this.checkDialogForUpdatedParties(screen);
-		this.updateDiaLogs(screen);
+		this.checkForUpdates(screen);
+		this.updateDialogs(screen);
+		undoInteractionAdjusted(screen);
 	}
 	
 	/**
@@ -193,7 +196,8 @@ public class MyScreen {
 		}
 		return false;
 	}
-	
+
+	/*
 	private void checkDialogForUpdatedParties(Screen screen) {
 		// Observer Parties ( check if a party label is updated with a diaLog)
 				Window updatedWindow = null;
@@ -280,28 +284,140 @@ public class MyScreen {
 			interaction.adjustedDialog = diaLogAdjusted.NOTADJUSTED;
 		}
 	}
+	*/
+	public void updateDialogs(Screen screen){
+		Stack<Canvas> stackWindows = new Stack<Canvas>();
+		stackWindows.addAll(screen.getSubWindows());
+		for ( Canvas c : stackWindows ){
+			if( c.getClass().equals(Model.DialogBoxParty.class)){ // No Winodow => so it's a DialogBox
+				DialogBoxParty db = (DialogBoxParty) c;
+				Interaction iDialog = findInteractionForDialogParty(screen, db);
+
+				if ( iDialog != null && (iDialog.adjustedDialog == diaLogAdjusted.LABELADJUSTED ||  iDialog.adjustedDialog == diaLogAdjusted.TYPEADJUSTED)) {
+
+					if ( iDialog.oldParty.getPartyNumber() == db.source.getPartyNumber()){
+						DialogBoxParty newDb = new DialogBoxParty(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(), iDialog.newParty);
+						int indexOldDB = screen.getSubWindows().indexOf(db);
+						screen.getSubWindows().set(indexOldDB, newDb);
+					}
+				}
+			} else if ( c.getClass().equals(Model.DialogBoxWindow.class)){
+				DialogBoxWindow db = (DialogBoxWindow) c;
+				//Interaction iDialog = findInteractionForDialogParty(screen, db);
+				DialogBoxWindow newDb = new DialogBoxWindow(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source );
+				int indexOldDB = screen.getSubWindows().indexOf(db);
+				screen.getSubWindows().set(indexOldDB, newDb);
+
+			} else if ( c.getClass().equals(Model.DialogBoxResultMessage.class) ){
+				DialogBoxResultMessage db = (DialogBoxResultMessage) c;
+				//Interaction iDialog = findInteractionForDialogParty(screen, db);				
+				int indexOldDB = screen.getSubWindows().indexOf(db);
+				DialogBoxResultMessage newDb = new DialogBoxResultMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
+				screen.getSubWindows().set(indexOldDB, newDb);
+				
+			} else if ( c.getClass().equals(Model.DialogBoxInvocationMessage.class)){
+				DialogBoxInvocationMessage db = (DialogBoxInvocationMessage) c;
+				//Interaction iDialog = findInteractionForDialogParty(screen, db);
+				int indexOldDB = screen.getSubWindows().indexOf(db);
+				DialogBoxInvocationMessage newDb = new DialogBoxInvocationMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
+				screen.getSubWindows().set(indexOldDB, newDb);
+				
+			}
+		}
+	}
+	
+	private Interaction findInteractionForDialogParty(Screen screen, DialogBoxParty db) {
+		for( Interaction i : screen.getInteractions()) {
+			if( i.oldParty == db.source){
+				return i;
+			}
+		}
+		return null;
+	}
+	/*
+	private Interaction findInteractionForDialogParty(Screen screen, DialogBoxWindow db) {
+		for( Interaction i : screen.getInteractions()) {
+			if( i.adjustedDialog == diaLogAdjusted.DIAGRAMTYPECHANGED){
+				return i;
+			}
+		}
+		return null;
+	}
+	private Interaction findInteractionForDialogParty(Screen screen, DialogBoxResultMessage db) {
+		for( Interaction i : screen.getInteractions()) {
+			if( i.oldResultMessage == db.source){
+				return i;
+			}
+		}
+		return null;
+	}
+	private Interaction findInteractionForDialogParty(Screen screen, DialogBoxInvocationMessage db) {
+		for( Interaction i : screen.getInteractions()) {
+			if( i.oldInvocationMessage == db.source){
+				return i;
+			}
+		}
+		return null;
+	}
+	*/
+	private void checkForUpdates(Screen screen){
+		Party oldParty = null;
+		Message oldMessage = null;
+		Interaction specificInteraction = null;
+		Window specificWindow = null;
+		diaLogAdjusted type = null;
+		for (Interaction i : screen.getInteractions() ) {
+			for ( Window w: i.getSubWindows()) {
+				for ( Party p: w.getParties()) {
+					
+					if ( p.adjustedThroughDialog == diaLogAdjusted.LABELADJUSTED ) {
+						p.adjustedThroughDialog = diaLogAdjusted.NOTADJUSTED;
+						oldParty = p;
+						specificInteraction = i;
+						i.oldParty =p;
+						i.newParty = p;
+						specificWindow = w;
+						type = diaLogAdjusted.LABELADJUSTED;
+						break;
+					}
+					if ( p.adjustedThroughDialog == diaLogAdjusted.TYPEADJUSTED  ) {
+						p.adjustedThroughDialog = diaLogAdjusted.NOTADJUSTED;
+						oldParty = p;
+						specificInteraction = i;
+						specificWindow = w;
+						type = diaLogAdjusted.TYPEADJUSTED;
+						break;
+					}
+				}
+				for ( Message m : w.getMessages()){
+					if ( m.adjustedThroughDialog == diaLogAdjusted.LABELADJUSTED) {
+						m.adjustedThroughDialog = diaLogAdjusted.NOTADJUSTED;
+						i.adjustedDialog = diaLogAdjusted.LABELADJUSTED;
+						specificInteraction = i;
+						specificWindow = w;
+						oldMessage = m;
+						break;
+					}	
+				}
+			}
+		}
+		if ( oldParty != null){ 				
+			if ( oldParty != null && type == diaLogAdjusted.LABELADJUSTED){
+				specificInteraction.adjusted( ADJUSTED_TYPE.PARTY_LABEL, specificWindow);
+			} else if ( oldParty != null && type == diaLogAdjusted.TYPEADJUSTED){
+				
+				if( specificWindow.getView() == Window.View.SEQUENCE){
+					SetPartyTypeHandler.handle(specificWindow, oldParty.getPosSeq().getX(), oldParty.getPosSeq().getY() +oldParty.getHeight() + 10);
+				} else {
+					SetPartyTypeHandler.handle(specificWindow, oldParty.getPosComm().getX(), oldParty.getPosComm().getY());
+				}
+				specificInteraction.adjusted(ADJUSTED_TYPE.CHANGE_TYPE, specificWindow);
+			}
+		} 
+	}
+	private void undoInteractionAdjusted(Screen screen){
+		for( Interaction i : screen.getInteractions()) {
+			i.adjustedDialog = diaLogAdjusted.NOTADJUSTED;
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -9,7 +9,7 @@ public class DialogBoxResultMessage extends DialogBox{
 	/**
 	 * The linked result message.
 	 */
-	ResultMessage source;
+	public ResultMessage source;
 	
 	/**
 	 * Constructor.
@@ -79,12 +79,11 @@ public class DialogBoxResultMessage extends DialogBox{
 		} else if ( id== KeyEvent.KEY_TYPED && selectedLabel != null && keyChar != KeyEvent.VK_BACK_SPACE ) {
 			source.getLabel().setLabelname(source.getLabel().getLabelname().replace("|", "")+keyChar);
 			selectedLabel.setLabelname(source.getLabel().getLabelname().replace("|", "")+"|");
-			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 		} else if ( id== KeyEvent.KEY_TYPED && selectedLabel != null && keyChar == KeyEvent.VK_BACK_SPACE ) {
 			source.getLabel().setLabelname(source.getLabel().getLabelname().replace("|", "").substring(0, source.getLabel().getLabelname().length()-1));
 			selectedLabel.setLabelname(source.getLabel().getLabelname().replace("|", "")+"|");
-			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 		}
+		source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 	}
 
 }

@@ -8,7 +8,7 @@ import Model.Handler.EditLabelHandler;
 
 public class DialogBoxInvocationMessage extends DialogBox{
 
-	InvocationMessage source;
+	public InvocationMessage source;
 	private Label listArgument;
 	
 	/**
