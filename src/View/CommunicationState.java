@@ -74,7 +74,7 @@ public class CommunicationState implements ViewState {
 			messageRep = new ComMessageRepresentation(m, new SimpleMessageRepresentation(m));
 			
 			messageRep.draw(window, graphics);
-			if(m.getClass().equals(InvocationMessage.class))
+			//if(m.getClass().equals(InvocationMessage.class))
 				drawLabel(m);
 			
 		}
