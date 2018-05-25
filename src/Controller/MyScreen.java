@@ -107,9 +107,6 @@ public class MyScreen {
 		}
 		this.checkDialogForUpdatedParties(screen);
 		this.updateDiaLogs(screen);
-		this.checkDialogForUpdatedParties(screen);
-		this.updateDiaLogs(screen);
-		this.checkDialogForUpdatedParties(screen);
 
 	}
 	
@@ -176,9 +173,6 @@ public class MyScreen {
 		}
 		this.checkDialogForUpdatedParties(screen);
 		this.updateDiaLogs(screen);
-		this.checkDialogForUpdatedParties(screen);
-		this.updateDiaLogs(screen);
-		this.checkDialogForUpdatedParties(screen);
 	}
 	
 	/**

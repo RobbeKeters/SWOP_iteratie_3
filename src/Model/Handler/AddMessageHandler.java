@@ -65,7 +65,9 @@ public class AddMessageHandler extends Handler {
 				updateOrderMessages(window, foundMessage);
 				invocationMessage.setOrder(foundMessage.getOrder()+1);
 			}
-					
+			// First argument invocationMessage
+			invocationMessage.addArgument("firstArg");
+			
 			window.addMessage(invocationMessage); 
 										
 			// Create Result Message

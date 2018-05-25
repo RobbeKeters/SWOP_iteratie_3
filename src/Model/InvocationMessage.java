@@ -19,7 +19,7 @@ public class InvocationMessage extends Message {
 	
 	private String methodName;
 	
-	private String[] arguments;
+	private String[] arguments = new String[1];
 	
 	public void setMethodName(String methodName) {
 		this.methodName = methodName;
