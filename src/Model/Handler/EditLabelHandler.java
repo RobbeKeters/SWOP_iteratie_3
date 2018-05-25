@@ -99,8 +99,8 @@ public class EditLabelHandler extends Handler{
 				if(message.getClass() == ResultMessage.class || (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname()))) {
 					handle(window, label, "ENTER");
 					if (message.getClass() == InvocationMessage.class && isCorrectInvocationMessageLabel(label.getLabelname())) {
-						System.out.println("CORRECT");
 						setInvocationMethodNameAndArguments((InvocationMessage) message, label.getLabelname());
+						label.setSelected(false);
 					}
 				}
 				return;

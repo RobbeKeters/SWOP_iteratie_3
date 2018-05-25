@@ -8,7 +8,7 @@ import Model.Handler.EditLabelHandler;
 
 public class DialogBoxInvocationMessage extends DialogBox{
 
-	InvocationMessage source;
+	public InvocationMessage source;
 	private Label listArgument;
 	
 	/**
@@ -55,8 +55,8 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		Button add = new Button("+", xI+75, yI - 50 + listBox.getHeight(), Button.Type.TEXT);
 
 		Button remove = new Button("X", xI+75, yI - 100, Button.Type.TEXT);
-		Button moveUp = new Button("/\\", xI+75, yI- 100 + i.getLabel().getHeight(), Button.Type.TEXT);
-		Button moveDown = new Button("\\/",xI+75, yI - 100 + i.getLabel().getHeight()*2, Button.Type.TEXT);
+		Button moveUp = new Button("/\\", xI+75, yI- 100 + 30, Button.Type.TEXT);
+		Button moveDown = new Button("\\/",xI+75, yI - 100 + 30*2, Button.Type.TEXT);
 		
 		if(!listBox.getSelected()){
 			remove.setDisabled(false);
@@ -71,10 +71,11 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		// add is geselecteerd bij instantiatie 
 		add.setSelectedControl(true);
 		
+		super.addButton(add);
 		super.addButton(moveDown);
 		super.addButton(moveUp);
 		super.addButton(remove);
-		super.addButton(add);
+		
 		
 //		
 		// Add all buttons en textboxes to one list 
@@ -120,12 +121,12 @@ public class DialogBoxInvocationMessage extends DialogBox{
 					ListBox lb = (ListBox) c;
 					lb.setSelectedControl(true);
 					// welke label is geselecteerd
-					for(Label arg : lb.getArguments()){
-						if(arg.inArea(x, y)){
-							lb.setSelectedLabel(arg);
-							break;
-						}
-					}
+//					for(Label arg : lb.getArguments()){
+//						if(arg.inArea(x, y)){
+//							lb.setSelectedLabel(arg);
+//							break;
+//						}
+//					}
 				}
 			}
 		}

@@ -10,7 +10,7 @@ public class DialogBoxWindow extends DialogBox{
 	/**
 	 * The linked window.
 	 */
-	Window source;
+	public Window source;
 	
 	/**
 	 * Constructor.
