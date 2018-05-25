@@ -39,8 +39,7 @@ public class ListBox implements Control{
 
 	@Override
 	public boolean inArea(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+		return x <= originX + width && x >= originX && y <= originY+height && y >= originY;
 	}
 
 	public void selectNext() {
