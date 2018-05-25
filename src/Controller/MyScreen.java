@@ -414,7 +414,9 @@ public class MyScreen {
 				}
 				//specificInteraction.adjusted(ADJUSTED_TYPE.CHANGE_TYPE, specificWindow);
 			}
-		} 
+		} else if ( oldMessage != null){
+			specificInteraction.adjusted(ADJUSTED_TYPE.MESSAGE_LABEL, specificWindow);
+		}
 	}
 	private void undoInteractionAdjusted(Screen screen){
 		for( Interaction i : screen.getInteractions()) {
