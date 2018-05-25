@@ -166,7 +166,7 @@ public class MyCanvasWindow extends CanvasWindow{
 //		2 -- Create a recording
 //	    String pathPrefix =
 //		 "C:\\Users\\robbe\\git\\SWOP_iteratie_3\\src\\tests\\recordings\\";
-//		 String newFile = "openDialog/radioSpacebar";
+//		 String newFile = "openDialog/switchControls";
 //	     String filePath = pathPrefix + newFile;
 //		 myCanvas.recordSession(filePath);
 		
