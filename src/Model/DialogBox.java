@@ -10,6 +10,7 @@ public abstract class DialogBox extends Canvas {
 
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private ArrayList<Label> textBoxes = new ArrayList<Label>();
+	private ArrayList<ListBox> listBoxes = new ArrayList<ListBox>();
 	private ArrayList<Control> listControls = new ArrayList<Control>();
 	
 	public DialogBox(int origineX, int origineY, int width, int height) {
@@ -58,6 +59,23 @@ public abstract class DialogBox extends Canvas {
 	public int getIndex(Label l) {
 		return textBoxes.indexOf(l);
 	}
+	
+	public ArrayList<ListBox> getListBoxes() {
+		return listBoxes;
+	}
+	
+	protected void addListBox(ListBox lb){
+		listBoxes.add(lb);
+	}
+	
+	protected void removeListBox(ListBox lb){
+		listBoxes.remove(lb);
+	}
+	
+	public ListBox getListBox(int i) {
+		return listBoxes.get(i);
+	}
+	
 	public static void updatePositionsAttributes(DialogBox db , int newXorigine, int newYorigine) {
 		int oldOrigineX = db.getOrigineX();
 		int oldOrigineY = db.getOrigineY();
