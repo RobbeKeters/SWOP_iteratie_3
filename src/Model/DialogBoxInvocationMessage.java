@@ -105,6 +105,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 							b.setSelectedControl(true);
 							if(b.getTitle().equals("+")){
 								String var = searchForLabelName("add arg.:").getLabelname();
+								System.out.println(var.toString());
 								source.addArgument(var);
 								source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 							}
@@ -119,8 +120,9 @@ public class DialogBoxInvocationMessage extends DialogBox{
 					for(Control ctrl : getListControls()){
 						if(!c.equals(ctrl)) 
 							ctrl.setSelectedControl(false);
-						else 
+						else {
 							c.setSelectedControl(true);
+						}
 					}
 				} else if (c.returnType() == TypeControl.ListBox){
 					// listbox is selected
@@ -141,32 +143,29 @@ public class DialogBoxInvocationMessage extends DialogBox{
 	
 	@Override
 	public void handleKey(int id, int keyCode, char keyChar) {
-		Control top = this.getListControls().get(0);
-		top.setSelectedControl(false);
-
+		Control c = getSelectedControl();
 		if(id  == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_TAB ) {
 			// Switch to next Control (Button or textBox)
-			ArrayList<Control> listControls = this.getListControls();
-			Control activeControl = listControls.get(0);
-			if( listControls.size() > 1) {
-				listControls.remove(activeControl);
-				Control nextControl = listControls.get(0);
-				listControls.add(listControls.size(), activeControl);
+			Control previousSelectedControl = getSelectedControl();
+			if (previousSelectedControl != null) {
+				previousSelectedControl.setSelectedControl(false);
+				getNextControl(previousSelectedControl).setSelectedControl(true);
+			} else {
+				this.getListControls().get(0).setSelectedControl(true);
 			}
 		}
 		
-		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_DOWN && top.getClass()==ListBox.class) {
-			ListBox lb = (ListBox)top;
+		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_DOWN && c.getClass()==ListBox.class) {
+			ListBox lb = (ListBox) c;
 			lb.selectPrevious();
 		}
 		
-		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_UP && top.getClass()==ListBox.class) {
-			ListBox lb = (ListBox)top;
+		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_UP && c.getClass()==ListBox.class) {
+			ListBox lb = (ListBox) c;
 			lb.selectNext();
 		}
 		
 		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_SPACE ) {
-			Control c =this.getListControls().get(0);
 			if ( c.returnType() == TypeControl.Button	) {
 				// deActivate the other 
 				for ( Button b :this.getButtons()) {
@@ -178,9 +177,21 @@ public class DialogBoxInvocationMessage extends DialogBox{
 					}
 				}
 			} else if (c.returnType() == TypeControl.Label) {
+				
+			}
+		} else if(id == KeyEvent.KEY_PRESSED) {
+			for(Label l : this.getTextBoxes()){
+				
+				if(l.isSelectedControl()){
+					if(keyChar == KeyEvent.VK_BACK_SPACE){
+						l.setLabelname(l.getLabelname().substring(0, l.getLabelname().length()-1));
+					} else 
+						l.setLabelname(l.getLabelname() + keyChar);
+					System.out.println(l.getLabelname());
+					source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
+				} 
 			}
 		}
-		this.getListControls().get(0).setSelectedControl(true);
 	}
 	private Label searchForLabelName(String toSearchFor) {
 		for( Label l: this.getTextBoxes()) {
@@ -191,4 +202,29 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		return null;
 	}
 
+
+	private Control getNextControl(Control previous) {
+		ArrayList<Control> controls = this.getListControls();
+		int index = 0;
+		for (Control c : controls) {
+			if (previous == c)
+				break;
+			index++;
+		}
+		if (index == controls.size()-1)
+			return controls.get(0);
+		else
+			return controls.get(index+1);
+	}
+	
+	private Control getSelectedControl() {
+		Control c = null;
+		for (Control d : this.getListControls()) {
+			if (d.isSelectedControl()) {
+				c = d;
+				break;
+			}
+		}
+		return c;
+	}
 }

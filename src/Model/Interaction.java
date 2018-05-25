@@ -32,6 +32,7 @@ public class Interaction {
 	public Label oldLabel;
 	public Label newLabel;
 	public Window changedWindow;
+	public InvocationMessage oldInvocationMessage, newInvocationMessage;
 	
 	private ArrayList<Window> subWindows = new ArrayList<Window>();
 	//private Random randNumberPos = new Random();
