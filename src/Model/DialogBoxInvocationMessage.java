@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Mouse;
+
 public class DialogBoxInvocationMessage extends DialogBox{
 
 	InvocationMessage source;
@@ -55,6 +57,18 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		// Add all buttons en textboxes to one list 
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
+	}
+
+	@Override
+	public void handleMouse(Mouse id, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleKey(int id, int keyCode, char keyChar) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
