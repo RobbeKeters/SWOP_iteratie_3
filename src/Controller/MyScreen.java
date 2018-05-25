@@ -193,7 +193,8 @@ public class MyScreen {
 		}
 		return false;
 	}
-	public void checkDialogForUpdatedParties(Screen screen) {
+	
+	private void checkDialogForUpdatedParties(Screen screen) {
 		// Observer Parties ( check if a party label is updated with a diaLog)
 				Window updatedWindow = null;
 				Interaction updatedInteraction =null;
@@ -242,7 +243,8 @@ public class MyScreen {
 					updatedInteraction.adjusted(ADJUSTED_TYPE.MESSAGE_LABEL, updatedWindow);
 				}
 	}
-	public void updateDiaLogs(Screen screen) {
+	
+	private void updateDiaLogs(Screen screen) {
 		Interaction interaction = null;
 		for ( Interaction i : screen.getInteractions()) {
 			if( i.adjustedDialog != diaLogAdjusted.NOTADJUSTED) {
