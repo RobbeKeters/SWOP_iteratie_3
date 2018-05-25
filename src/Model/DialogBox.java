@@ -112,6 +112,20 @@ public abstract class DialogBox extends Canvas {
 			
 		}
 		
+		// update Labels
+		ArrayList<ListBox> lbs = db.getListBoxes();
+		for( ListBox lb : lbs) {
+			xOld = lb.getOriginX();
+			yOld = lb.getOriginY();
+			
+			dx = Math.abs((xOld-oldOrigineX));
+			dy = Math.abs((yOld-oldOrigineY));
+			
+			lb.setOriginX(newXorigine+ dx);
+			lb.setOriginY(newYorigine+dy);
+			
+		}
+
 	}
 
 	public ArrayList<Control> getListControls() {
