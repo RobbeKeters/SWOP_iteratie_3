@@ -115,55 +115,104 @@ public class Button implements Control{
 		OrigineY = origineY;
 	}
 	
+	/**
+	 * An enumeration to indicate the type of button.
+	 */
 	public enum Type {
 		CLOSE,
 		TEXT,
 		RADIO;
 	}
 	
+	/**
+	 * Sets this button's type to the given y type.
+	 * @param t		The given type.
+	 */
 	private void setType(Type t){
 		type = t;
 	}
 	
+	/**
+	 * Returns the this button's type.
+	 * @return		This button's type.
+	 */
 	public Type getType(){
 		return type;
 	}
 	
+	/**
+	 * Sets this button's title to the given title.
+	 * @param title		This button's new title.
+	 */
 	private void setTitle(String title){
 		this.title = title;
 	}
 	
+	/**
+	 * Returns this button's title.
+	 * @return		This button's title.
+	 */
 	public String getTitle(){
 		return title;
 	}
 	
+	/**
+	 * Sets this button's activation status to the given activation status.
+	 * @param a		This button's new activation status.
+	 */
 	public void setActivated(boolean a){
 		activated = a;
 	}
 	
+	/**
+	 * Returns this button's activation status.
+	 * @return		This button's activation status.
+	 */
 	public boolean getActivated(){
 		return activated;
 	}
-
+	
+	/**
+	 * Sets this button's selected control status title to the given selected control status.
+	 * @param selected		This button's new selected control status.
+	 */
 	@Override
 	public void setSelectedControl(Boolean selected) {
 		this.selected= selected;		
 	}
-
+	
+	/**
+	 * Returns this button's selection status.
+	 * @return		This button's selected control status.
+	 */
 	public boolean isSelected() {
 		return selected;
 	}
-
+	
+	/**
+	 * Returns this button's selection status.
+	 * @return		This button's selected control status.
+	 */
 	@Override
 	public boolean isSelectedControl() {
 		return this.selected;
 	}
-
+	
+	/**
+	 * Returns the control type of this class.
+	 * @return 		The button control type
+	 */
 	@Override
 	public TypeControl returnType() {
 		return TypeControl.Button;
 	}
-
+	
+	/**
+	 * Returns whether or not the given coordinates are in the the button area.
+	 * @param x		The given x coordinate.
+	 * @param y 	The given y coordinate.
+	 * @return 		Whether or not the given coordinates are in the button area.
+	 */
 	@Override
 	public boolean inArea(int x, int y) {
 		if ( x <= this.getOrigineX() + this.width && x >= this.getOrigineX() && y <= this.OrigineY+this.height && y >= this.OrigineY ) {
