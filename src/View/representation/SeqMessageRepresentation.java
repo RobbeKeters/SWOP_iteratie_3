@@ -12,12 +12,25 @@ import Model.Party;
 import Model.ResultMessage;
 import Model.Window;
 
+/**
+ * A visual representation of an message in a sequence diagram.
+ */
 public class SeqMessageRepresentation extends MessageRepresentation {
-
+	
+	/**
+	 * Constructor.
+	 * @param m					The message to represent.
+	 * @param messageToDraw		The message to draw.
+	 */
 	public SeqMessageRepresentation(Message m, Representation messageToDraw) {
 		super(m, messageToDraw);
 	}
 	
+	/**
+	 * Draws the message's representation.
+	 * @param w		The canvas to which the message belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas w, Graphics g){
 		messageToDraw.draw(w, g);
 		drawActivationBar((Window)w, g); ////////////////////////// CAST CAST CAST

@@ -9,17 +9,35 @@ import Model.Message;
 import Model.Party;
 import Model.Window;
 
+/**
+ * A visual representation of an invocation message in a sequence diagram.
+ */
 public class SeqInvocationMessageRepresentation extends MessageRepresentation {
-
+	
+	/**
+	 * Constructor.
+	 * @param m					The message to represent.
+	 * @param messageToDraw		The message to draw.
+	 */
 	public SeqInvocationMessageRepresentation(Message m, Representation messageToDraw) {
 		super(m, messageToDraw);
 	}
 	
+	/**
+	 * 
+	 * @param w
+	 * @param g
+	 */
 	public void draw(Window w, Graphics g) {
 		messageToDraw.draw(w, g);
 		drawMessage(w, g);
 	}
 	
+	/**
+	 * Draws the message's representation.
+	 * @param w		The window to which the message belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	private void drawMessage(Window w, Graphics g) {
 		Party sender = message.getSentBy();
 		Party receiver = message.getReicevedBy();

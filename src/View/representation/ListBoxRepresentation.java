@@ -8,12 +8,19 @@ import Model.Canvas;
 import Model.Label;
 import Model.ListBox;
 
+/**
+ * A visual representation of a list box.
+ */
 public class ListBoxRepresentation {
 
 	private String text;
 	private ArrayList<Label> arguments = new ArrayList<Label>();
 	private int x, y, width, height;
 	
+	/**
+	 * Constructor.
+	 * @param lb	The list box to represent.
+	 */
 	public ListBoxRepresentation(ListBox lb) {
 //		super(x, y, width, height);
 		this.width = lb.getWidth();
@@ -29,6 +36,11 @@ public class ListBoxRepresentation {
 //		}
 	}
 	
+	/**
+	 * Draws the list box's representation.
+	 * @param c		The canvas to which the actor belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas c, Graphics g){
 //		super.draw(c, g);
 //		drawText(c, g);
@@ -55,6 +67,10 @@ public class ListBoxRepresentation {
 //		g.drawString(text, x + c.getOrigineX(), y + c.getOrigineY() - stringHeight/2);
 	}
 	
+	/**
+	 * Sets this representation's arguments to the given arguments.
+	 * @param args		The given arguments.
+	 */
 	public void setArguments(ArrayList<Label> args){
 		this.arguments = args;
 	}

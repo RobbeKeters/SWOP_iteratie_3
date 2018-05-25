@@ -6,12 +6,25 @@ import java.awt.Graphics;
 import Model.Canvas;
 import Model.Party;
 
+/**
+ * A visual representation of an actor.
+ */
 public class ActorRepresentation extends PartyRepresentation {
 	
+	/**
+	 * Constructor.
+	 * @param party			The actor to represent.
+	 * @param partyToDraw	The actor to draw.
+	 */
 	public ActorRepresentation(Party party, Representation partyToDraw) {
 		super(party, partyToDraw);
 	}
 	
+	/**
+	 * Draws the actor's representation.
+	 * @param c		The canvas to which the actor belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Canvas c, Graphics g) {
 		partyToDraw.draw(c, g);
 		drawStickFigure(g);

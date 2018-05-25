@@ -7,12 +7,24 @@ import Model.Canvas;
 import Model.Label;
 import Model.Window;
 
+/**
+ * A visual representation of an label in a communication diagram.
+ */
 public class ComLabelRepresentation extends LabelRepresentation {
-
+	
+	/**
+	 * Constructor.
+	 * @param l		The label to represent.
+	 */
 	public ComLabelRepresentation(Label l) {
 		super(l);
 	}
 	
+	/**
+	 * Draws the label's representation.
+	 * @param c		The window to which the label belongs to.
+	 * @param g		The graphics element used to draw.
+	 */
 	public void draw(Window w, Graphics g) {
 		w.updatePosComm();
 		
