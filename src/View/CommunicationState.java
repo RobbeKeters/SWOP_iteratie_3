@@ -19,6 +19,9 @@ import View.representation.MessageRepresentation;
 import View.representation.Representation;
 import View.representation.SimpleMessageRepresentation;
 
+/**
+ * A class created to hold the actions that draw a communication diagram.
+ */
 public class CommunicationState implements ViewState {
 	
 	private Window window;

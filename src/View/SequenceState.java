@@ -31,14 +31,14 @@ import View.representation.SeqSimpleMessageRepresentation;
 import View.representation.SeqSimplePartyRepresentation;
 import View.representation.SimplePartyRepresentation;
 
+/**
+ * A class created to hold the actions that draw a sequence diagram.
+ */
 public class SequenceState implements ViewState {
 	
 	private Window window;
 	private Graphics graphics;
 	
-	/**
-	 * draw the basic 
-	 */
 	@Override
 	public void draw(ViewContext viewContext, Window window, Graphics graphics) {
 		this.window = window;

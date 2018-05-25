@@ -15,6 +15,9 @@ import View.representation.RadioButtonRepresentation;
 import View.representation.TextButtonRepresentation;
 import View.representation.TextInputRepresentation;
 
+/**
+ * Visual representation of a dialog box.
+ */
 public class DialogBox {
 
 	protected Model.DialogBox dialogBox;
@@ -28,6 +31,12 @@ public class DialogBox {
 		RESULT_MESSAGE;
 	}
 	
+	/**
+	 * Draws a dialog box based off of a given selected element.
+	 * @param element		The given selected element.
+	 * @param db			The dialog box to draw.
+	 * @param g				The graphics element used to draw.
+	 */
 	public void draw(SelectedElement element, Model.DialogBox db, Graphics g){
 		this.dialogBox = db;
 		this.graphics = g;
