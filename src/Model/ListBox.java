@@ -9,7 +9,7 @@ public class ListBox implements Control{
 	private int originX = 0;
 	private int originY = 0;
 	private int height = 0;
-	private int width = 0;
+	private int width = 150;
 	ArrayList<Label> arguments = new ArrayList<Label>();
 	Label selectedLabel = null;
 	
@@ -17,6 +17,7 @@ public class ListBox implements Control{
 		originX = x;
 		originY = y;
 		arguments = labels;
+		height = 30*labels.size();
 	}
 	
 	@Override
@@ -73,8 +74,7 @@ public class ListBox implements Control{
 	}
 
 	public ArrayList<Label> getArguments() {
-		// TODO Auto-generated method stub
-		return null;
+		return arguments;
 	}
 	
 	public boolean getSelected() {
