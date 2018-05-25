@@ -71,6 +71,11 @@ public class ListBox implements Control{
 		l.setSelected(true);
 		selectedLabel = l;
 	}
+
+	public ArrayList<Label> getArguments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	public boolean getSelected() {
 		return selected;
@@ -80,6 +85,14 @@ public class ListBox implements Control{
 		selected = b;
 		selectedLabel = arguments.get(0);
 		selectedLabel.setSelected(true);
+	}
+	
+	public int getX(){
+		return originX;
+	}
+	
+	public int getY(){
+		return originY;
 	}
 	
 	public int getHeight(){

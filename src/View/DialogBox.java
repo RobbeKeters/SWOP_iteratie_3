@@ -10,7 +10,7 @@ import Model.Window;
 import View.representation.DialogLabelRepresentation;
 import View.representation.InputRepresentation;
 import View.representation.LabelRepresentation;
-import View.representation.ListInputRepresentation;
+import View.representation.ListBoxRepresentation;
 import View.representation.RadioButtonRepresentation;
 import View.representation.TextButtonRepresentation;
 import View.representation.TextInputRepresentation;

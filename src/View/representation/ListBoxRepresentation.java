@@ -7,24 +7,29 @@ import java.util.ArrayList;
 import Model.Canvas;
 import Model.Label;
 
-public class ListInputRepresentation extends InputRepresentation {
+public class ListBoxRepresentation {
 
 	private String text;
 	private ArrayList<Label> arguments = new ArrayList<Label>();
+	private int x, y, width, height;
 	
-	public ListInputRepresentation(String text, int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public ListBoxRepresentation(String text, int x, int y, int width, int height) {
+//		super(x, y, width, height);
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 		this.text = text;
-		for(int i = 0; i < 10; i++){
-			Label label = new Label("");
-			label.setSelected(true);
-			arguments.add(label);
-			
-		}
+//		for(int i = 0; i < 10; i++){
+//			Label label = new Label("");
+//			label.setSelected(true);
+//			arguments.add(label);
+//			
+//		}
 	}
 	
 	public void draw(Canvas c, Graphics g){
-		super.draw(c, g);
+//		super.draw(c, g);
 		drawText(c, g);
 		for(int i = 0; i < arguments.size(); i++){
 			if((g.getFontMetrics().getHeight() + 2)*(i+1) <= height){
@@ -43,9 +48,13 @@ public class ListInputRepresentation extends InputRepresentation {
 	}
 	
 	private void drawText(Canvas c, Graphics g){
-		int stringWidth = g.getFontMetrics().stringWidth(text);
-		int stringHeight = g.getFontMetrics().getHeight();
-		int margin = 2;
-		g.drawString(text, x + c.getOrigineX(), y + c.getOrigineY() - stringHeight/2);
+//		int stringWidth = g.getFontMetrics().stringWidth(text);
+//		int stringHeight = g.getFontMetrics().getHeight();
+//		int margin = 2;
+//		g.drawString(text, x + c.getOrigineX(), y + c.getOrigineY() - stringHeight/2);
+	}
+	
+	public void setArguments(ArrayList<Label> args){
+		this.arguments = args;
 	}
 }

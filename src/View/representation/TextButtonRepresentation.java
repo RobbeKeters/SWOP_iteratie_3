@@ -9,7 +9,7 @@ public class TextButtonRepresentation {
 
 	private String text;
 	protected int x, y, width, height;
-	private boolean selected;
+	private boolean selected, disabled;
 	
 	public TextButtonRepresentation(String text, int x, int y, int width, int height){
 		this.text = text;
@@ -22,6 +22,8 @@ public class TextButtonRepresentation {
 	public void draw(Canvas c, Graphics g){
 		if(selected)
 			g.setColor(Color.BLUE);
+		else if (disabled)
+			g.setColor(Color.LIGHT_GRAY);
 		else
 			g.setColor(Color.BLACK);
 		drawRectangle(c, g);
@@ -37,11 +39,11 @@ public class TextButtonRepresentation {
 		g.drawString(text, x + width/2-g.getFontMetrics().stringWidth(text)/2, y + g.getFontMetrics().getHeight()-2);
 	}
 
-	public boolean isSelected() {
-		return selected;
-	}
-
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 }

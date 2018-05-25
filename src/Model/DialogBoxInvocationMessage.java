@@ -9,6 +9,7 @@ import Model.Handler.EditLabelHandler;
 public class DialogBoxInvocationMessage extends DialogBox{
 
 	InvocationMessage source;
+	private Label listArgument;
 	
 	public DialogBoxInvocationMessage(int origineX, int origineY, int width, int height, InvocationMessage i) {
 		super(origineX, origineY, width, height);
@@ -25,29 +26,51 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		method.setWidth(150);
 		super.addTextBox(method);
 		
+		ArrayList<Label> arguments = new ArrayList<Label>();
+		ListBox listBox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100, arguments);
+//		listBox.setTitle("arguments: ");
+		listBox.setWidth(150);
+		
+		
 		for(String s : i.getArguments()){
 			Label arg = new Label(s, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
 			arg.setWidth(150);
-			super.addTextBox(arg);
+			listBox.addArgument(arg);
 			index++;
 		}
+		
+		System.out.println(listBox.getArguments());
+		super.addListBox(listBox);
+		
+		
 		Label newArg;
-		if(index > 2)
-			newArg = new Label("", xI - 75, yI - 50 + i.getLabel().getHeight()*index);
-		else
-			newArg = new Label("", xI - 75, yI - 50 + i.getLabel().getHeight()*3);
+//		if(index > 2)
+			newArg = new Label("", xI - 75, yI - 50 + listBox.getHeight());
+//		else
+//			newArg = new Label("", xI - 75, yI - 50 + i.getLabel().getHeight()*3);
 		newArg.setTitle("add arg.:");
 		newArg.setWidth(150);
 		super.addTextBox(newArg);
 		
 		Button add;
-		if(index > 2)
-			add = new Button("+", xI+75, yI - 50 + i.getLabel().getHeight()*index, Button.Type.TEXT);
-		else
-			add = new Button("+", xI+75, yI - 65 + i.getLabel().getHeight()*3, Button.Type.TEXT);
+//		if(index > 2)
+			add = new Button("+", xI+75, yI - 50 + listBox.getHeight(), Button.Type.TEXT);
+//		else
+//			add = new Button("+", xI+75, yI - 65 + i.getLabel().getHeight()*3, Button.Type.TEXT);
+
 		Button remove = new Button("X", xI+75, yI - 100, Button.Type.TEXT);
 		Button moveUp = new Button("/\\", xI+75, yI- 100 + i.getLabel().getHeight(), Button.Type.TEXT);
 		Button moveDown = new Button("\\/",xI+75, yI - 100 + i.getLabel().getHeight()*2, Button.Type.TEXT);
+		
+		if(!listBox.getSelected()){
+			remove.setDisabled(false);
+			moveUp.setDisabled(false);
+			moveDown.setDisabled(false);
+		} else {
+			remove.setDisabled(true);
+			moveUp.setDisabled(true);
+			moveDown.setDisabled(true);
+		}
 		
 		// add is geselecteerd bij instantiatie 
 		add.setSelectedControl(true);
@@ -61,6 +84,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		// Add all buttons en textboxes to one list 
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
+		this.getListControls().addAll(this.getListBoxes());
 	}
 
 	@Override
@@ -94,6 +118,17 @@ public class DialogBoxInvocationMessage extends DialogBox{
 							ctrl.setSelectedControl(false);
 						else 
 							c.setSelectedControl(true);
+					}
+				} else if (c.returnType() == TypeControl.ListBox){
+					// listbox is selected
+					ListBox lb = (ListBox) c;
+					lb.setSelectedControl(true);
+					// welke label is geselecteerd
+					for(Label arg : lb.getArguments()){
+						if(arg.inArea(x, y)){
+							lb.setSelectedLabel(arg);
+							break;
+						}
 					}
 				}
 			}
