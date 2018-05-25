@@ -2,5 +2,6 @@ package Model;
 
 public enum TypeControl {
 	Button,
-	Label
+	Label,
+	ListBox
 }
