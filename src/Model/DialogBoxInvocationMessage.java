@@ -27,18 +27,17 @@ public class DialogBoxInvocationMessage extends DialogBox{
 				
 		source = i;
 		
-		int index = 0;
-		
 		Label method = new Label(i.getMethodName(), xI - 75, yI - 100);
 		method.setTitle("method:");
 		method.setWidth(150);
 		super.addTextBox(method);
 		
 		ArrayList<Label> arguments = new ArrayList<Label>();
-		ListBox listBox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100, arguments);
+		ListBox listBox = new ListBox(xI - 75, yI - 75, arguments);
 //		listBox.setTitle("arguments: ");
 		listBox.setWidth(150);
 		
+		int index = 0;
 		for(String s : i.getArguments()){
 			Label arg = new Label(s, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
 			arg.setWidth(150);
@@ -148,6 +147,17 @@ public class DialogBoxInvocationMessage extends DialogBox{
 				listControls.add(listControls.size(), activeControl);
 			}
 		}
+		
+		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_DOWN && top.getClass()==ListBox.class) {
+			ListBox lb = (ListBox)top;
+			lb.selectPrevious();
+		}
+		
+		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_UP && top.getClass()==ListBox.class) {
+			ListBox lb = (ListBox)top;
+			lb.selectNext();
+		}
+		
 		else if(id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_SPACE ) {
 			Control c =this.getListControls().get(0);
 			if ( c.returnType() == TypeControl.Button	) {

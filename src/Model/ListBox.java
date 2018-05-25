@@ -10,6 +10,7 @@ public class ListBox implements Control{
 	private int originY = 0;
 	private int height = 0;
 	private int width = 150;
+	private static int labelHeight = 30;
 	ArrayList<Label> arguments = new ArrayList<Label>();
 	Label selectedLabel = null;
 	
@@ -23,7 +24,7 @@ public class ListBox implements Control{
 		originX = x;
 		originY = y;
 		arguments = labels;
-		height = 30*labels.size();
+		height = labelHeight*labels.size();
 	}
 	
 	@Override
@@ -72,6 +73,7 @@ public class ListBox implements Control{
 	 */
 	public void addArgument(Label l) {
 		arguments.add(l);
+		height+=labelHeight;
 	}
 	
 	/**
@@ -80,6 +82,7 @@ public class ListBox implements Control{
 	 */
 	public void deleteArgument(Label l) {
 		arguments.remove(l);
+		height-=labelHeight;
 	}
 	
 	/**

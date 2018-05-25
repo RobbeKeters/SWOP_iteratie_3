@@ -88,8 +88,12 @@ public class DialogBoxView {
 	
 	private void drawListBoxes(){
 		for(ListBox lb : dialogBox.getListBoxes()){
-			ListBoxRepresentation lbRep = new ListBoxRepresentation("arguments: ", lb.getX(), lb.getY(), lb.getWidth(), lb.getHeight());
+			ListBoxRepresentation lbRep = new ListBoxRepresentation("arguments: ", lb.getOriginX(), lb.getOriginY(), lb.getWidth(), lb.getHeight());
 			lbRep.setArguments(lb.getArguments());
+			for(Label l : lb.getArguments()){
+				DialogLabelRepresentation lRep = new DialogLabelRepresentation(l);
+				lRep.draw(dialogBox, graphics);
+			}
 			lbRep.draw(dialogBox, graphics);
 		}
 	}

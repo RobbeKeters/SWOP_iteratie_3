@@ -15,8 +15,8 @@ public class ListBoxRepresentation {
 	
 	public ListBoxRepresentation(String text, int x, int y, int width, int height) {
 //		super(x, y, width, height);
-		this.x = x;
-		this.y = y;
+		this.x = x + width/2;
+		this.y = y + height/2;
 		this.width = width;
 		this.height = height;
 		this.text = text;
@@ -30,22 +30,22 @@ public class ListBoxRepresentation {
 	
 	public void draw(Canvas c, Graphics g){
 //		super.draw(c, g);
-		drawText(c, g);
-		for(int i = 0; i < arguments.size(); i++){
-			if((g.getFontMetrics().getHeight() + 2)*(i+1) <= height){
-				if(arguments.get(i).getSelected())
-					g.setColor(Color.BLUE);
-				drawItem(c, g, i);	
-				g.setColor(Color.black);
-			}
-			
-		}
+//		drawText(c, g);
+//		drawRectangle(c, g);
+//		for(int i = 0; i < arguments.size(); i++){
+////			if((g.getFontMetrics().getHeight() + 2)*(i+1) <= height){
+//				if(arguments.get(i).getSelected())
+//					g.setColor(Color.BLUE);
+//				drawRectangle(c, g);	
+//				g.setColor(Color.black);
+////			}
+//			
+//		}
 	}
 	
-	private void drawItem(Canvas c, Graphics g, int i){
-		int stringHeight = g.getFontMetrics().getHeight() + 2;
-		g.drawRect(x + c.getOrigineX(), y + c.getOrigineY() + stringHeight * i, width, stringHeight);
-	}
+//	private void drawRectangle(Canvas c, Graphics g){
+//		g.drawRect(x + c.getOrigineX(), y + c.getOrigineY(), width, height);
+//	}
 	
 	private void drawText(Canvas c, Graphics g){
 //		int stringWidth = g.getFontMetrics().stringWidth(text);
