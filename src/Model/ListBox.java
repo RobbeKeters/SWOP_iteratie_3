@@ -9,19 +9,22 @@ public class ListBox implements Control{
 	private int originX = 0;
 	private int originY = 0;
 	private int height = 0;
-	private int width = 0;
-	ArrayList<Label> arguments;
+	private int width = 150;
+	ArrayList<Label> arguments = new ArrayList<Label>();
 	Label selectedLabel = null;
 	
 	public ListBox(int x, int y, ArrayList<Label> labels) {
 		originX = x;
 		originY = y;
 		arguments = labels;
+		height = 30*labels.size();
 	}
 	
 	@Override
 	public void setSelectedControl(Boolean selected) {
 		this.selected = selected;
+		if(selected) {selectedLabel = arguments.get(0); selectedLabel.setSelected(true);}
+		else {selectedLabel.setSelected(false); selectedLabel = null;}
 	}
 
 	@Override
@@ -71,8 +74,7 @@ public class ListBox implements Control{
 	}
 
 	public ArrayList<Label> getArguments() {
-		// TODO Auto-generated method stub
-		return null;
+		return arguments;
 	}
 	
 	public boolean getSelected() {
@@ -81,6 +83,8 @@ public class ListBox implements Control{
 	
 	public void setSelected(boolean b) {
 		selected = b;
+		selectedLabel = arguments.get(0);
+		selectedLabel.setSelected(true);
 	}
 	
 	public int getX(){
@@ -105,6 +109,22 @@ public class ListBox implements Control{
 	
 	public void setWidth(int w) {
 		width = w;
+	}
+	
+	public int getOriginX() {
+		return originX;
+	}
+	
+	public void setOriginX(int x) {
+		originX = x;
+	}
+	
+	public int getOriginY() {
+		return originY;
+	}
+	
+	public void setOriginY(int y) {
+		originX = y;
 	}
 	
 }
