@@ -107,6 +107,10 @@ public class MyScreen {
 		}
 		this.checkDialogForUpdatedParties(screen);
 		this.updateDiaLogs(screen);
+		this.checkDialogForUpdatedParties(screen);
+		this.updateDiaLogs(screen);
+		this.checkDialogForUpdatedParties(screen);
+
 	}
 	
 	/**
@@ -172,6 +176,9 @@ public class MyScreen {
 		}
 		this.checkDialogForUpdatedParties(screen);
 		this.updateDiaLogs(screen);
+		this.checkDialogForUpdatedParties(screen);
+		this.updateDiaLogs(screen);
+		this.checkDialogForUpdatedParties(screen);
 	}
 	
 	/**
@@ -249,14 +256,13 @@ public class MyScreen {
 				break;
 			}
 		}
-		DialogBox canvasToUpdated = null;
+		ArrayList<DialogBox> canvasToUpdatedList = new ArrayList<DialogBox>();
 		if ( interaction  != null) {
 			for( Canvas c : screen.getSubWindows()) {
 				if ( c.getClass().equals(Model.DialogBoxParty.class)) {
 					DialogBoxParty db = (DialogBoxParty) c;
 					if( db.source == interaction.oldParty) {
-						canvasToUpdated = (DialogBox) c;
-						break;
+						canvasToUpdatedList.add((DialogBox) c);
 					} 
 				} else if (c.getClass().equals(Model.DialogBoxWindow.class)){
 					DialogBoxWindow db = (DialogBoxWindow)c;
@@ -267,10 +273,13 @@ public class MyScreen {
 				}
 			}
 			int indexCanvasInStack;
-			if ( canvasToUpdated != null && (interaction.adjustedDialog == diaLogAdjusted.LABELADJUSTED || interaction.adjustedDialog == diaLogAdjusted.TYPEADJUSTED)) {
-				indexCanvasInStack = screen.getSubWindows().indexOf(canvasToUpdated);
-				screen.getSubWindows().remove(canvasToUpdated);
-				screen.getSubWindows().add(indexCanvasInStack, new DialogBoxParty(canvasToUpdated.getOrigineX(), canvasToUpdated.getOrigineY(), canvasToUpdated.getWidth(), canvasToUpdated.getHeight(), interaction.newParty));
+			if ( canvasToUpdatedList.size() > 0 && (interaction.adjustedDialog == diaLogAdjusted.LABELADJUSTED || interaction.adjustedDialog == diaLogAdjusted.TYPEADJUSTED)) {
+				
+				for ( Canvas canvasToUpdated : canvasToUpdatedList) {
+					indexCanvasInStack = screen.getSubWindows().indexOf(canvasToUpdated);
+					screen.getSubWindows().remove(canvasToUpdated);
+					screen.getSubWindows().add(indexCanvasInStack, new DialogBoxParty(canvasToUpdated.getOrigineX(), canvasToUpdated.getOrigineY(), canvasToUpdated.getWidth(), canvasToUpdated.getHeight(), interaction.newParty));
+				}
 			} 
 			interaction.adjustedDialog = diaLogAdjusted.NOTADJUSTED;
 		}
