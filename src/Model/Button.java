@@ -18,6 +18,7 @@ public class Button implements Control{
 	private int OrigineX;
 	private int OrigineY;
 	private boolean selected;
+	private boolean disabled;
 	
 	/**
 	 * Constructor.
@@ -157,6 +158,13 @@ public class Button implements Control{
 	@Override
 	public boolean isSelectedControl() {
 		return this.selected;
+	}
+	
+	public void setDisabled(boolean d){
+		this.disabled = d;
+	}
+	public boolean isDisabled() {
+		return this.disabled;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import Model.Handler.EditLabelHandler;
 public class DialogBoxInvocationMessage extends DialogBox{
 
 	InvocationMessage source;
+	private Label listArgument;
 	
 	public DialogBoxInvocationMessage(int origineX, int origineY, int width, int height, InvocationMessage i) {
 		super(origineX, origineY, width, height);
@@ -25,7 +26,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		method.setWidth(150);
 		super.addTextBox(method);
 		
-		ListBox listbox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100, i.getArguments());
+		ListBox listbox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100);
 		listBox.setTitle("arguments: ");
 		listBox.setWidth(150);
 		
@@ -70,6 +71,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		// Add all buttons en textboxes to one list 
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
+		this.getListControls().addAll(this.getListBoxes());
 	}
 
 	@Override
@@ -103,6 +105,17 @@ public class DialogBoxInvocationMessage extends DialogBox{
 							ctrl.setSelectedControl(false);
 						else 
 							c.setSelectedControl(true);
+					}
+				} else if (c.returnType() == TypeControl.ListBox){
+					// listbox is selected
+					ListBox lb = (ListBox) c;
+					lb.setSelectedControl(true);
+					// welke label is geselecteerd
+					for(Label arg : lb.getArguments()){
+						if(arg.inArea(x, y)){
+							lb.setSelectedArgument(arg);
+							break;
+						}
 					}
 				}
 			}
