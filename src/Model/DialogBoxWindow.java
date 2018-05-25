@@ -57,6 +57,7 @@ public class DialogBoxWindow extends DialogBox{
 					b.setSelectedControl(true);
 					b.setActivated(true);
 					source.switchView();
+					source.getInteraction().adjustedDialog = diaLogAdjusted.DIAGRAMTYPECHANGED;
 					clickedButton = b;
 					break;
 				} 
@@ -99,6 +100,7 @@ public class DialogBoxWindow extends DialogBox{
 				}
 			}
 			source.switchView();
+			source.getInteraction().adjustedDialog = diaLogAdjusted.DIAGRAMTYPECHANGED;
 		}
 	}
 	

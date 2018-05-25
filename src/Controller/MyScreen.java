@@ -314,14 +314,14 @@ public class MyScreen {
 				int indexOldDB = screen.getSubWindows().indexOf(db);
 				DialogBoxResultMessage newDb = new DialogBoxResultMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
 				screen.getSubWindows().set(indexOldDB, newDb);
-				
+			
 			} else if ( c.getClass().equals(Model.DialogBoxInvocationMessage.class)){
 				DialogBoxInvocationMessage db = (DialogBoxInvocationMessage) c;
 				//Interaction iDialog = findInteractionForDialogParty(screen, db);
 				int indexOldDB = screen.getSubWindows().indexOf(db);
 				DialogBoxInvocationMessage newDb = new DialogBoxInvocationMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
 				screen.getSubWindows().set(indexOldDB, newDb);
-				
+			
 			}
 		}
 	}
@@ -411,7 +411,7 @@ public class MyScreen {
 				} else {
 					SetPartyTypeHandler.handle(specificWindow, oldParty.getPosComm().getX(), oldParty.getPosComm().getY());
 				}
-				specificInteraction.adjusted(ADJUSTED_TYPE.CHANGE_TYPE, specificWindow);
+				//specificInteraction.adjusted(ADJUSTED_TYPE.CHANGE_TYPE, specificWindow);
 			}
 		} 
 	}
