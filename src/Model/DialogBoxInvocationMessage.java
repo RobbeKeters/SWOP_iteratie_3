@@ -121,12 +121,12 @@ public class DialogBoxInvocationMessage extends DialogBox{
 					ListBox lb = (ListBox) c;
 					lb.setSelectedControl(true);
 					// welke label is geselecteerd
-					for(Label arg : lb.getArguments()){
-						if(arg.inArea(x, y)){
-							lb.setSelectedLabel(arg);
-							break;
-						}
-					}
+//					for(Label arg : lb.getArguments()){
+//						if(arg.inArea(x, y)){
+//							lb.setSelectedLabel(arg);
+//							break;
+//						}
+//					}
 				}
 			}
 		}
