@@ -308,7 +308,7 @@ public class MyScreen {
 				DialogBoxWindow newDb = new DialogBoxWindow(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source );
 				int indexOldDB = screen.getSubWindows().indexOf(db);
 				screen.getSubWindows().set(indexOldDB, newDb);
-				*/
+				
 			} else if ( c.getClass().equals(Model.DialogBoxResultMessage.class) ){
 				DialogBoxResultMessage db = (DialogBoxResultMessage) c;
 				//Interaction iDialog = findInteractionForDialogParty(screen, db);				
@@ -322,7 +322,7 @@ public class MyScreen {
 				int indexOldDB = screen.getSubWindows().indexOf(db);
 				DialogBoxInvocationMessage newDb = new DialogBoxInvocationMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
 				screen.getSubWindows().set(indexOldDB, newDb);
-			
+			*/
 			}
 		}
 	}

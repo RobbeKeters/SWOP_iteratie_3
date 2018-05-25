@@ -101,9 +101,15 @@ public class DialogBoxInvocationMessage extends DialogBox{
 					// deActivate the other 
 					for ( Button b :this.getButtons()) {
 						if ( c == b	) {
-							source.adjustedThroughDialog =diaLogAdjusted.TYPEADJUSTED;
 							b.setActivated(true);
 							b.setSelectedControl(true);
+							if(b.getTitle().equals("+")){
+								String var = searchForLabelName("add arg.:").getLabelname();
+								source.addArgument(var);
+								source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
+							}
+								
+								
 						} else {
 							b.setActivated(false);
 							b.setSelectedControl(false);
