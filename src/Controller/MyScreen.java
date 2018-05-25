@@ -315,14 +315,20 @@ public class MyScreen {
 				int indexOldDB = screen.getSubWindows().indexOf(db);
 				DialogBoxResultMessage newDb = new DialogBoxResultMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
 				screen.getSubWindows().set(indexOldDB, newDb);
-			
+			*/
 			} else if ( c.getClass().equals(Model.DialogBoxInvocationMessage.class)){
 				DialogBoxInvocationMessage db = (DialogBoxInvocationMessage) c;
-				//Interaction iDialog = findInteractionForDialogParty(screen, db);
-				int indexOldDB = screen.getSubWindows().indexOf(db);
-				DialogBoxInvocationMessage newDb = new DialogBoxInvocationMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
-				screen.getSubWindows().set(indexOldDB, newDb);
-			*/
+				Interaction iDialog = findInteractionForDialogInvocationMessage(screen, db);
+				if( iDialog != null && (iDialog.adjustedDialog == diaLogAdjusted.LABELADJUSTED) ){
+//					if ( iDialog.oldInvocationMessage.getMessageNumber() == db.source.getMessageNumber()){
+						int indexOldDB = screen.getSubWindows().indexOf(db);
+						DialogBoxInvocationMessage newDb = new DialogBoxInvocationMessage(db.getOrigineX(), db.getOrigineY(), db.getWidth(), db.getHeight(),db.source);
+						screen.getSubWindows().set(indexOldDB, newDb);
+//					}
+					
+				}
+				
+			
 			}
 		}
 	}
@@ -352,7 +358,8 @@ public class MyScreen {
 		}
 		return null;
 	}
-	private Interaction findInteractionForDialogParty(Screen screen, DialogBoxInvocationMessage db) {
+	*/
+	private Interaction findInteractionForDialogInvocationMessage(Screen screen, DialogBoxInvocationMessage db) {
 		for( Interaction i : screen.getInteractions()) {
 			if( i.oldInvocationMessage == db.source){
 				return i;
@@ -360,7 +367,8 @@ public class MyScreen {
 		}
 		return null;
 	}
-	*/
+	
+	
 	private void checkForUpdates(Screen screen){
 		Party oldParty = null;
 		Message oldMessage = null;
@@ -414,7 +422,9 @@ public class MyScreen {
 				}
 				//specificInteraction.adjusted(ADJUSTED_TYPE.CHANGE_TYPE, specificWindow);
 			}
-		} 
+		} else if ( oldMessage != null){
+			specificInteraction.adjusted(ADJUSTED_TYPE.MESSAGE_LABEL, specificWindow);
+		}
 	}
 	private void undoInteractionAdjusted(Screen screen){
 		for( Interaction i : screen.getInteractions()) {

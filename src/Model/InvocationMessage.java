@@ -58,11 +58,13 @@ public class InvocationMessage extends Message {
 	 * @param var		The argument to add.
 	 */
 	public void addArgument(String var) {
+		System.out.println("oud: " + arguments.length);
 		String[] newArguments = new String[arguments.length+1];
 		for(int i = 0; i<arguments.length; i++){
 			newArguments[i] = arguments[i];
 		}
 		newArguments[arguments.length] = var;
+		System.out.println("nieuw: " + newArguments.length + " " + newArguments[arguments.length]);
 	}
 	
 }
