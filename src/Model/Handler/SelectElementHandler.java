@@ -177,7 +177,7 @@ public class SelectElementHandler extends Handler {
 	private static void deselectMessages(Window window) {
 		for(Message m : window.getMessages()) {
 			m.setSelected(false);
-			if(m.getClass()!=ResultMessage.class) {	m.getLabel().setSelected(false);}
+			m.getLabel().setSelected(false);
 		}
 	}
 	
