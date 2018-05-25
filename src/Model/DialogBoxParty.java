@@ -66,7 +66,6 @@ public class DialogBoxParty extends DialogBox{
 		// Add all buttons and textboxes to one list 
 		this.getListControls().addAll(this.getButtons());
 		this.getListControls().addAll(this.getTextBoxes());
-		System.out.println(this.getListControls().size() + " size ======== ");
 	}
 
 	@Override

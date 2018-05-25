@@ -174,51 +174,6 @@ public class DialogBoxInvocationMessage extends DialogBox{
 			} else if (c.returnType() == TypeControl.Label) {
 			}
 		}
-		
-//		else if ( id == KeyEvent.KEY_TYPED && keyChar != KeyEvent.VK_TAB) {
-//			Control c = this.getListControls().get(0);
-////			Label label = source.getLabel();
-//			// LET OP: IN Dialog wordt de label van een party opgedeeld in 2 Labels
-////			Label label = searchForLabelName("instance: ");
-////			Label classs = searchForLabelName("class: ");
-//			
-//			// Lelijke If statements .......
-//			if( c.returnType() == TypeControl.Label && keyChar != KeyEvent.VK_BACK_SPACE ) {
-//				
-//				label.
-//				
-////				if ( instance == c ) {
-////					instance.setLabelname(instance.getLabelname().replace("|", "") + keyChar );
-////				} else {
-////					classs.setLabelname(classs.getLabelname().replace("|", "") + keyChar );
-////				}
-//					
-//			} else if ( c.returnType() == TypeControl.Label && keyChar == KeyEvent.VK_BACK_SPACE) {
-////				if ( instance == c ) {
-////					instance.setLabelname(instance.getLabelname().substring(0, instance.getLabelname().length()-1));
-////				} else {
-////					classs.setLabelname(classs.getLabelname().substring(0, classs.getLabelname().length()-1));
-////				}
-//			}
-//			source.getLabel().setLabelname(classs.getLabelname()+":"+instance.getLabelname());
-//			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
-//			
-//			int width = 8*instance.getLabelname().length();
-//			if (width == 0)
-//				width = 11;
-//			instance.setWidth(width);
-//			
-//			width = 8*classs.getLabelname().length();
-//			if (width == 0)
-//				width = 11;
-//			classs.setWidth(width);
-//			
-//			width = 8*source.getLabel().getLabelname().length();
-//			if (width == 0)
-//				width = 11;
-//			source.getLabel().setWidth(width);
-//			
-//		}
 		this.getListControls().get(0).setSelectedControl(true);
 	}
 	private Label searchForLabelName(String toSearchFor) {
