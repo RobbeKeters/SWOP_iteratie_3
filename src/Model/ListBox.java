@@ -4,15 +4,18 @@ import java.util.ArrayList;
 
 public class ListBox implements Control{
 
-	boolean selected = false;
-	TypeControl type = TypeControl.ListBox;
-	int x = 0;
-	int y = 0;
+	private boolean selected = false;
+	private TypeControl type = TypeControl.ListBox;
+	private int originX = 0;
+	private int originY = 0;
+	private int height = 0;
+	private int width = 0;
 	ArrayList<Label> arguments = new ArrayList<Label>();
 	Label selectedLabel = null;
 	
 	public ListBox(int x, int y, ArrayList<Label> labels) {
-		
+		originX = x;
+		originY = y;
 	}
 	
 	@Override
@@ -48,6 +51,14 @@ public class ListBox implements Control{
 		else {arguments.get(arguments.size()-1).setSelected(true);selectedLabel.setSelected(false); selectedLabel = arguments.get(arguments.size()-1);}
 	}
 	
+	public void addArgument(Label l) {
+		arguments.add(l);
+	}
+	
+	public void deleteArgument(Label l) {
+		arguments.remove(l);
+	}
+	
 	public Label getSelectedLabel() {
 		return selectedLabel;
 	}
@@ -69,6 +80,22 @@ public class ListBox implements Control{
 	
 	public void setSelected(boolean b) {
 		selected = b;
+	}
+	
+	public int getHeight(){
+		return height;
+	}
+	
+	public void setHeight(int h) {
+		height = h;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public void setWidth(int w) {
+		width = w;
 	}
 	
 }
