@@ -26,7 +26,8 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		method.setWidth(150);
 		super.addTextBox(method);
 		
-		ListBox listbox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100);
+		ArrayList<Label> arguments = new ArrayList<Label>();
+		ListBox listbox = new ListBox(xI - 75 + i.getLabel().getHeight(), yI - 100, arguments);
 		listBox.setTitle("arguments: ");
 		listBox.setWidth(150);
 		
@@ -58,6 +59,12 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		Button remove = new Button("X", xI+75, yI - 100, Button.Type.TEXT);
 		Button moveUp = new Button("/\\", xI+75, yI- 100 + i.getLabel().getHeight(), Button.Type.TEXT);
 		Button moveDown = new Button("\\/",xI+75, yI - 100 + i.getLabel().getHeight()*2, Button.Type.TEXT);
+		
+		if(listBox.getSelected()){
+			remove.setDisabled(false);
+			moveUp.setDisabled(false);
+			moveDown.setDisabled(false);
+		}
 		
 		// add is geselecteerd bij instantiatie 
 		add.setSelectedControl(true);
@@ -113,7 +120,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 					// welke label is geselecteerd
 					for(Label arg : lb.getArguments()){
 						if(arg.inArea(x, y)){
-							lb.setSelectedArgument(arg);
+							lb.setSelectedLabel(arg);
 							break;
 						}
 					}

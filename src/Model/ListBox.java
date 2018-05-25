@@ -57,5 +57,10 @@ public class ListBox implements Control{
 		l.setSelected(true);
 		selectedLabel = l;
 	}
+
+	public Object getArguments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
