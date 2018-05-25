@@ -68,8 +68,8 @@ public class DialogBoxView {
 				break;
 			case TEXT:
 				TextButtonRepresentation t = new TextButtonRepresentation(b.getTitle(), b.getOrigineX(), b.getOrigineY(), b.getWidth(), b.getHeight());
-				t.draw(dialogBox, graphics);
 				t.setSelected(b.isSelected());
+				t.draw(dialogBox, graphics);
 				break;
 			case CLOSE:
 				break;

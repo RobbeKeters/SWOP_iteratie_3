@@ -21,7 +21,7 @@ public class TextButtonRepresentation {
 	
 	public void draw(Canvas c, Graphics g){
 		if(selected)
-			g.setColor(Color.RED);
+			g.setColor(Color.BLUE);
 		else
 			g.setColor(Color.BLACK);
 		drawRectangle(c, g);
