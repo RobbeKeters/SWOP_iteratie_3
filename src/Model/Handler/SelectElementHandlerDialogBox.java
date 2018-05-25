@@ -10,8 +10,18 @@ import Model.Mode;
 import Model.ResizeWindow;
 import Model.DialogBox;
 
+/**
+ * A handler tht handles the actions of an element within a dialog box being selected.
+ */
 public class SelectElementHandlerDialogBox extends Handler {
 	
+	/**
+	 * Handles a mouse event in a given dialog box.
+	 * @param db	The given dialog box.
+	 * @param x		The x coordinate of the mouse event.
+	 * @param y		The y coordinate of the mouse event.
+	 * @param id	The type of mouse event.
+	 */
 	public static void handle(DialogBox db, int x, int y, Mouse id) {
 		
 		int oldXorigine = db.getOrigineX();
@@ -64,9 +74,15 @@ public class SelectElementHandlerDialogBox extends Handler {
 			db.handleMouse(id, x, y);
 		}
 	}
-
+	
+	/**
+	 * Handles a key event in a given dialog box.
+	 * @param id		The type of key event.
+	 * @param keyCode	The key code of the key event.
+	 * @param keyChar	The key character of the key event.
+	 * @param db		The given dialog box.
+	 */
 	public static void handleKey(int id, int keyCode, char keyChar, DialogBox db) {
-		db.handleKey(id, keyCode, keyChar); // let the specific DB object handle it 
-
+		db.handleKey(id, keyCode, keyChar); // let the specific DB object handle it
 	}
 }

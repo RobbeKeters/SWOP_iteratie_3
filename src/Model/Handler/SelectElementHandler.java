@@ -161,7 +161,11 @@ public class SelectElementHandler extends Handler {
 			System.out.println("######## Releasing Button ########");
 		}
 	}
-
+	
+	/**
+	 * Deselects all elements in th given window.
+	 * @param window	The given window.
+	 */
 	public static void deselectAll(Window window) {
 		deselectParties(window);
 		deselectMessages(window);

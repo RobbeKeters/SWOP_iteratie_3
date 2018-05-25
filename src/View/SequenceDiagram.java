@@ -28,7 +28,7 @@ import Model.Object;
 public class SequenceDiagram extends View {
 	
 	/**
-	 * Draws a seuence diagram of the given canvas.
+	 * Draws a sequence diagram of the given canvas.
 	 * 
 	 * @param w		The canvas to draw.
 	 * @param g		The graphics object used for drawing.
