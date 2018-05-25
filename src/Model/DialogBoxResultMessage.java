@@ -8,13 +8,13 @@ public class DialogBoxResultMessage extends DialogBox{
 
 	ResultMessage source;
 	
-	public DialogBoxResultMessage(int width, int height, int origineX, int origineY, ResultMessage r) {
-		super(width, height, origineX, origineY);
+	public DialogBoxResultMessage(int origineX, int origineY, int width, int height, ResultMessage r) {
+		super(origineX, origineY, width, height);
 	
 		source = r;
 		
-		int xI = origineX + width/2 ;
-		int yI = origineY + height/2 ;
+		int xI = origineX + width/2;
+		int yI = origineY + height/2;
 		
 		Label result = new Label(r.getLabel().getLabelname(),xI, yI);
 		super.addTextBox(result);
