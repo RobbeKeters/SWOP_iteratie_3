@@ -535,7 +535,11 @@ public class Window extends Canvas{
 		return min;
 	}
 	
-
+	/**
+	 * Calculates the amount of predecessors a given message has.
+	 * @param message		The given message.
+	 * @return				The amount of predecessors.
+	 */
 	public int getAmountPredecessors(Message message) {
 		int amount = 0;
 		for (Message m : getMessages()) {
@@ -550,7 +554,6 @@ public class Window extends Canvas{
 	 * @param window	Canvas for which to update the message positions.
 	 * 
 	 */
-		
 	public static void updateYPositionLMessageLabelsSequenceDiagram(Window window) {
 		for (Message m : window.getMessages()) {
 			int newY = window.getOrigineY() +window.getHeight()/6 + 42 + (50 * AddMessageHandler.getAmountPredecessors(window, m));
@@ -563,7 +566,6 @@ public class Window extends Canvas{
 	 * @param window	Canvas for which to update the party positions.
 	 * 
 	 */
-	
 	public static void updateYPositionPartySequenceDiagram(Window window) {
 		for( Party p : window.getParties()) {
 			int newY = window.getOrigineY() +window.getHeight()/12;

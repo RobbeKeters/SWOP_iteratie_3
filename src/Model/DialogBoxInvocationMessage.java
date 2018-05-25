@@ -11,6 +11,14 @@ public class DialogBoxInvocationMessage extends DialogBox{
 	InvocationMessage source;
 	private Label listArgument;
 	
+	/**
+	 * Constructor.
+	 * @param origineX		The x coordinate of origin.
+	 * @param origineY		The y coordinate of origin.
+	 * @param width			The width.
+	 * @param height		The height.
+	 * @param i				The linked invocation message.
+	 */
 	public DialogBoxInvocationMessage(int origineX, int origineY, int width, int height, InvocationMessage i) {
 		super(origineX, origineY, width, height);
 		
@@ -75,7 +83,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		this.getListControls().addAll(this.getTextBoxes());
 		this.getListControls().addAll(this.getListBoxes());
 	}
-
+	
 	@Override
 	public void handleMouse(Mouse id, int x, int y) {
 		this.getListControls().get(0).setSelectedControl(false);
@@ -124,7 +132,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		}
 		this.getListControls().get(0).setSelectedControl(true);
 	}
-
+	
 	@Override
 	public void handleKey(int id, int keyCode, char keyChar) {
 		Control top = this.getListControls().get(0);

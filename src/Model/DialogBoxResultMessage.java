@@ -5,9 +5,20 @@ import java.awt.event.KeyEvent;
 import Controller.Mouse;
 
 public class DialogBoxResultMessage extends DialogBox{
-
+	
+	/**
+	 * The linked result message.
+	 */
 	ResultMessage source;
 	
+	/**
+	 * Constructor.
+	 * @param origineX		The x coordinate of origin.
+	 * @param origineY		The y coordinate of origin.
+	 * @param width			The width.
+	 * @param height		The height.
+	 * @param r				The linked result message.
+	 */
 	public DialogBoxResultMessage(int origineX, int origineY, int width, int height, ResultMessage r) {
 		super(origineX, origineY, width, height);
 	
