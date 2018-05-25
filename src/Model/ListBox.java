@@ -9,6 +9,7 @@ public class ListBox implements Control{
 	int x = 0;
 	int y = 0;
 	ArrayList<Label> arguments = new ArrayList<Label>();
+	Label selectedLabel = null;
 	
 	public ListBox() {
 		
@@ -35,12 +36,26 @@ public class ListBox implements Control{
 		return false;
 	}
 
-	public Label getNext() {
-		return null;
+	public void selectNext() {
+		int i = arguments.indexOf(selectedLabel);
+		if(i<arguments.size()-1) {arguments.get(i+1).setSelected(true);selectedLabel.setSelected(false);selectedLabel = arguments.get(i+1);}
+		else {arguments.get(0).setSelected(true);selectedLabel.setSelected(false);selectedLabel = arguments.get(0);}
 	}
 	
-	public Label getPrevious() {
-		return null;
+	public void selectPrevious() {
+		int i = arguments.indexOf(selectedLabel);
+		if(i>0) {arguments.get(i-1).setSelected(true);selectedLabel.setSelected(false);selectedLabel = arguments.get(i-1);}
+		else {arguments.get(arguments.size()-1).setSelected(true);selectedLabel.setSelected(false); selectedLabel = arguments.get(arguments.size()-1);}
+	}
+	
+	public Label getSelected() {
+		return selectedLabel;
+	}
+	
+	public void setSelected(Label l) {
+		selectedLabel.setSelected(false);
+		l.setSelected(true);
+		selectedLabel = l;
 	}
 	
 }
