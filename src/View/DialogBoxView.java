@@ -16,13 +16,21 @@ import View.representation.RadioButtonRepresentation;
 import View.representation.TextButtonRepresentation;
 import View.representation.TextInputRepresentation;
 
+/**
+ * A class that draws a dialog box and its subelements.
+ */
 public class DialogBoxView {
 
 	protected Model.DialogBox dialogBox;
 	protected Graphics graphics;
 	private int fontHeight;
 	
-	
+	/**
+	 * Draws a dialog box based on the given selected element.
+	 * @param element		The given selected element.
+	 * @param db			The dialog box to draw.
+	 * @param g				The graphis element used to draw.
+	 */
 	public void draw(SelectedElement element, Model.DialogBox db, Graphics g){
 		this.dialogBox = db;
 		this.graphics = g;
@@ -91,7 +99,6 @@ public class DialogBoxView {
 			ListBoxRepresentation lbRep = new ListBoxRepresentation(lb);
 			lbRep.setArguments(lb.getArguments());
 			lbRep.draw(dialogBox, graphics);
-			System.out.println("dialogBox pos: " + dialogBox.getOrigineX() + " " + dialogBox.getOrigineY() + " listbox: " + lb.getOriginX() + " " + lb.getOriginY());
 			for(Label l : lb.getArguments()){
 				DialogLabelRepresentation lRep = new DialogLabelRepresentation(l);
 				lRep.draw(dialogBox, graphics);

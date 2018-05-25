@@ -19,9 +19,10 @@ import Model.diaLogAdjusted;
 public class EditLabelHandler extends Handler{
 	
 	/**
-	 * Handles a label being edited.
+	 * Handles a message label being edited.
 	 * @param window		The canvas to in which the label is present.
 	 * @param label			The label being edited.
+	 * @param message		The message to which the label belongs to.
 	 * @param x			The x coordinate of the mouse event used to handle this event.
 	 * @param y			The y coordinate of the mouse event used to handle this event.
 	 */
@@ -78,6 +79,7 @@ public class EditLabelHandler extends Handler{
 	 * Handle a label being edited.
 	 * @param window		The canvas to edit.
 	 * @param label			The label being edited.
+	 * @param message		The message to which the label belongs to.
 	 * @param character			The key character used to edit the label.
 	 * @param x			The x coordinate of the mouse event used to handle this event.
 	 * @param y			The y coordinate of the mouse event used to handle this event.
@@ -147,6 +149,11 @@ public class EditLabelHandler extends Handler{
 		}
 	}
 	
+	/**
+	 * Checks if a given label name is a valid party label name.
+	 * @param label		The given label name.
+	 * @return			Whether or not the given label name is a valid party label name.
+	 */
 	static public boolean isCorrectPartyLabel(String label){
 		if(label.matches("([a-z][a-zA-Z]*):[A-Z][a-zA-Z]*\\|")){
 			return true;
@@ -154,6 +161,11 @@ public class EditLabelHandler extends Handler{
 		return false;
 	}
 	
+	/**
+	 * Checks if a given label name is a valid invocation message label name.
+	 * @param label		The given label name.
+	 * @return			Whether or not the given label name is a valid invocation message label name.
+	 */
 	static public boolean isCorrectInvocationMessageLabel(String label) {
 		String corLabel = label.replace("|", "").trim();
 		return corLabel.matches("([a-z][a-zA-Z_0-9]*)[\\(]((([^,\\(\\)]+[,])*[^,\\(\\)]+)*[\\)])");
