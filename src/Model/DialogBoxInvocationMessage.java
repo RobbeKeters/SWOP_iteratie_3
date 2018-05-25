@@ -38,7 +38,10 @@ public class DialogBoxInvocationMessage extends DialogBox{
 			listBox.addArgument(arg);
 			index++;
 		}
+		
+		System.out.println(listBox.getArguments());
 		super.addListBox(listBox);
+		
 		
 		Label newArg;
 //		if(index > 2)

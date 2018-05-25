@@ -16,6 +16,7 @@ public class ListBox implements Control{
 	public ListBox(int x, int y, ArrayList<Label> labels) {
 		originX = x;
 		originY = y;
+		arguments = labels;
 	}
 	
 	@Override
