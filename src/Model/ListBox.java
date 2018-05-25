@@ -58,7 +58,7 @@ public class ListBox implements Control{
 		selectedLabel = l;
 	}
 
-	public Object getArguments() {
+	public ArrayList<Label> getArguments() {
 		// TODO Auto-generated method stub
 		return null;
 	}
