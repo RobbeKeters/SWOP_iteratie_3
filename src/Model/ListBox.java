@@ -133,18 +133,6 @@ public class ListBox implements Control{
 	 * Return this dialog box's x coordinate.
 	 * @return		The x coordinate.
 	 */
-	public int getX(){
-		return originX;
-	}
-	
-	/**
-	 * Return this dialog box's y coordinate.
-	 * @return		The y coordinate.
-	 */
-	public int getY(){
-		return originY;
-	}
-	
 	/**
 	 * Return this dialog box's height.
 	 * @return		The height.
@@ -206,7 +194,7 @@ public class ListBox implements Control{
 	 * @param y		The given y coordinate of origin.
 	 */
 	public void setOriginY(int y) {
-		originX = y;
+		originY = y;
 	}
 	
 }

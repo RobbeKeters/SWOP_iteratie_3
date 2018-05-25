@@ -96,13 +96,15 @@ public class DialogBoxView {
 	
 	private void drawListBoxes(){
 		for(ListBox lb : dialogBox.getListBoxes()){
-			ListBoxRepresentation lbRep = new ListBoxRepresentation("arguments: ", lb.getOriginX(), lb.getOriginY(), lb.getWidth(), lb.getHeight());
+			ListBoxRepresentation lbRep = new ListBoxRepresentation(lb);
 			lbRep.setArguments(lb.getArguments());
+			lbRep.draw(dialogBox, graphics);
+			System.out.println("dialogBox pos: " + dialogBox.getOrigineX() + " " + dialogBox.getOrigineY() + " listbox: " + lb.getOriginX() + " " + lb.getOriginY());
 			for(Label l : lb.getArguments()){
 				DialogLabelRepresentation lRep = new DialogLabelRepresentation(l);
 				lRep.draw(dialogBox, graphics);
 			}
-			lbRep.draw(dialogBox, graphics);
+			
 		}
 	}
 }

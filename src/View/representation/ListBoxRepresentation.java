@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Model.Canvas;
 import Model.Label;
+import Model.ListBox;
 
 public class ListBoxRepresentation {
 
@@ -13,13 +14,13 @@ public class ListBoxRepresentation {
 	private ArrayList<Label> arguments = new ArrayList<Label>();
 	private int x, y, width, height;
 	
-	public ListBoxRepresentation(String text, int x, int y, int width, int height) {
+	public ListBoxRepresentation(ListBox lb) {
 //		super(x, y, width, height);
-		this.x = x + width/2;
-		this.y = y + height/2;
-		this.width = width;
-		this.height = height;
-		this.text = text;
+		this.width = lb.getWidth();
+		this.height = lb.getHeight();
+		this.x = lb.getOriginX() + width/2;
+		this.y = lb.getOriginY() + height/2;
+//		this.text = text;
 //		for(int i = 0; i < 10; i++){
 //			Label label = new Label("");
 //			label.setSelected(true);
