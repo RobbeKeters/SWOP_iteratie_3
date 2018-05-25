@@ -10,7 +10,7 @@ public class ListBox implements Control{
 	private int originY = 0;
 	private int height = 0;
 	private int width = 0;
-	ArrayList<Label> arguments = new ArrayList<Label>();
+	ArrayList<Label> arguments;
 	Label selectedLabel = null;
 	
 	public ListBox(int x, int y, ArrayList<Label> labels) {

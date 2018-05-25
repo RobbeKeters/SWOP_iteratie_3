@@ -35,7 +35,7 @@ public class DialogBoxInvocationMessage extends DialogBox{
 		for(String s : i.getArguments()){
 			Label arg = new Label(s, xI - 75, yI - 75 + i.getLabel().getHeight()*index);
 			arg.setWidth(150);
-			listBox.addArgument(arg);
+			listBox.getArguments().add(arg);
 			index++;
 		}
 		
