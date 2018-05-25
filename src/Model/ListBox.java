@@ -31,7 +31,11 @@ public class ListBox implements Control{
 	public void setSelectedControl(Boolean selected) {
 		this.selected = selected;
 		if(selected) {selectedLabel = arguments.get(0); selectedLabel.setSelected(true);}
-		else {selectedLabel.setSelected(false); selectedLabel = null;}
+		else {
+			if(selectedLabel!=null) {
+			selectedLabel.setSelected(false); selectedLabel = null;
+			}
+		}
 	}
 
 	@Override
@@ -123,10 +127,14 @@ public class ListBox implements Control{
 	 * Sets this dialog box's selection status to the given selection status.
 	 * @param b		The given selection status.
 	 */
-	public void setSelected(boolean b) {
-		selected = b;
-		selectedLabel = arguments.get(0);
-		selectedLabel.setSelected(true);
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		if(selected) {selectedLabel = arguments.get(0); selectedLabel.setSelected(true);}
+		else {
+			if(selectedLabel!=null) {
+			selectedLabel.setSelected(false); selectedLabel = null;
+			}
+		}
 	}
 	
 	/**
