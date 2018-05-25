@@ -105,10 +105,8 @@ public class MyScreen {
 		for (Interaction i : toBeDeletedInteraction) {
 			screen.getInteractions().remove(i);
 		}
-		
-		this.updateDiaLogs(screen);
 		this.checkDialogForUpdatedParties(screen);
-
+		this.updateDiaLogs(screen);
 	}
 	
 	/**
@@ -172,8 +170,8 @@ public class MyScreen {
 				SelectElementHandlerDialogBox.handleKey(id, keyCode, keyChar, (DialogBox)screen.getSubWindows().lastElement());
 			}
 		}
-		this.updateDiaLogs(screen);
 		this.checkDialogForUpdatedParties(screen);
+		this.updateDiaLogs(screen);
 	}
 	
 	/**
@@ -200,6 +198,7 @@ public class MyScreen {
 				Interaction updatedInteraction =null;
 				diaLogAdjusted type = null;
 				Party adjustedParty = null;
+				Message adjustedMessage = null;
 				for (Interaction i : screen.getInteractions() ) {
 					for ( Window w: i.getSubWindows()) {
 						for ( Party p: w.getParties()) {
@@ -213,6 +212,13 @@ public class MyScreen {
 								adjustedParty = p;
 								p.adjustedThroughDialog = diaLogAdjusted.NOTADJUSTED;
 								type = diaLogAdjusted.TYPEADJUSTED;
+								break;
+							}
+						}
+						for ( Message m : w.getMessages()) {
+							if( m.adjustedThroughDialog == diaLogAdjusted.LABELADJUSTED	) {
+								adjustedMessage = m;
+								type = diaLogAdjusted.LABELADJUSTED;
 								break;
 							}
 						}
@@ -230,6 +236,9 @@ public class MyScreen {
 							SetPartyTypeHandler.handle(updatedWindow, adjustedParty.getPosComm().getX(), adjustedParty.getPosComm().getY());
 						}
 					}
+				}
+				if ( adjustedMessage != null ) {
+					updatedInteraction.adjusted(ADJUSTED_TYPE.MESSAGE_LABEL, updatedWindow);
 				}
 	}
 	public void updateDiaLogs(Screen screen) {

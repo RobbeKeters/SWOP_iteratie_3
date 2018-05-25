@@ -61,9 +61,11 @@ public class DialogBoxResultMessage extends DialogBox{
 		} else if ( id== KeyEvent.KEY_TYPED && selectedLabel != null && keyChar != KeyEvent.VK_BACK_SPACE ) {
 			source.getLabel().setLabelname(source.getLabel().getLabelname()+keyChar);
 			selectedLabel.setLabelname(source.getLabel().getLabelname());
+			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 		} else if ( id== KeyEvent.KEY_TYPED && selectedLabel != null && keyChar == KeyEvent.VK_BACK_SPACE ) {
 			source.getLabel().setLabelname(source.getLabel().getLabelname().substring(0, source.getLabel().getLabelname().length()-1));
 			selectedLabel.setLabelname(source.getLabel().getLabelname());
+			source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 		}
 	}
 
