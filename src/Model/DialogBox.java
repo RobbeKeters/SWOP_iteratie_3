@@ -13,6 +13,7 @@ public abstract class DialogBox extends Canvas {
 
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private ArrayList<Label> textBoxes = new ArrayList<Label>();
+	private ArrayList<ListBox> listBoxes = new ArrayList<ListBox>();
 	private ArrayList<Control> listControls = new ArrayList<Control>();
 	
 	/**
@@ -108,6 +109,39 @@ public abstract class DialogBox extends Canvas {
 	 */
 	public int getIndex(Label l) {
 		return textBoxes.indexOf(l);
+	}
+	
+	/**
+	 * Returns this dialog box's list boxes.
+	 * @return		This dialog box's list boxes.
+	 */
+	public ArrayList<ListBox> getListBoxes() {
+		return listBoxes;
+	}
+	
+	/**
+	 * Add a list box.
+	 * @param lb	The list box to be added.
+	 */
+	protected void addListBox(ListBox lb){
+		listBoxes.add(lb);
+	}
+	
+	/**
+	 * Remove a list box.
+	 * @param lb		The list ox to be removed.
+	 */
+	protected void removeListBox(ListBox lb){
+		listBoxes.remove(lb);
+	}
+	
+	/**
+	 * Returns the list box corresponding to the given index.
+	 * @param i		The given index.
+	 * @return		The corresponding list box.
+	 */
+	public ListBox getListBox(int i) {
+		return listBoxes.get(i);
 	}
 	
 	/**
