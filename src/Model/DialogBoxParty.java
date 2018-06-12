@@ -51,6 +51,7 @@ public class DialogBoxParty extends DialogBox{
 		boolean colon = false;
 		for(int i = 0; i<name.length(); i++) {
 			if(name.charAt(i)==':') {colon = true;}
+			else if (name.charAt(i) == '|'){continue;}
 			else if(!colon) {_instance=_instance+name.charAt(i);}
 			else {_class = _class+name.charAt(i);}
 		}
@@ -158,7 +159,7 @@ public class DialogBoxParty extends DialogBox{
 			
 			String newLabelName = instance.getLabelname()+":"+classs.getLabelname();
 			if (EditLabelHandler.isCorrectPartyLabel(newLabelName + "|")) {
-				source.getLabel().setLabelname(newLabelName);
+				source.getLabel().setLabelname(newLabelName + "|");
 				source.adjustedThroughDialog = diaLogAdjusted.LABELADJUSTED;
 			}
 			
