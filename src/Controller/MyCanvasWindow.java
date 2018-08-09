@@ -161,9 +161,10 @@ public class MyCanvasWindow extends CanvasWindow{
 		MyCanvasWindow myCanvas = new MyCanvasWindow("My Canvas Window");
 		
 //		2 -- Create a recording
+		
 //	    String pathPrefix =
-//		 "C:\\Users\\robbe\\git\\SWOP_iteratie_3\\src\\tests\\recordings\\";
-//		 String newFile = "openDialog/switchControls";
+//		 "C:\\Users\\Gebruiker\\git\\SWOP_iteratie_3\\src\\tests\\recordings\\";
+//		 String newFile = "deleteElement/deleteMessageCom";
 //	     String filePath = pathPrefix + newFile;
 //		 myCanvas.recordSession(filePath);
 		
